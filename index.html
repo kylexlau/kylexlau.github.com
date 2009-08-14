@@ -4,7 +4,6 @@ title: Kylexlau's Weblog
 ---
 
 <div id="home">
-  <h1>Weblog Posts</h1>
   <ul class="posts">
     {% for post in site.posts %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
@@ -13,4 +12,3 @@ title: Kylexlau's Weblog
 
 </div>
 
-  
