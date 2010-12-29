@@ -24,9 +24,17 @@ xlau.org
 如果是用子域名，如`kyle.xlau.org`。只需要创建一条CNAME记录，指向
 `kylexlau.github.org`。
 
-## 我用子域名
+## 子域名
 
-我以`kyle.xlau.org`为我的博客域名，指向github page。
+我以`kyle.xlau.org`为我的博客域名，指向Github Page。
 
-`xlau.org`仍然指向我的免费的Amazon EC2。等EC2收费了，我会再买个VPS玩。
+我需要做的设置：
+ * 创建CNAME文件，内容为`kyle.xlau.org`。
+ * 登陆域名管理，创建CNAME记录，`kyle -> kylexlau.github.com`。
 
+Github 虽然很好，可毕竟是免费的，还是有不少限制的。写到这里，特意去看了
+下 Github 对免费用户究竟有什么限制。发现除了300M的空间限制（还是所谓软
+限制），没有其他限制。所以用它来作为博客平台，真是再理想不过了。
+
+但是我还是将`xlau.org`和`www.xlau.org`指向免费的Amazon EC2，毕竟这个要
+强大多了。等明年EC2收费了，我也许要再买个VPS玩。
