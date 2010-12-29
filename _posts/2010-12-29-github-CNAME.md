@@ -13,7 +13,7 @@ title: Github Page 绑定域名
 xlau.org
 </code>
 
-然后把此文件添加到github仓库，上传到github。github服务器会设置
+然后把此文件添加到Github仓库，上传到Github。Github服务器会设置
 `xlau.org`为你的主域名，然后将`www.xlau.org`和`kylexlau.github.org`重定
 向到`xlau.org`。
 
@@ -32,9 +32,9 @@ xlau.org
  * 创建CNAME文件，内容为`kyle.xlau.org`。
  * 登陆域名管理，创建CNAME记录，`kyle -> kylexlau.github.com`。
 
-Github 虽然很好，可毕竟是免费的，还是有不少限制的。写到这里，特意去看了
-下 Github 对免费用户究竟有什么限制。发现除了300M的空间限制（还是所谓软
-限制），没有其他限制。所以用它来作为博客平台，真是再理想不过了。
+Github虽然很好，可毕竟是免费的，还是有不少限制的。写到这里，特意去看了
+下Github对免费用户究竟有什么限制。发现除了300M的空间限制（还是所谓软限
+制），没有其他限制。所以用它来作为博客平台，真是再理想不过了。
 
 但是我还是将`xlau.org`和`www.xlau.org`指向免费的Amazon EC2，毕竟这个要
 强大多了。等明年EC2收费了，我也许要再买个VPS玩。
