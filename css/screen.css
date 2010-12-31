@@ -56,7 +56,8 @@ table {
 */
 
 #nav {
-  float:center;
+  float:left;
+  width:100%;
   margin-bottom: 2em;
 }
 #nav ul {
