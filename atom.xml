@@ -5,21 +5,21 @@ layout: nil
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Kylexlau's Weblog</title>
- <link href="http://www.xlau.org/atom.xml" rel="self"/>
- <link href="http://www.xlau.com/"/>
+ <link href="http://kyle.xlau.org/atom.xml" rel="self"/>
+ <link href="http://kyle.xlau.org/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://www.xlau.org/</id>
+ <id>http://kyle.xlau.org/</id>
  <author>
    <name>kyle x lau</name>
-   <email>kxl@xlau.org</email>
+   <email>kyle@xlau.org</email>
  </author>
 
  {% for post in site.posts %}
  <entry>
    <title>{{ post.title }}</title>
-   <link href="http://www.xlau.org{{ post.url }}"/>
+   <link href="http://kyle.xlau.org{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>http://www.xlau.org{{ post.id }}</id>
+   <id>http://kyle.xlau.org{{ post.id }}</id>
    <content type="html">{{ post.content | xml_escape }}</content>
  </entry>
  {% endfor %}
