@@ -56,7 +56,8 @@ table {
 */
 
 #nav {
-  float:left;
+  float:center;
+  margin-bottom: 2em;
 }
 #nav ul {
   margin:0;
@@ -150,10 +151,10 @@ ul.posts span {
   color: #8085C1;
   }
 
-  .site .footer .rss {
-    margin-top: 1.1em;
-    margin-right: -.2em;
-    float: right;
+.site .footer .rss {
+  margin-top: 1.1em;
+  margin-right: -.2em;
+  float: right;
 }
 
 .site .footer .rss img {
