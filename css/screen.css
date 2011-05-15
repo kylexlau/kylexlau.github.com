@@ -1,11 +1,4 @@
-/*****************************************************************************/
-/*
-/* Common
-/*
-/*****************************************************************************/
-
 /* Global Reset */
-
 * {
   margin: 0;
   padding: 0;
@@ -24,9 +17,6 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
-}
-
-h1 {
   margin-bottom: 1em;
 }
 
@@ -51,32 +41,7 @@ table {
   font: 100%;
 }
 
-/*
-  Navigation
-*/
-
-#nav {
-  float:left;
-  width:100%;
-  margin-bottom: 1em;
-}
-#nav ul {
-  margin:0;
-  padding:0;
-  list-style:none;
-}
-#nav li {
-  float:left;
-  margin:0;
-  padding:0;
-}
-
-/*****************************************************************************/
-/*
-/* Home
-/*
-/*****************************************************************************/
-
+/* Home */
 ul.posts {
   list-style-type: none;
   margin-bottom: 2em;
@@ -92,12 +57,7 @@ ul.posts span {
   font-size: 80%;
 }
 
-/*****************************************************************************/
-/*
-/* Site
-/*
-/*****************************************************************************/
-
+/* Site */
 .site {
   font-size: 110%;
   text-align: left;
@@ -162,25 +122,14 @@ ul.posts span {
   border: 0;
 }
 
-/*****************************************************************************/
-/*
-/* Posts
-/*
-/*****************************************************************************/
 
-#post {
-
-}
-
-/* standard */
-
+/* Post */
 #post pre {
-  border: 1px solid #ddd;
-  background-color: #eef;
-  padding: 0 .4em;
-  word-wrap:break-word;
-  white-space:pre-wrap;
-  width:40em;
+  font-family: "DejaVu Sans Mono","Consolas",monospace;
+  font-size: 90%;
+  margin-bottom: 1em;
+  text-align: left;
+  overflow: auto;
 }
 
 #post ul,
@@ -189,19 +138,14 @@ ul.posts span {
 }
 
 #post code {
-  font-family:"Monaco","Courier New",monospace;
-  border: 1px solid #ddd;
-  background-color: #eef;
-  font-size: 95%;
-  padding: 0 .2em;
+  font-family: "DejaVu Sans Mono","Consolas",monospace;
+  font-size: 90%;
+  margin-bottom: 1em;
+  text-align: left;
+  overflow: auto;
 }
 
-#post pre code {
-  border: none;
-}
-
-/* terminal */
-
+/* Terminal */
 #post pre.terminal {
   border: 1px solid black;
   background-color: #333;

@@ -1,38 +1,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
-<head>
-   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>{{ page.title }}</title>
-   <meta name="author" content="kyle x lau" />
-   <link href="http://kyle.xlau.org/atom.xml" rel="alternate" title="Kylexlau's Weblog" type="application/atom+xml" />
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>{{ page.title }}</title>
+    <meta name="author" content="kyle x lau" />
+    <link href="http://kyle.xlau.org/atom.xml" rel="alternate" title="Kylexlau's Weblog" type="application/atom+xml" />
 
-   <!-- syntax highlighting CSS -->
-   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
-   <!-- Homepage CSS -->
-   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
-</head>
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+  </head>
 
-<body>
-<div class="site">
+  <body>
+    <div class="site">
 
-  <div class="title">
-    <a href="/">Kylexlau's Weblog</a>
-  </div>
-  
-  <div id="nav">
-    <ul>
-      <li> <a href="http://github.com/kylexlau"><img src="/img/github-logo.png" alt="Github" height="32" width="32"></a></li>
-      <li> <a href="http://twitter.com/kylexlau"><img src="/img/twitter-logo.png" alt="Twitter" height="33" width="32"></a></li>	
-      <li> <a href="http://feeds.feedburner.com/xlau"><img src="/img/rss.png" alt="RSS" height="32" width="32"></a></li>
-    </ul>
-  </div>
+      <div class="title">
+	<a href="/">Kylexlau's Weblog</a>
+      </div>
 
+      {{ content }}
 
-  {{ content }}
+    </div>
 
-</div>
-</body>
-
+  </body>
 </html>
