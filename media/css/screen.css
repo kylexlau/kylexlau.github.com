@@ -1,7 +1,4 @@
 /* html and body */
-html {
-  overflow-y: scroll; }
-
 body {
   text-rendering: optimizeLegibility;
   position: relative; }
@@ -92,7 +89,8 @@ a:visited {
 /* code and pre */
 body code, body pre {
   font-family: Consolas, Menlo, "Courier New", monospace;
-  font-size: 14px; }
+  font-size: 14px;
+  overflow: auto; }
 
 body p code, body li code {
   border: 1px solid #ccc;

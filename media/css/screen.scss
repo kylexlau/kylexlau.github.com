@@ -5,10 +5,6 @@ $a_color: #e50053;
 $v_color: #a0a;
 
 /* html and body */
-html {
-  overflow-y: scroll;
-}
-
 body {
   text-rendering: optimizeLegibility;
   position: relative;
@@ -106,10 +102,12 @@ a:hover {
 a:visited {
   color: $v_color;
 }
+
 /* code and pre */
 body code, body pre {
   font-family: Consolas, Menlo, "Courier New", monospace;
   font-size: 14px;
+  overflow: auto;
 }
 
 body p code, body li code {
@@ -133,3 +131,4 @@ blockquote {
 blockquote p:last-child {
   margin-bottom: 0;
 }
+
