@@ -14,11 +14,16 @@ body .wrap #header {
   font-size: 23px;
   line-height: 50px;
   padding-left: 2px;
-  width: 210px; }
+  width: 210px;
+  margin-bottom: 2em; }
+
+body .wrap #header a {
+  color: black; }
 
 body .wrap #footer {
   font-family: Consolas, Menlo, "Courier New", monospace;
-  font-size: 12px; }
+  font-size: 12px;
+  text-align: center; }
 
 ul.posts li {
   list-style: none; }

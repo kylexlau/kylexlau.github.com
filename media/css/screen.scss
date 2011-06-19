@@ -23,11 +23,17 @@ body .wrap #header {
   line-height: 50px;
   padding-left: 2px;
   width: 210px;
+  margin-bottom: 2em;
+}
+
+body .wrap #header a {
+    color: black;
 }
 
 body .wrap #footer {
   font-family: Consolas, Menlo, "Courier New", monospace;
   font-size: 12px;
+  text-align: center;
 }
 
 ul.posts li {
@@ -41,6 +47,7 @@ ul.posts span {
 }
 
 /* Header */
+
 body h1 {
   font-size: 45px;
   line-height: 50px;
@@ -131,4 +138,3 @@ blockquote {
 blockquote p:last-child {
   margin-bottom: 0;
 }
-
