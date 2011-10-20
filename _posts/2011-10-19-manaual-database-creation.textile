@@ -49,7 +49,7 @@ MAXDATAFILES 1024
 DATAFILE '/dev/rdb_system01' SIZE 2046M REUSE
 SYSAUX DATAFILE '/dev/rdb_sysaux01'SIZE 4094M REUSE
 TEMPORARY TABLESPACE TEMP TEMPFILE '/dev/rdb_temp01' SIZE 8190M REUSE
-CREATE TABLESPACE USERS DATAFILE '/dev/rdb_users01' SIZE 8190M REUSE;
+DEFAULT TABLESPACE USERS DATAFILE '/dev/rdb_users01' SIZE 8190M REUSE;
 UNDO TABLESPACE UNDOTBS1 DATAFILE '/dev/rdb_undo11' SIZE 8190M REUSE
 CHARACTER SET ZHS16GBK
 LOGFILE GROUP 1 ('/dev/rdb_redo111','/dev/rdb_redo112') SIZE 255M REUSE,
@@ -97,7 +97,7 @@ ln -s /dev/rdb_pwdfile $ORACLE_HOME/dbs/orapwdcs2
 
 h3. 注册到CRS
 
-{% highlight sql%}
+{% highlight bash %}
 srvctl add database -d dcs -o $ORACLE_HOME -p /dev/rdb_spfile
 srvctl add instance -d dcs -i dcs1 -n dcsdb1
 srvctl add instance -d dcs -i dcs2 -n dcsdb2
