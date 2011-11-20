@@ -3,8 +3,6 @@ layout: post
 title: Emacs visual-line-mode and longlines-mode
 ---
 
-h1. {{ page.title }}
-
 When I write with textile or markdown markup language, I don't want to use auto-fill-mode, it will wrap the text and break the HTML output.
 
 What longlines-mode do?

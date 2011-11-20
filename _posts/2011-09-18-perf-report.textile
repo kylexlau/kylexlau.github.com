@@ -2,9 +2,6 @@
 layout: post
 title: Oracle's performance-tuning reports
 ---
-
-h1. {{page.title}}
-
 h2. Introduction
 
 * Automatic Workload Repository (AWR)

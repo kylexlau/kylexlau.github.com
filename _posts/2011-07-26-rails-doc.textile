@@ -2,8 +2,6 @@
 layout: post
 title: Rails官方文档
 ---
-h1. {{page.title}}
-
 h2. Rails Documentation Projects
 
 h3. RDoc

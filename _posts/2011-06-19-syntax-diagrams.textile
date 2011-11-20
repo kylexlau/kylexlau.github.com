@@ -3,9 +3,6 @@ layout: post
 title: 如何读懂Oracle文档中的语法图
 ---
 
-h1. {{ page.title }}
-
-
 Oracle文档中用到了两种表达语法的方法，语法图和BNF。
 
 "BNF":wiki, Backus-Naur Form，中文是巴科斯范式:，它是由约翰·巴科斯（John Backus）和彼得·诺尔（Peter Naur）引入的用来描述计算机语言语法的符号集。

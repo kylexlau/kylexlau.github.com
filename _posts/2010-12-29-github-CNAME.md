@@ -3,8 +3,6 @@ layout: post
 title: Github Page 绑定域名
 ---
 
-# {{ page.title }}
-
 ## CNAME
 
 创建一个CNAME文件，内容是你的域名，如：
@@ -32,4 +30,3 @@ xlau.org
 Github虽然很好，可毕竟是免费的，还是有不少限制的。写到这里，特意去看了下Github对免费用户究竟有什么限制。发现除了300M的空间限制（还是所谓软限制），没有其他限制。所以用它来作为博客平台，真是再理想不过了。
 
 但是我还是将`xlau.org`和`www.xlau.org`指向免费的Amazon EC2，毕竟这个要强大多了。等明年EC2收费了，我也许要再买个VPS玩。
-

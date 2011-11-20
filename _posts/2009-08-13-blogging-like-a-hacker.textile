@@ -3,10 +3,6 @@ layout: post
 title: 像黑客一样写博客
 ---
 
-h1. {{ page.title }}
-
-h2. 译者按：
-
 用Jekyll来重建我博客。先翻译一篇Jekyll作者的文章。原文没有脚注，我加这些脚注只是因为Textile添加脚注很方便。
 
 "原文地址":http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html 和 "原文源代码":http://github.com/mojombo/tpw/raw/03fa4247b2f4ba620661d9025c336f167aa11ba2/_posts/2008-11-17-blogging-like-a-hacker.textile
