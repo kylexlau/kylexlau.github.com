@@ -2,9 +2,6 @@
 layout: post
 title: Oracle 手工建库(10g RAC)
 ---
-
-h1. {{page.title}}
-
 h2. 简介
 
 最权威的参考文档是MOS的文档Doc ID "240052.1":mos1 和 Doc ID "137288.1":mos2 。
@@ -98,9 +95,9 @@ ln -s /dev/rdb_pwdfile $ORACLE_HOME/dbs/orapwdcs2
 h3. 注册到CRS
 
 {% highlight bash %}
-srvctl add database -d dcs -o $ORACLE_HOME -p /dev/rdb_spfile
-srvctl add instance -d dcs -i dcs1 -n dcsdb1
-srvctl add instance -d dcs -i dcs2 -n dcsdb2
+srvctl add database -d test -o $ORACLE_HOME -p /dev/rdb_spfile
+srvctl add instance -d test -i test1 -n testdb1
+srvctl add instance -d test -i test2 -n testdb2
 {% endhighlight %}
 
 h2. 总结
@@ -109,4 +106,3 @@ h2. 总结
 
 [mos1]:https://supporthtml.oracle.com/ep/faces/secure/km/DocumentDisplay.jspx?id=240052.1
 [mos2]:https://supporthtml.oracle.com/ep/faces/secure/km/DocumentDisplay.jspx?id=137288.1
-
