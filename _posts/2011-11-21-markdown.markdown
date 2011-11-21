@@ -49,7 +49,7 @@ Atx 是 Aaron Swartz 发明的另一种文本标记语言。
     [id]: /path/to/img.jpg "Title"
 
 ### 代码
-使用backtick quotes（```）。
+使用backtick quotes（\`）。
 
 缩进四个字符或者一个tab。
 
@@ -75,7 +75,7 @@ Atx 是 Aaron Swartz 发明的另一种文本标记语言。
 可以对如下字符进行转义：
 
 * `\`   backslash
-* ```   backtick
+* \`   backtick
 * `*`   asterisk
 * `_`   underscore
 * `{}`  curly braces
