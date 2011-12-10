@@ -26,23 +26,23 @@ RAC环境下，如果各节点都有自己的密码文件，修改SYS密码需�
 
 ### 裸设备
 
-#### 用dd将密码文件复制到共享裸设备。注意，AIX系统下必须指定4k的偏移。
+用dd将密码文件复制到共享裸设备。注意，AIX系统下必须指定4k的偏移。
 
     shell$ cd $ORACLE_HOME/dbs
     shell$ dd if=orapwdSID of=/dev/rdb_pwdfile bs=4k seek=1
 
-#### 建立符号链接，在所有节点执行。
+建立符号链接，在所有节点执行。
 
     shell$ cd $ORACLE_HOME/dbs
     shell$ ln -s /dev/rdb_pwdfile orapwdSID
 
 ### OCFS
 
-#### 复制密码文件到OCFS共享文件系统下。
+复制密码文件到OCFS共享文件系统下。
 
     shell$ cp $ORACLE_HOME/dbs/orapwdSID /share_config/orapwd
 
-#### 建立符号链接，在所有节点执行。
+建立符号链接，在所有节点执行。
 
     shell$ cd $ORACLE_HOME/dbs
     shell$ ln -s /share_config/orapwd orapwdSID
