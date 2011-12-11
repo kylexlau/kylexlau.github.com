@@ -17,7 +17,7 @@ RAC环境下，如果各节点都有自己的密码文件，修改SYS密码需�
 环境2：
 
 * OS: RHEL 5.5
-* Oracle Version: 11.1.0.6
+* Oracle Version: 11.1.0.6 RAC
 * Oracle Storage: OCFS + ASM
 
 ## 解决
