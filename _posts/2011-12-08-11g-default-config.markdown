@@ -1,8 +1,8 @@
---
+---
 layout: post
 category: oracle
 title: Oracle 11gR1 默认设置调整
---
+---
 
 ## 默认没有设置LOCAL_LISTENER参数
 
