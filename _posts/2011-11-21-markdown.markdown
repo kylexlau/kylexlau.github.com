@@ -1,4 +1,4 @@
-x---
+---
 layout: post
 title: Markdown 标记语言指南
 ---
