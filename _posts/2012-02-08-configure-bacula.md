@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: 配置Bacula集中备份
 ---
 
