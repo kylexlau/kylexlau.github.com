@@ -38,12 +38,12 @@ Bacula自带三个数据库相关操作的脚本：
   - Client 资源：定义被备份的机器信息。
   - FileSet 资源：定义备份的文件。
   - Job 资源：定义备份job，集合其他资源。
-
 * `bacula-sd.conf`, Storage daemon
 * `bacula-fd.conf`, File daemon
 * `bconsole.conf`, Management console
 
 Bacula 启停：
+
 * `bacula Usage: /sbin/bacula {start|stop|restart|status}`
 
 ## 安装客户端
