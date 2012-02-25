@@ -1,5 +1,6 @@
 ---
 layout: post
+category: translation
 title: 像黑客一样写博客
 ---
 

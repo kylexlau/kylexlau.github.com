@@ -1,6 +1,6 @@
 ---
 layout: post
-Category: life
+category: life
 title: 最近喜欢的书
 ---
 

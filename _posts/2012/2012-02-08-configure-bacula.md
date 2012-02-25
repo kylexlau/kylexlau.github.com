@@ -1,6 +1,6 @@
 ---
 layout: post
-Category: sysadmin
+category: sysadmin
 title: 配置Bacula集中备份
 ---
 

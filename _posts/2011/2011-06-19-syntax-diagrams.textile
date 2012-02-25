@@ -1,6 +1,6 @@
 ---
 layout: post
-Category: database
+category: database
 title: 如何读懂Oracle文档中的语法图
 ---
 

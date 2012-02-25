@@ -1,6 +1,6 @@
 ---
 layout: post
-Category: sysadmin
+category: sysadmin
 title: 两个监控HP硬件的Nagios插件
 ---
 
