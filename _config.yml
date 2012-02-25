@@ -4,3 +4,12 @@ permalink: /posts/:title.html
 auto: true
 rdiscount:
   extensions: [smart]
+
+title: Kylexlau's Weblog
+author:
+  name: kyle lau
+  email: kylexlau@gmail.com
+  github: kylexlau
+  twitter: kylexlau
+
+production_url: kyle.xlau.org
