@@ -1,4 +1,4 @@
 ---
-title : todo.txt
+title : Todo.txt
 ---
 - navigation bar need improving
