@@ -1,0 +1,18 @@
+---
+layout: post
+title: Emacs visual-line-mode and longlines-mode
+---
+
+When I write with textile or markdown markup language, I don't want to use auto-fill-mode, it will wrap the text and break the HTML output.
+
+What longlines-mode do?
+
+bq.  Long Lines mode wraps lines by inserting or deleting soft newlines as you type (see Hard and Soft Newlines). These soft newlines won't show up when you save the buffer into a file, or when you copy the text into the kill ring, clipboard, or a register.
+
+What visual-line-mode do?
+
+bq. In Visual Line mode, each long logical line is divided into two or more screen lines, like in ordinary line continuation. Some editing commands work on screen lines instead of logical lines.
+
+bq. Visual Line mode is often used to edit files that contain many long logical lines, so having a fringe indicator for each wrapped line would be visually distracting.
+
+I like visual-line-mode more, because I can tell which paragraph is a long logical line in visual-line-mode.

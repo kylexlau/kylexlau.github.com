@@ -16,20 +16,11 @@
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
 
-
   </head>
-
-  <body>
-    <div class="container">
-      <div id="header">
-	<ul class="pills">
-	  <li class="active"><a href="/">Kylexlau's Weblog</a></li>
-	  <li><a href="/about.html">About</a></li>
-	</ul>
-      </div>
-
-      {{ content }}
-
+   <body>
+{% include header.html %}
+{{ content }}
+{% include footer.html %}
     </div>
   </body>
 </html>
