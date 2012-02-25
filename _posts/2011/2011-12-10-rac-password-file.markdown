@@ -1,6 +1,6 @@
 ---
 layout: post
-category: oracle
+category: database
 title: Oracle RAC 共享密码文件
 ---
 

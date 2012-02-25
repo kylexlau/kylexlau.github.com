@@ -1,6 +1,6 @@
 ---
 layout: post
-category: oracle
+category: database
 title: Oracle 11gR1 默认设置调整
 ---
 

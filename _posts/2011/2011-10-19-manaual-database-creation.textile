@@ -1,5 +1,6 @@
 ---
 layout: post
+category: database
 title: Oracle 手工建库(10g RAC)
 ---
 h2. 简介

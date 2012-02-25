@@ -1,5 +1,6 @@
 ---
 layout: post
+category: programming
 title: Rails官方文档
 ---
 h2. Rails Documentation Projects
