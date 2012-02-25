@@ -4,14 +4,13 @@ title: Sitemap.html
 ---
 
 <div class="container">
-
-<h3> Pages </h3>
- <ul class="posts">
+<ul class="posts">
+<h3>Pages</h3>
 {% for page in site.pages %}
 <li><a href="{{ page.url }}"> {{ page.title }} </a> </li>
 {% endfor %}
 
-<h3> Posts </h3>
+<h3>Posts</h3>
 {% for post in site.posts %}
 <li><a href="{{ post.url }}"> {{ post.title }} </a> </li>
 {% endfor %}
