@@ -13,30 +13,26 @@
     <link rel="stylesheet" href="/assets/css/bootstrap-responsive.css" type="text/css" media="screen" charset="utf-8" />
     <link rel="stylesheet" href="/assets/css/screen.css" type="text/css" media="screen" charset="utf-8" />
 
- <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
     <!-- syntax highlighting CSS -->
     <link rel="stylesheet" href="/assets/css/syntax.css" type="text/css" media="screen" charset="utf-8" />
 
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
-    <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+      <!-- Fonts -->
+      <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+      </head>
 
-  </head>
-   <body>
-
-{% include header.html %}
-
-<div class="container">
-{{ content }}
-{% include footer.html %}
-</div>
-
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-
-  </body>
+      <body>
+	{% include header.html %}
+	<div class="container">
+	  {{ content }}
+	  {% include footer.html %}
+	</div>
+	<script src="/assets/js/jquery.js"></script>
+	<script src="/assets/js/app.js"></script>
+      </body>
 </html>
