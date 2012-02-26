@@ -33,6 +33,12 @@ h3{
   font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
+#footer {
+  margin-top: 20px;
+  padding-bottom: 40px;
+  text-align: center;
+}
+
 /* fixed navbar*/
 body {
    padding-top: 40px;

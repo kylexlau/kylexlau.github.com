@@ -87,9 +87,9 @@ task :page do
 end # task :page
 
 desc "Launch preview environment"
-task :preview do
+task :s do
   system "jekyll --auto --server"
-end # task :preview
+end # task :s
 
 # Public: Alias - Maintains backwards compatability for theme switching.
 task :switch_theme => "theme:switch"
