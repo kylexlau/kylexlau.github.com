@@ -1,4 +1,5 @@
 ---
 title : Todo.txt
 ---
-- navigation bar need improving
+- navigation bar active switch need improving [x]
+- clean CSS and js, delete useless codes
