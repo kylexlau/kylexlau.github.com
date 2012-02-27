@@ -29,6 +29,10 @@ h3{
   color: #777;
 }
 
+.posts .post_date{
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
 .brand {
   font-family: 'Yanone Kaffeesatz', sans-serif;
 }
