@@ -39,6 +39,17 @@ module JB
   end #Path
 end #JB
 
+desc 'Notify Google of the new sitemap'
+task :sitemap do
+  require 'net/http'
+  require 'uri'
+  Net::HTTP.get(
+                'www.google.com',
+                '/webmasters/tools/ping?sitemap=' +
+                URI.escape('http://kyle.xlau.com/sitemap.xml')
+                )
+end
+
 # Usage: rake post title="A Title"
 desc "Begin a new post in #{CONFIG['posts']}"
 task :post do
