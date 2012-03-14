@@ -1,14 +1,15 @@
 ---
 layout: nil
+title: Atom Feed
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title>Kylexlau's Weblog</title>
+ <title>{{ site.title }}</title>
  <link href="http://kyle.xlau.org/atom.xml" rel="self"/>
  <link href="http://kyle.xlau.org/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://kyle.xlau.org/</id>
+ <id>{{ site.production_url }}</id>
  <author>
    <name>kyle x lau</name>
    <email>kyle@xlau.org</email>
