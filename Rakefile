@@ -39,14 +39,14 @@ module JB
   end #Path
 end #JB
 
-desc 'Notify Google of the new sitemap'
-task :sitemap do
+desc 'Notify Google of the new atom feed.'
+task :atom do
   require 'net/http'
   require 'uri'
   Net::HTTP.get(
                 'www.google.com',
                 '/webmasters/tools/ping?sitemap=' +
-                URI.escape('http://kyle.xlau.com/sitemap.xml')
+                URI.escape('http://kyle.xlau.com/atom.xml')
                 )
 end
 

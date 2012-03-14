@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /assets
+Allow: /posts
+Sitemap: http://kyle.xlau.org/sitemap.txt
+Sitemap: http://kyle.xlau.org/atom.xml
