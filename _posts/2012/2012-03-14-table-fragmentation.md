@@ -12,7 +12,7 @@ Oracle 有一个高水位(HWM, High water makr)的概念。当 Oracle 进行全�
 ## 怎样确定是否有表碎片
 
 	-- 收集表统计信息
-    SQL> exec dbms_stats.gather_table_stats(ownname=>'SCHEMA',tabname=> 'TABLE');
+    SQL> exec dbms_stats.gather_table_stats(ownname=>'SCHEMA_NAME',tabname=> 'TABLE_NAME');
 
     -- 确定碎片程度
 	SQL> SELECT table_name, ROUND ((blocks * 8), 2) "高水位空间 k",
@@ -25,15 +25,15 @@ Oracle 有一个高水位(HWM, High water makr)的概念。当 Oracle 进行全�
               2
              ) "浪费空间 k"
       FROM dba_tables
-      WHERE table_name = 'TABLE';
+      WHERE table_name = 'TABLE_NAME';
 
 或者使用如下[gist](https://gist.github.com/c771b0eca31bce66f785)中的脚本找出某个 Schema 中表碎片超过25%的表。使用此脚本前，先确定 Schema 中表统计信息收集完整。
 
 	-- 查看表上次收集统计信息时间
-	select table_name,last_analyzed from dba_tables where owner = 'SCHEMA'
+	select table_name,last_analyzed from dba_tables where owner = 'SCHEMA_NAME'
 
     -- 收集整个 Schema 中对象的统计信息
-	SQL> exec dbms_stats.gather_schema_stats(ownname=>'SCHEMA');
+	SQL> exec dbms_stats.gather_schema_stats(ownname=>'SCHEMA_NAME');
 
 ## 为什么要整理表碎片
 
@@ -73,22 +73,20 @@ block）。
 
 从 10g 开始，提供一个 `shrink` 命令，需要表空间是基于自动段管理的。
 
-There are 2 ways of using this command.
-
 可以分成两步操作：
 
     -- 整理表，不影响DML操作
-    SQL> alter table test shrink space compact;
+    SQL> alter table TABLE_NAME shrink space compact;
 
 	-- 重置高水位，此时不能有DML操作
-    SQL> alter table test shrink space;
+    SQL> alter table TABLE_NAME shrink space;
 
 也可以一步到位：
 
 	-- 整理表，并重置高水位
-    SQL> alter table sa shrink space;
+    SQL> alter table TABLE_NAME shrink space;
 
-### `shrink` 的优势：
+### shrink 的优势：
 
 - 不需要重建索引。
 - 可以在线操作。
