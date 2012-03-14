@@ -37,6 +37,6 @@ title: 最近读过和要读的书
 - *Tide Players*
 - *God Is Red*
 
-前两本和 *Country Driving* 是同一个作者，Peter Hessler，一个在中国生活了十几年的美国人，一个记者。他的华裔妻子是 *Factory Girls* 的作者。*Life and Death in ShangHai* 和 *A Single Tear* 是中国人用英文写的写的个人回忆录，重点在描述是49年到80年左右他们的人生。*Wild Swans* 是中国人写的20世纪中国的一个家庭三代女性的的故事。*Tide Players* 和 *God Is Red* 都是访问录，前者访问当代中国的一些成功人士，后者访问中国当代的一些基督教徒。前一部是直接写的英文，后一部中文翻译的。
+前两本和 *Country Driving* 是同一个作者，Peter Hessler，一个在中国生活了十几年的美国人，一个记者。他的华裔妻子是 *Factory Girls* 的作者。*Life and Death in ShangHai* 和 *A Single Tear* 是中国人用英文写的个人回忆录，重点在描述是49年到80年左右他们的人生。*Wild Swans* 是中国人写的20世纪中国的一个家庭三代女性的的故事。*Tide Players* 和 *God Is Red* 都是访问录，前者访问当代中国的一些成功人士，后者访问中国当代的一些基督教徒。前一部是直接写的英文，后一部中文翻译的。
 
 所有上面提到的书的 Kindle 版本，在[这里](http://ikindle.mobi/book/)基本都有下载。
