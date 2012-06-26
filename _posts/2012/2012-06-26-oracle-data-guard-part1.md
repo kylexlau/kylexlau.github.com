@@ -13,8 +13,8 @@ Google 出来两个pdf文档，读了觉得比官方文档强很多。翻译下�
 
 原文档下载地址（墙外）：
 
-* http://tinky2jed.files.wordpress.com/2011/03/configure-dataguard-11gr2-physical-standby-part-i.pdf
-* http://tinky2jed.files.wordpress.com/2011/05/configure-dataguard-11gr2-physical-standby-part-ii1.pdf
+* [Configure Dataguard 11gR2 Physical Standby Part 1](http://tinky2jed.files.wordpress.com/2011/03/configure-dataguard-11gr2-physical-standby-part-i.pdf)
+* [Configure Dataguard 11gR2 Physical Standby Part 2](http://tinky2jed.files.wordpress.com/2011/05/configure-dataguard-11gr2-physical-standby-part-ii1.pdf)
 
 ## 第一部分
 ### 简介
@@ -309,5 +309,6 @@ DISCONNECT FROM SESSION;
 现在你有一个配置好的 `Data Guard`，也就有了一个冗余的数据库。我不想留下主备转换、故障转移、重建库等不讲，这些主题将放到本文的第二部分。
 
 我希望本文能帮助你更容易和更快速地创建你的 `Data Guard` 环境。
+
 
 
