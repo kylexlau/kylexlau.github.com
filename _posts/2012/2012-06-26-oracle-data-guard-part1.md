@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Database
+category: translation
 title: Oracle 11g Data Guard 物理备库快速配置指南（上）
 published: true
 ---
@@ -309,6 +309,7 @@ DISCONNECT FROM SESSION;
 现在你有一个配置好的 `Data Guard`，也就有了一个冗余的数据库。我不想留下主备转换、故障转移、重建库等不讲，这些主题将放到本文的第二部分。
 
 我希望本文能帮助你更容易和更快速地创建你的 `Data Guard` 环境。
+
 
 
 
