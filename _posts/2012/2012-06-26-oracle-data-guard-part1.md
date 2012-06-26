@@ -310,3 +310,4 @@ DISCONNECT FROM SESSION;
 
 我希望本文能帮助你更容易和更快速地创建你的 `Data Guard` 环境。
 
+
