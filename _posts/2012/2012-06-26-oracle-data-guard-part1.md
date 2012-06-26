@@ -2,7 +2,7 @@
 layout: post
 category: Database
 title: Oracle 11g Data Guard 物理备库快速配置指南（上）
-published: false
+published: true
 ---
 
 ## 缘起
