@@ -4,7 +4,6 @@ category: translation
 title: Oracle 11g Data Guard 物理备库快速配置指南（下）
 published: true
 ---
-
 ## 第二部分
 
 ### 作者介绍
