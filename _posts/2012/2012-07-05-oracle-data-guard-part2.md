@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Database
+category: translation
 title: Oracle 11g Data Guard 物理备库快速配置指南（下）
 published: true
 ---
@@ -368,3 +368,4 @@ disconnect from session;
 ### 总结
 
 Oracle 11g 的 `Data Guard` 是一个很好的功能，配置起来相对容易，提供了在主库异常时故障转移的功能。它也能将主备的备份操作转移到备库执行，减轻主备负载。另外，`Data Guard Broker` 是一个宣称能简化管理的工具，但介绍这个工具就得需要另外一篇文章了。
+
