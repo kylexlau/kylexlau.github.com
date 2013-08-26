@@ -12,7 +12,7 @@ title: Oracle 数据库在 AIX 平台上启用大内存页
     # 如果是 RAC 环境，还需要修改root用户
     chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE root
 
-## 修改 VMM 参数。
+## 修改 VMM 参数
 
     # 执行下述命令前先关闭数据库，不然内存大内存页分配不出来。一般系统不需重启。
     # num_of_large_pages = INT((total_SGA_size-1)/16MB)+1
@@ -25,7 +25,7 @@ IBM 对`lru_file_repage`参数的官方解释：
 
 > lru_file_repage – when the number of permanent memory pages (numperm) falls between minperm and maxperm (or the number of client memory pages falls between minperm and maxclient), this setting indicates whether repaging rates are considered when deciding to evict permanent memory pages or computational memory pages. Setting this to 0 tells AIX to ignore repaging rates and favor evicting permament memory pages, keeping more computational memory in RAM. The AIX 5L default is 1/true (consider the repaging rate), The AIX 6.1 default is 0/false (now a restricted setting).
 
-## 修改 Oracle 参数。
+## 修改 Oracle 参数
 
     alter system set lock_sga=ture scope=spfile sid='*';
 
