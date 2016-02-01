@@ -37,6 +37,13 @@ h3{
   font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
+p {
+    font-size: 14px;
+}
+blockquote p {
+    font-size: 14px;
+}
+
 #footer {
   margin-top: 20px;
   padding-bottom: 40px;
