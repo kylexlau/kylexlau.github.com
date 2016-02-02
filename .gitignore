@@ -1,3 +1,5 @@
 _drafts/
 _site/
 media/css/.sass-cache
+
+*.scssc
