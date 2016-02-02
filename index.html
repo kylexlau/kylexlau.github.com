@@ -2,9 +2,10 @@
 layout: default
 title: Kylexlau's Weblog
 ---
-<h2> New posts </h2>
+<h2> Newest 10 posts </h2>
 <ul class="posts">
-  {% for post in site.posts limit:20 %}
-  <li><span class="post_date">{{ post.date | date: "%B %e, %Y" }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% for post in site.posts limit:10 %}
+  <li><span class="post_date">{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
   {% endfor %}
 </ul>
+
