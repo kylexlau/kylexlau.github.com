@@ -17,6 +17,7 @@ Oracle从11g开始，官方文档除pdf和html两种格式外，也增加了mobi
 我花了不少时间研究哪些官方文档是重要的，值得常常翻阅和参考，每本重要的官方文档里有什么大致内容，什么情况下我们需要去参考它。
 
 文档类型：
+
 * Guide，指南，这类属于可以用来从头读到尾的。
 * 2 Day, 两天系列。快速指南，这类也是可读的。
 * Reference，参考，有不懂处快速搜索这里。
@@ -27,16 +28,16 @@ Oracle从11g开始，官方文档除pdf和html两种格式外，也增加了mobi
 文档分类，Oracle 11gR2的分类方式：
 
 * Server
-** Administration, Concepts, and Reference
-** Application Development
-** Application Express
-** Backup and Recovery
-** Data Warahousing
-** Languge and Interface
-** Networking and Security
-** Oracle Real Application Clusters
-** Streams and Replication
-** XStream
+  * Administration, Concepts, and Reference
+  * Application Development
+  * Application Express
+  * Backup and Recovery
+  * Data Warahousing
+  * Languge and Interface
+  * Networking and Security
+  * Oracle Real Application Clusters
+  * Streams and Replication
+* XStream
 * Spatial
 * Windows
 * Gateway
@@ -54,23 +55,23 @@ Oracle从11g开始，官方文档除pdf和html两种格式外，也增加了mobi
 具体每一本手册大致讲什么，可以查New Features Guide，列一些我比较感兴趣的和比较重要的：
 
 * Server Administration, Concepts, and Reference
-** Concepts
-** Reference
-** Utility
-** Error Messages
-** High Availability Overview
-** Administrator's Guide
-** Performance Tuning Guide
-** New Features Guide
-** Upgrade Guide
-** SQL Language Reference
-** PL/SQL Language Reference
-** PL/SQL Packages and Types Reference
+  * Concepts
+  * Reference
+  * Utility
+  * Error Messages
+  * High Availability Overview
+  * Administrator's Guide
+  * Performance Tuning Guide
+  * New Features Guide
+  * Upgrade Guide
+  * SQL Language Reference
+  * PL/SQL Language Reference
+  * PL/SQL Packages and Types Reference
 
 * Server Backup and Recovery
-** Backup and Recovery User's Guide
-** Backup and Recovery Reference
+  * Backup and Recovery User's Guide
+  * Backup and Recovery Reference
 
 * Server RAC
-** Clusterware Administration and Deployment Guide
-** Real Application Clusters Administration and Deployment Guide
+  * Clusterware Administration and Deployment Guide
+  * Real Application Clusters Administration and Deployment Guide

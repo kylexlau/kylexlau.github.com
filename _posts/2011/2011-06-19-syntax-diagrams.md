@@ -6,7 +6,7 @@ title: 如何读懂Oracle文档中的语法图
 
 Oracle文档中用到了两种表达语法的方法，语法图和BNF。
 
-"BNF":wiki, Backus-Naur Form，中文是巴科斯范式:，它是由约翰·巴科斯（John Backus）和彼得·诺尔（Peter Naur）引入的用来描述计算机语言语法的符号集。
+`BNF`: Backus-Naur Form，中文是巴科斯范式:，它是由约翰·巴科斯（John Backus）和彼得·诺尔（Peter Naur）引入的用来描述计算机语言语法的符号集。
 
 首先来看语法图。读语法图，要从左到右，顺着箭头读。
 
@@ -35,7 +35,6 @@ BNF表达式用到的符号含义：
 * 分隔符，不同之前四个其他分隔符要照其原样输入
 * 粗体，粗体的是关键字，必须照其原样输入；非大写字符，是占位符，不需原样输入，得用其他值代替。
 
-本文是SQL Language Reference的附录A "How to Read Syntax Diagrams":doc 的读书笔记，是直接从英文翻译过来的，可能只有我自己看的懂。但读完这一节后，读懂语法图对我来说再没有难度了。
+本文是SQL Language Reference的附录A [How to Read Syntax Diagrams] [doc] 的读书笔记，是直接从英文翻译过来的，可能只有我自己看的懂。但读完这一节后，读懂语法图对我来说再没有难度了。
 
-[wiki]http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form
-[doc]http://download.oracle.com/docs/cd/E11882_01/server.112/e17118/ap_syntx.htm
+[doc]: http://download.oracle.com/docs/cd/E11882_01/server.112/e17118/ap_syntx.htm
