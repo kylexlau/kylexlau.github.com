@@ -35,8 +35,13 @@ h3{
   font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
-.brand {
-  font-family: 'Yanone Kaffeesatz', sans-serif;
+.navbar {
+    min-height: 40px;
+}
+
+.navbar-brand {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    height: 40px;
 }
 
 p {
@@ -45,6 +50,7 @@ p {
 blockquote p {
     font-size: 14px;
 }
+
 code {
     background-color: #F5F5F5;
     color: #444;
@@ -62,7 +68,7 @@ code {
 
 /* fixed navbar*/
 body {
-   padding-top: 50px;
+   padding-top: 40px;
 }
 
 /* tag_box ======================================================== */
