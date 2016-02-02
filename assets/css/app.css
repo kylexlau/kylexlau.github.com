@@ -42,6 +42,7 @@ h3{
 .navbar-brand {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     height: 40px;
+    padding: 10px 10px;
 }
 
 p {
