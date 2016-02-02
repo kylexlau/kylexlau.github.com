@@ -10,10 +10,12 @@ h1{
   margin-top: 18px;
   margin-bottom: .15em;
 }
+
 h2{
   font-size: 30px;
   margin-bottom: 15px;
 }
+
 h3{
   color: #777;
   font-size: 25px;
@@ -44,6 +46,14 @@ p {
 }
 blockquote p {
     font-size: 14px;
+}
+code {
+    background-color: #F5F5F5;
+    color: #444;
+    padding: 1px 2px;
+    margin: 2px;
+    border-radius: 0px;
+    word-bread: break-all;
 }
 
 #footer {
