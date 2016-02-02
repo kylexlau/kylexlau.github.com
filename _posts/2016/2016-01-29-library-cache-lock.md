@@ -11,9 +11,10 @@ From Troubleshooting Library Cache: Lock, Pin and Load Lock (Doc ID 444560.1):
 >This event controls the concurrency between clients of the library
 >cache. It acquires a lock on the object handle so that either:
 >
->- One client can prevent other clients from accessing the same object.
->- The client can maintain a dependency for a long time (for example,
->  so that no other client can change the object).
+>One client can prevent other clients from accessing the same object.
+>
+>The client can maintain a dependency for a long time (for example,
+>so that no other client can change the object).
 >
 >This lock is also obtained to locate an object in the library cache.
 >
@@ -44,14 +45,14 @@ From a blog post:
 >I can definitely say that when you grant privileges on an object in a
 >production database in the middle of a busy day, you could have
 >problems.
-
+>
 >Today, an application installer was installing some packages in a new
 >schema.  He was granting select/insert/update/delete on several tables
 >in the data schema. We started seeing a large number of “library cache
 >lock” wait events for users in another schema that were accessing the
 >tables on which select privileges were being granted to the new
 >schema.
-
+>
 >It turns out that this operation will actually stamp the
 >`LAST_DDL_TIME` column of `DBA_OBJECTS`.  It doesn’t invalidate the
 >object in the STATUS column of `DBA_OBJECTS`, but there is a latch
