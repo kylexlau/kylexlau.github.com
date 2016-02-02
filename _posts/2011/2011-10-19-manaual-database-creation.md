@@ -93,7 +93,7 @@ ln -s /dev/rdb_pwdfile $ORACLE_HOME/dbs/orapwdcs1
 ln -s /dev/rdb_pwdfile $ORACLE_HOME/dbs/orapwdcs2
 ```
 
-h3. 注册到CRS
+### 注册到CRS
 
 ```bash
 srvctl add database -d test -o $ORACLE_HOME -p /dev/rdb_spfile
