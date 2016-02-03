@@ -73,10 +73,10 @@ From MOS note Troubleshooting Library Cache: Lock, Pin and Load Lock
 You can check `v$session_blocker` to find the blocking and blocked
 sessions and find the sqls they're executing.
 
-A systemstate dump during problem time can be very helpful for after
-analyzing.
+A systemstate dump during problem time can be very helpful for post
+analysis.
 
-And the best solution is, just don't do DDLs during system busy
+And the best solution is just don't do DDLs during system busy
 periods.
 
 From 'library cache lock' Waits- Causes and Solutions (Doc ID
