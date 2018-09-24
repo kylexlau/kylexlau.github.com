@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>Oracle 数据库在 AIX 平台上启用大内存页 - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="修改用户属性 # 官方文档只要求如下两个，但有些文档说 CAP_NUMA_ATTACH 也需要 chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE oracle # 如果是 RAC 环境，还需要修改root用户 chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE root  修改 VMM 参数 # 执行下述命令前先关闭数据库，不然内存大内存页分配不出来。一般系统不需重启。 # num_of_large_pages = INT((total_SGA_size-1)/16MB)&#43;1 vmo -p -o lgpg_regions=num_of_large_pages -o lgpg_size=16777216 # AIX 6.1 下默认为0，尽可能不对计算内存换页 vmo -p -o lru_file_repage=0  IBM 对lru_file_repage参数的官方解释：
+ lru_file_repage – when the number of permanent memory pages (numperm) falls between minperm and maxperm (or the number of client memory pages falls between minperm and maxclient), this setting indicates whether repaging rates are considered when deciding to evict permanent memory pages or computational memory pages.">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/ui.min.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about/">About</a></li><li><a href="/post/">Archive</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Oracle 数据库在 AIX 平台上启用大内存页</h1>
+	<h5>
+		
+		<time datetime="2013-08-26 00:00:00 &#43;0000 UTC">Aug 26, 2013</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<h2 id="修改用户属性">修改用户属性</h2>
+
+<pre><code># 官方文档只要求如下两个，但有些文档说 CAP_NUMA_ATTACH 也需要
+chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE oracle
+
+# 如果是 RAC 环境，还需要修改root用户
+chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE root
+</code></pre>
+
+<h2 id="修改-vmm-参数">修改 VMM 参数</h2>
+
+<pre><code># 执行下述命令前先关闭数据库，不然内存大内存页分配不出来。一般系统不需重启。
+# num_of_large_pages = INT((total_SGA_size-1)/16MB)+1
+vmo -p -o lgpg_regions=num_of_large_pages -o lgpg_size=16777216
+
+# AIX 6.1 下默认为0，尽可能不对计算内存换页
+vmo -p -o lru_file_repage=0
+</code></pre>
+
+<p>IBM 对<code>lru_file_repage</code>参数的官方解释：</p>
+
+<blockquote>
+<p>lru_file_repage – when the number of permanent memory pages (numperm) falls between minperm and maxperm (or the number of client memory pages falls between minperm and maxclient), this setting indicates whether repaging rates are considered when deciding to evict permanent memory pages or computational memory pages. Setting this to 0 tells AIX to ignore repaging rates and favor evicting permament memory pages, keeping more computational memory in RAM. The AIX 5L default is 1/true (consider the repaging rate), The AIX 6.1 default is 0/false (now a restricted setting).</p>
+</blockquote>
+
+<h2 id="修改-oracle-参数">修改 Oracle 参数</h2>
+
+<pre><code>alter system set lock_sga=ture scope=spfile sid='*';
+</code></pre>
+
+<p>如果是版本为10.2.0.4的数据库，还需要打一个小补丁，补丁号是7226548。</p>
+
+<h2 id="参考文档">参考文档</h2>
+
+<p>具体查询 Oracle 官方支持网站：</p>
+
+<ul>
+<li>How to enable Large Page Feature on AIX-Based Systems (Doc ID
+372157.1)</li>
+<li>Bug 7226548 - AIX: 10.2.0.4 does not use large pages (Doc ID
+7226548.8)</li>
+<li>SGA Not Pinned In The AIX Large Pages When Instance Is Started With
+Srvctl (Doc ID 369424.1)</li>
+</ul>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="http://192.168.123.16:1313/post/2012/2012-07-05-oracle-data-guard-part2/">
+		<img class="icon-text" src="/img/prev.svg"/>Oracle 11g Data Guard 物理备库快速配置指南（下）</a>
+
+
+	<a class="next-post" href="http://192.168.123.16:1313/post/2016/2016-01-29-library-cache-lock/">Grant statement and library cache lock<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'xlau';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://192.168.123.16:1313/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2018 kyle x lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>两个监控HP硬件的Nagios插件 - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="主要是两个Ngios插件的使用，都是用Perl写的。check_hpasm 是大牛德国人 Gerhard Lausser 写的。check_hp_bladechassis 似乎是挪威人写的。
+HP 服务器硬件状态监控 (check_hpasm) 可以使用两种模式，check_nrpe方式和SNMP方式。两种方式都依赖HP的ProLiant Support Pack(PSP)软件包。
+check_nrpe方式需要修改NRPE和sudo配置：
+# vi /usr/local/nagios/etc/nrpe.cfg 添加一行： command[check_hpasm]=/usr/local/nagios/libexec/check_hpasm 载入新的配置： service xinetd reload # visudo 注释一行： # Defaults requiretty 添加一行： nagios ALL=NOPASSWD:/sbin/hpasmcli,/usr/local/nagios/libexec/check_hpasm  SNMP方式，需要修改SNMP配置，允许监控服务器访问服务器的SNMP信息。Nagios服务端的配置，可以这样写：
+define command { command_name check_hpasm_snmp command_line $USER1$/check_hpasm -H $HOSTADDRESS$ -C public } define servicegroup { servicegroup_name hp_hardware alias HP Proliant Server Hardware Health } define service { use generic-service name hpasm-service check_period 24x7 check_interval 10 retry_interval 1 max_check_attempts 1 notification_options w,c,u register 0 } # SNMP define service { use hpasm-service servicegroups hp_hardware host_name host1,host2,.">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/ui.min.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about/">About</a></li><li><a href="/post/">Archive</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>两个监控HP硬件的Nagios插件</h1>
+	<h5>
+		
+		<time datetime="2012-02-20 00:00:00 &#43;0000 UTC">Feb 20, 2012</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<p>主要是两个Ngios插件的使用，都是用Perl写的。check_hpasm 是大牛德国人 <a href="https://github.com/lausser">Gerhard Lausser</a> 写的。<a href="http://folk.uio.no/trondham/software/">check_hp_bladechassis</a> 似乎是挪威人写的。</p>
+
+<h2 id="hp-服务器硬件状态监控-check-hpasm">HP 服务器硬件状态监控 (check_hpasm)</h2>
+
+<p>可以使用两种模式，check_nrpe方式和SNMP方式。两种方式都依赖HP的ProLiant Support Pack(PSP)软件包。</p>
+
+<p>check_nrpe方式需要修改NRPE和sudo配置：</p>
+
+<pre><code># vi /usr/local/nagios/etc/nrpe.cfg
+添加一行：
+command[check_hpasm]=/usr/local/nagios/libexec/check_hpasm
+载入新的配置：
+service xinetd reload
+
+# visudo
+注释一行：
+# Defaults    requiretty
+添加一行：
+nagios ALL=NOPASSWD:/sbin/hpasmcli,/usr/local/nagios/libexec/check_hpasm
+</code></pre>
+
+<p>SNMP方式，需要修改SNMP配置，允许监控服务器访问服务器的SNMP信息。Nagios服务端的配置，可以这样写：</p>
+
+<pre><code>define command {
+    command_name check_hpasm_snmp
+    command_line $USER1$/check_hpasm -H $HOSTADDRESS$ -C public
+}
+
+define servicegroup {
+    servicegroup_name hp_hardware
+    alias             HP Proliant Server Hardware Health
+}
+
+define service {
+    use           generic-service
+    name          hpasm-service
+    check_period  24x7
+    check_interval 10
+    retry_interval 1
+    max_check_attempts 1
+    notification_options w,c,u
+    register       0
+}
+
+# SNMP
+define service {
+    use           hpasm-service
+    servicegroups hp_hardware
+    host_name     host1,host2,...
+    service_description HP Hardware Health
+    check_command  check_hpasm_snmp
+}
+
+# check_nrpe
+define service {
+    use           hpasm-service
+    servicegroups hp_hardware
+    host_name     host1,host2,...
+    service_description HP Hardware Health
+    check_command check_nrpe!check_hpasm
+}
+</code></pre>
+
+<h2 id="hp-刀箱硬件状态监控-check-hp-bladechassis">HP 刀箱硬件状态监控 (check_hp_bladechassis)</h2>
+
+<p>通过SNMP监控。</p>
+
+<p>首先需要在刀箱配置里启用SNMP，然后在Nagios服务端配置：</p>
+
+<pre><code>define command {
+    command_name check_hp_bladechassis
+    command_line $USER1$/check_hp_bladechassis -H $HOSTADDRESS$
+}
+
+define service {
+    use           hpasm-service
+    servicegroups hp_hardware
+    host_name     host1,host2,...
+    service_description HP Blade Encloure Hardware Health
+    check_command check_nrpe!check_hpasm
+}
+</code></pre>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="http://192.168.123.16:1313/post/2012/2012-02-08-configure-bacula/">
+		<img class="icon-text" src="/img/prev.svg"/>配置Bacula集中备份</a>
+
+
+	<a class="next-post" href="http://192.168.123.16:1313/post/2012/2012-03-13-js-basic/">JavaScript 基本概念<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'xlau';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://192.168.123.16:1313/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2018 kyle x lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

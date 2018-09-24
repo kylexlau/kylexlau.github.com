@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Archive on Kylexlau&#39;s Weblog</title>
+    <link>http://192.168.123.16:1313/post/</link>
+    <description>Recent content in Archive on Kylexlau&#39;s Weblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&amp;copy; 2018 kyle x lau</copyright>
+    <lastBuildDate>Mon, 24 Sep 2018 00:02:20 -0400</lastBuildDate>
+    
+	<atom:link href="http://192.168.123.16:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Grant statement and library cache lock</title>
+      <link>http://192.168.123.16:1313/post/2016/2016-01-29-library-cache-lock/</link>
+      <pubDate>Fri, 29 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2016/2016-01-29-library-cache-lock/</guid>
+      <description>What is library cache lock? From Troubleshooting Library Cache: Lock, Pin and Load Lock (Doc ID 444560.1):
+ This event controls the concurrency between clients of the library cache. It acquires a lock on the object handle so that either:
+One client can prevent other clients from accessing the same object.
+The client can maintain a dependency for a long time (for example, so that no other client can change the object).</description>
+    </item>
+    
+    <item>
+      <title>Oracle 数据库在 AIX 平台上启用大内存页</title>
+      <link>http://192.168.123.16:1313/post/2013/2013-08-26-aix-large-pages/</link>
+      <pubDate>Mon, 26 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2013/2013-08-26-aix-large-pages/</guid>
+      <description>修改用户属性 # 官方文档只要求如下两个，但有些文档说 CAP_NUMA_ATTACH 也需要 chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE oracle # 如果是 RAC 环境，还需要修改root用户 chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE root  修改 VMM 参数 # 执行下述命令前先关闭数据库，不然内存大内存页分配不出来。一般系统不需重启。 # num_of_large_pages = INT((total_SGA_size-1)/16MB)+1 vmo -p -o lgpg_regions=num_of_large_pages -o lgpg_size=16777216 # AIX 6.1 下默认为0，尽可能不对计算内存换页 vmo -p -o lru_file_repage=0  IBM 对lru_file_repage参数的官方解释：
+ lru_file_repage – when the number of permanent memory pages (numperm) falls between minperm and maxperm (or the number of client memory pages falls between minperm and maxclient), this setting indicates whether repaging rates are considered when deciding to evict permanent memory pages or computational memory pages.</description>
+    </item>
+    
+    <item>
+      <title>Oracle 11g Data Guard 物理备库快速配置指南（下）</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-07-05-oracle-data-guard-part2/</link>
+      <pubDate>Thu, 05 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-07-05-oracle-data-guard-part2/</guid>
+      <description>第二部分 作者介绍 作者 Jed Walker 是科罗拉多 Centennial Comcast 媒体中心的数据操作经理(Manager of Databse Operation)。他从1997年开始做 Oracle 数据库相关工作，是9i, 10g和11g的OCP。
+简介 本文的第一部分讲解了如何配置一个基本的 Data Guard 环境。在第二部分里，我将介绍主备切换、故障转移(数据库和客户端）等其他主题。
+回顾 在本文第一部分中，我们配置了一个物理备库。在这第二部分中，我将介绍主备切换(Switchover)，故障转移(Failover)，客户端故障转移(Client Failover)，使用闪回数据库重建库，活动数据卫士(Active Data Guard)，还讨论了一点备份。
+故障转移配置 现在你已经配好了一个物理备库，你可能想试试主备切换(switchover)，甚至故障转移(failover)，但你先得确定客户端会跟着切换和转移。我们需要配置数据库和客户端来支持这些功能。要确定你的客户端能连接到正确的数据库，你要在数据库里配置一个支持故障转移的服务，并配置客户端的 TNS，让它知道如何在一个 Data Guard 集群里找到主库。
+首先，创建一个支持故障转移的服务。我们要创建此服务，确定它在主库上启动，并确定它只在主库上启动。创建服务使用如下 SQL：
+begin DBMS_SERVICE.CREATE_SERVICE ( service_name =&amp;gt; &#39;JED_RW&#39;, network_name =&amp;gt; &#39;JED_RW&#39;, aq_ha_notifications =&amp;gt; TRUE, failover_method =&amp;gt; &#39;BASIC&#39;, failover_type =&amp;gt; &#39;SELECT&#39;, failover_retries =&amp;gt; 30, failover_delay =&amp;gt; 5); end; /  此服务在数据库出现故障时会发送通知给客户端，允许查询语句在故障转移发生后继续运行。我使用命名 SID_RW 显示这时一个可读写的数据库（主库）。
+下一步是确定新创建的服务永远只在主库运行。我们创建一个存储过程来实现此目的，如果当前数据库是主库它就启动此服务，如果是备库就停止。
+create or replace procedure cmc_taf_service_proc is v_role VARCHAR(30); begin select DATABASE_ROLE into v_role from V$DATABASE; if v_role = &#39;PRIMARY&#39; then DBMS_SERVICE.</description>
+    </item>
+    
+    <item>
+      <title>Oracle 11g Data Guard 物理备库快速配置指南（上）</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-06-26-oracle-data-guard-part1/</link>
+      <pubDate>Tue, 26 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-06-26-oracle-data-guard-part1/</guid>
+      <description>缘起 最近做了10g和11ｇ的物理备库配置实验，发现 Data Guard 其实很容易，但是缺少好文档。我是参考官方文档做的实验，觉得它写的不是很清楚的。
+Google 出来两个pdf文档，读了觉得比官方文档强很多。翻译下，也许会对某些朋友有用。翻译的同时我也好更熟悉下这两个文档。好久没翻译过英文了，可以顺便练练手。
+原文档下载地址（墙外）：
+ Configure Dataguard 11gR2 Physical Standby Part 1 Configure Dataguard 11gR2 Physical Standby Part 2  第一部分 简介 Data Guard 是 Oracle 数据库的一个功能，能够提供数据库的冗余。冗余是通过创建一个备用（物理复制）数据库实现，备库最好是在不同的地理位置或者在不同的磁盘上。备库通过应用主库上的变化来保持数据同步。备库可以使用重做日志应用(物理备库)或SQL应用同步(逻辑备库)。
+本文旨在说明 Data Guard 的配置并不复杂，不需要特殊的技能或者培训才能学会搭建。它将快速展示给读者搭建一个物理备库的过程。我的目标是，即使你第一次接触 Data Guard，刚考虑要使用它或担心它会不会很难配置，本文将帮助你快速搭建起一个正常运行起来的物理备库。
+为什么使用 Data Guard 每种 Oracle 高可用性工具都有其目的。使用 Data Guard 的理由有：
+ 整个数据库的冗余 故障时的快速恢复 故障后客户端能自动重连 在备库运行备份 较好的故障平均修复时间 并不复杂  系统环境 在写完本文后，我使用 DBCA 创建了一个新数据库 JED，然后重新运行了文中的配置步骤，确认其对一个基本的 Oracle 11g 数据库适用。主库叫 JED，运行在一台叫 dev-db1的服务器上。备库叫 JED2，运行在一台叫 dev-db2 的服务器上。
+不需要提的基本前提 有一些任何生产库都应该有的基本的设置。其中一个就是归档模式。对于生产库，这应该是一个明显的必须配置。如果你的生产库没有适用归档模式，你要么需要马上开始读点书，要么你得有一个非常非常好的理由。我不大确定谁真能找出一个理由，但任何准则都有例外。</description>
+    </item>
+    
+    <item>
+      <title>Linux 下使用 Sar 简介</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-04-13-linux-sar/</link>
+      <pubDate>Fri, 13 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-04-13-linux-sar/</guid>
+      <description> 介绍 Sar 最早是实现在 Salaris Unix 系统里，后来移植到了大部分其他的 Unix 系统（如AIX，HP-UX等）。Linux 下也有法国人写的 sysstat 实现了这个工具的功能。
+它的原理就是使用 cron 定期调度一个程序，收集当前系统各项性能指标，保存在二进制文件里。
+安装 可以下载源码，自己编译安装，也可以安装二进制包。RHEL 系统默认已经安装。
+主要功能 支持功能：
+ 可以收集几乎所有的系统性能数据。 可以配置历史数据的保留时间。 收集性能数据可以从二进制文件导出成不同格式文件（CSV、XML、JSON等）。 可以将性能数据绘图展现，有不少第三方工具，自带 isag。  配置 修改历史数据保留时间：
+vi /etc/sysconfig/sysstat # redhat vi /etc/default/sysstat # debian HISTORY=90 # 表示保留90天的历史数据  修改性能数据收集频率（就是修改cron调度频率），默认是10分钟一次：
+vi /etc/cron.d/sysstat  导出 支持各种格式的性能数据导出：
+sdaf -d # CSV sadf -x # XML sadf -j # JSON  绘图 绘图可以使用isag。它有图形界面，非常容易使用。虽然它绘出的图比较难看，但是够用了。
+其他使用sysstat数据的绘图程序：
+ sysstatgraph 使用 PHP 和 HTML5 Canvas 技术。  </description>
+    </item>
+    
+    <item>
+      <title>PL/SQL 代码规范</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-03-26-plsql-style/</link>
+      <pubDate>Mon, 26 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-03-26-plsql-style/</guid>
+      <description>来自 Oracle PL/SQL by Examples 4th Edition 附录一中的 PL/SQL 代码格式指南。
+大小写  关键字(BEGIN,END)，数据类型(NUMBER VARCHAR2)，内置函数(TO_CHAR,SUBSTR)，用户自定义存储过程、函数和包，这些对象名称使用大写。 变量名、表名、列名，使用小写。  空格  等于号和比较操作符两边加空格。 结构关键字（BEGIN and END, IF and END, LOOP and END LOOP)左边对齐。 结构内的语句缩进3个空格。 代码段之间留空行。  命名规范 为防止名字冲突，最好采用以下命名规范：
+ 变量：v_variable_name 常量：con_constant_name 参数：i_in_parameter_name, o_out_parameter_name and io_in_out_parameter_name. 游标：c_cursor_name or name_cur 引用游标：rc_reference_cursor_name 记录：r_record_name or name_rec 遍历游标：FOR r_stud IN c_stud LOOP or FOR stud_rec IN stud_cur LOOP 用户定义类型：type_name or name_type PL/SQL表（类似数组）：t_table or name_tab 用户定义异常：e_exception_name  包、存储过程和函数的命名实例：
+ 描述包中存储过程和函数的作用：student_admin 描述存储过程所执行的操作：remove_student 描述函数返回变量：student_enroll_count  注释 使用--，不要用/*.</description>
+    </item>
+    
+    <item>
+      <title>最近读过和要读的书</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-03-15-recent-books/</link>
+      <pubDate>Thu, 15 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-03-15-recent-books/</guid>
+      <description>自从去年买了 Kindle 3 后，我看的书越来越多了。这些书基本上都是在公交和地铁上读完的。我身边一旦有了有电脑和网络，就不读书。我虽然不用QQ聊天，不看国内新闻站点，但我还是网络浏览成瘾，上网时的大部分时间都在不停地刷 Google+，读 Google Reader，看 Hacker News。
+虽然我只在公交上才读书，由于最近几个月上下班都坐很久的公交，还是看了几本书。
+最近几个月读过的几本英文书有：
+ Notebook Steve Jobs Country Driving Factory Girls  Steve Jobs 不需介绍，世界级的畅销书，伟人传记。Notebook 是一本美国爱情小说。Country Driving 和 Factory Girls 的作者是美国人，写的是中国的事。前者写作者在中国驾车四处游览和采访所遇的人、事和他眼中的中国现代社会。后者作者是一个华裔女性，她花很长的时间调查和采访东莞的女工们的生活。说他们俩采访，因为他们都曾经是著名的美国报纸杂志的驻华记者。Factory Girls 虽然主题是讲东莞女工，但我对其中作者写自己的家族迁徙史那章印象最为深刻。她写她的祖先如何在中国国内迁徙，然后从中国迁徙到台湾，又从台湾迁徙到美国的整个历史，实在让人感慨万千。
+还读了几本中文书：
+ 《红太阳是怎样升起的》 《潜规则》 《不二》 《最后的贵族》 《伶人往事》  读过英文书里最爱 *Steve Jobs*，读过的中文书里最爱《最后的贵族》。《最后的贵族》和《伶人往事》均是当年第一大右派章伯均的女儿章怡和的作品。她的作品最擅长是描写各种不同人物的个性、命运和生活。这两本书里写的人，大部分都是曾经的右派，个个才华横溢，却受尽磨难，不得善终。
+这里还有几本是我预备要读的书：
+ River Town Oracle Bones Life and Death in ShangHai A Single Tear Wild Swans: Three Daughters of China Tide Players God Is Red  前两本和 Country Driving 是同一个作者，Peter Hessler，一个在中国生活了十几年的美国人，一个记者。他的华裔妻子是 Factory Girls 的作者。Life and Death in ShangHai 和 A Single Tear 是中国人用英文写的个人回忆录，重点在描述是49年到80年左右他们的人生。Wild Swans 是中国人写的20世纪中国的一个家庭三代女性的的故事。Tide Players 和 God Is Red 都是访问录，前者访问当代中国的一些成功人士，后者访问中国当代的一些基督教徒。前一部是直接写的英文，后一部中文翻译的。</description>
+    </item>
+    
+    <item>
+      <title>Oracle 数据库整理表碎片</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-03-14-table-fragmentation/</link>
+      <pubDate>Wed, 14 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-03-14-table-fragmentation/</guid>
+      <description>表碎片的来源 当针对一个表的删除操作很多时，表会产生大量碎片。删除操作释放的空间不会被插入操作立即重用，甚至永远也不会被重用。
+怎样确定是否有表碎片 -- 收集表统计信息 SQL&amp;gt; exec dbms_stats.gather_table_stats(ownname=&amp;gt;&#39;SCHEMA_NAME&#39;,tabname=&amp;gt; &#39;TABLE_NAME&#39;); -- 确定碎片程度 SQL&amp;gt; SELECT table_name, ROUND ((blocks * 8), 2) &amp;quot;高水位空间 k&amp;quot;, ROUND ((num_rows * avg_row_len / 1024), 2) &amp;quot;真实使用空间 k&amp;quot;, ROUND ((blocks * 10 / 100) * 8, 2) &amp;quot;预留空间(pctfree) k&amp;quot;, ROUND (( blocks * 8 - (num_rows * avg_row_len / 1024) - blocks * 8 * 10 / 100 ), 2 ) &amp;quot;浪费空间 k&amp;quot; FROM dba_tables WHERE table_name = &#39;TABLE_NAME&#39;;  或者使用如下gist中的脚本找出某个 Schema 中表碎片超过25%的表。使用此脚本前，先确定 Schema 中表统计信息收集完整。</description>
+    </item>
+    
+    <item>
+      <title>JavaScript 基本概念</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-03-13-js-basic/</link>
+      <pubDate>Tue, 13 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-03-13-js-basic/</guid>
+      <description> 缘由 静态网页使用HTML和CSS就够了。动态网站，除了后端要有一种编程语言支持外，前端还需要用到JavaScript。最近几年，JavaScript领域出了很多新技术，如Google的V8、Node.js、CofferScript等等，还有无数的JavaScript框架。
+我个人的知识结构中，前端只有接触过HTML和CSS，后端主要是几种脚本语言，加操作系统和数据库相关的那些本职工作，JavaScript基本是一窍不通。对js的无知，导致我闲来想折腾下自己的博客，一涉及到改js相关的代码，就只能搜索一通然后复制粘贴了。
+于是决定要花点时间来熟悉下这js这个编程语言。
+学习资料 两本书，JvaScript: The Good Parts(Douglas Crockford) 和 *Pragmatic Guide to Javascript*（主要讲js在浏览器端的常见用途）。
+js大牛Douglas Crockford有许多js相关的视频，有时间的时候应该看看。
+中文资料有《JavaScript内核》，邱俊涛写的，免费电子书。
+主要概念 DOM DOM(Document Object Model)是浏览器的API。大部分牛人都如说这个API很烂。
+js对DOM的主要操作：
+ 获取要操作的元素 改动元素（显示、隐藏、移动或修改元素内容）  JSON 基本每种编程语言都会提供一个可以存储键值对的数据结构，虽然名字不同，像Perl的Hash，Python的dict，Java的Map。他们也有一个统一的名字，叫做联合数组，Associative array.
+js中的对象使用hash表示。js中没有类的概念，只有对象。除了少数几个primitives(布尔值、数字、字符串、几个特殊常数)，js中一切都是对象。函数和其他任何对象在地位上没有区别，函数本身也是一个对象。
+JSON(JavaScript Object Notation)，JavaScript对象表示法，是js中用来表示对象的格式。发明者是Douglas Crockford。这是个好东西。
+JSON是用大括号括起来的键值对，也就是Hash，值可以是任意的JavaScript对象。JSON格式允许递归（它的值又可以是一个JSON表示的任意对象），可以用来表示任意复杂的数据形式。
+对象用{}表示，数组用[]表示。
+两种访问对象属性的方法：
+ 点表示法，dot notation, obj.prop 中括号表示法，bracket notation, obj[&#39;prop&#39;]  Prototype Chain 通过使用prototype(原型)，js建立传统OO语言中的继承，从而体现对象的层次关系。每个对象都有一个prototype属性，prototype本身也是对象，它又有prototype。默认对象的prototype是Object，Object的prototype是空对象null.
+函数式编程 闭包(Closure) 函数func内定义函数inner，然后在函数外部调用inner，这个过程就产生一个闭包。
+匿名函数(Lambda Expression) 匿名函数就是没有名字的函数。
+高阶函数 以一个或多个函数为参数的函数为高阶函数。C语言可以通过函数指针实现高阶函数。
+柯里化 预先将函数的某些参数传入，得到一个简单的函数。这个概念还最陌生，没有理解。
+Y-Combinator 使用Y结合子，可以做到对匿名函数使用递归。
+下一步  学习掌握至少一个框架，如jQuery。 学学CafferScript。 了解了解Node.js。  </description>
+    </item>
+    
+    <item>
+      <title>两个监控HP硬件的Nagios插件</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-02-20-nagios-plugin-for-hp/</link>
+      <pubDate>Mon, 20 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-02-20-nagios-plugin-for-hp/</guid>
+      <description>主要是两个Ngios插件的使用，都是用Perl写的。check_hpasm 是大牛德国人 Gerhard Lausser 写的。check_hp_bladechassis 似乎是挪威人写的。
+HP 服务器硬件状态监控 (check_hpasm) 可以使用两种模式，check_nrpe方式和SNMP方式。两种方式都依赖HP的ProLiant Support Pack(PSP)软件包。
+check_nrpe方式需要修改NRPE和sudo配置：
+# vi /usr/local/nagios/etc/nrpe.cfg 添加一行： command[check_hpasm]=/usr/local/nagios/libexec/check_hpasm 载入新的配置： service xinetd reload # visudo 注释一行： # Defaults requiretty 添加一行： nagios ALL=NOPASSWD:/sbin/hpasmcli,/usr/local/nagios/libexec/check_hpasm  SNMP方式，需要修改SNMP配置，允许监控服务器访问服务器的SNMP信息。Nagios服务端的配置，可以这样写：
+define command { command_name check_hpasm_snmp command_line $USER1$/check_hpasm -H $HOSTADDRESS$ -C public } define servicegroup { servicegroup_name hp_hardware alias HP Proliant Server Hardware Health } define service { use generic-service name hpasm-service check_period 24x7 check_interval 10 retry_interval 1 max_check_attempts 1 notification_options w,c,u register 0 } # SNMP define service { use hpasm-service servicegroups hp_hardware host_name host1,host2,.</description>
+    </item>
+    
+    <item>
+      <title>配置Bacula集中备份</title>
+      <link>http://192.168.123.16:1313/post/2012/2012-02-08-configure-bacula/</link>
+      <pubDate>Wed, 08 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2012/2012-02-08-configure-bacula/</guid>
+      <description>在读*Unix and Linux System Administration Handbook*第四版，第十章主要讲备份工具Bacula。Bacula是一个网络集中备份软件，可以让你在一台中心服务器上集中管理整个网络的备份。
+安装Bacula服务端 Bacula必须要有一个catalog数据库，可以使用MySQL, SQLite或者PostgreSQL。
+首先到Bacula官网下载最新稳定版源码包。详细安装手册在源码包的docs目录里有。
+简单的描述，安装过程是：
+ 解压源码包 ./configure --with-mysql make; make install  安装完Bacula执行文件后，开始在MySQL里创建Bcaula所需的数据库和表。 Bacula自带三个数据库相关操作的脚本：
+ grant_mysql_privileges，赋权 create_mysql_database，建库 make_mysql_tables，建表  配置Bacula服务端 默认所有配置文件安装在/etc/bacula下。
+主要配置文件：
+ bacula-dir.conf, Director daemon  Catalog 资源：定义跟catalog数据库的连接。 Storage 资源：配置跟存储守护进程的通信。 Pool 资源：定义一组存储卷（文件或者磁带等）。 Schedule 资源：定义备份job的时间表。 Client 资源：定义被备份的机器信息。 FileSet 资源：定义备份的文件。 Job 资源：定义备份job，集合其他资源。  bacula-sd.conf, Storage daemon bacula-fd.conf, File daemon bconsole.conf, Management console  Bacula 启停：
+ bacula Usage: /sbin/bacula {start|stop|restart|status}  安装客户端  .</description>
+    </item>
+    
+    <item>
+      <title>Oracle RAC 共享密码文件</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-12-10-rac-password-file/</link>
+      <pubDate>Sat, 10 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-12-10-rac-password-file/</guid>
+      <description> 问题 RAC环境下，如果各节点都有自己的密码文件，修改SYS密码需要在每个实例下执行修改命令。
+环境1：
+ OS: AIX 6.1 Oracle Version: 10.2.0.4 RAC Oracle Storage: RAW  环境2：
+ OS: RHEL 5.5 Oracle Version: 11.1.0.6 RAC Oracle Storage: OCFS + ASM  解决 使用符号链接，将各节点的密码文件指向共享存储上的一个文件。
+裸设备 用dd将密码文件复制到共享裸设备。注意，AIX系统下必须指定4k的偏移。
+shell$ cd $ORACLE_HOME/dbs shell$ dd if=orapwdSID of=/dev/rdb_pwdfile bs=4k seek=1  建立符号链接，在所有节点执行。
+shell$ cd $ORACLE_HOME/dbs shell$ ln -s /dev/rdb_pwdfile orapwdSID  OCFS 复制密码文件到OCFS共享文件系统下。
+shell$ cp $ORACLE_HOME/dbs/orapwdSID /share_config/orapwd  建立符号链接，在所有节点执行。
+shell$ cd $ORACLE_HOME/dbs shell$ ln -s /share_config/orapwd orapwdSID  </description>
+    </item>
+    
+    <item>
+      <title>Oracle 11gR1 默认设置调整</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-12-08-11g-default-config/</link>
+      <pubDate>Thu, 08 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-12-08-11g-default-config/</guid>
+      <description>默认没有设置LOCAL_LISTENER参数 客户端登录会报错，ORA-12545: 因目标主机或对象不存在, 连接失败。有两种解决方法，一是改服务端配置（更好），二是改客户端。
+设置 LOCAL_LISTENER 参考 MOS Notes ID 364855.1。
+在两个实例上分别执行：
+SQL&amp;gt; alter system set LOCAL_LISTENER=&amp;quot;(address=(protocol=tcp)(port=1521)(host=&amp;lt;your_vip_node1&amp;gt;)) scope=both sid=&#39;INSTANCE_NAME1&#39;; SQL&amp;gt; alter system set LOCAL_LISTENER=&amp;quot;(address=(protocol=tcp)(port=1521)(host=&amp;lt;your_vip_node2&amp;gt;)) scope=both sid=&#39;INSTANCE_NAME2&#39;;  注意your_vip_node1使用ip，如果使用主机名，还是需要在客户端修改hosts文件。
+修改客户端hosts文件 添加类似:
+172.25.198.224 racnode1-vip 172.25.198.225 racnode2-vip  默认使用ADR管理日志和跟踪文件 ADR(Automatic Diagnostic Repository)是自动诊断信息库，11g新特性，用来统一管理Oracle相关的所有日志和跟踪文件。
+由于监听相关的日志现在也由ADR统一管理了，导致alert log里会大量出现TNS-12535: TNS:operation timed out的报错信息。 11g之前，这类报错是写在sqlnet.log里的。
+如果不想看到alert log里报错太多，可以将监听相关的日志改为11g前的记录方式：
+ 修改sqlnet.ora，添加： DIAG_ADR_ENABLED = OFF 修改listener.ora，添加： DIAG_ADRENABLED = OFF 重启或reload监听。  这个其实不需要改，只需忽略TNS类的报错就是。改了，监听相关的故障就不能通过adrci工具来诊断了。
+默认密码策略 默认一个用户10次登录失败，会锁定用户。如果某用户不停使用错误密码登录数据 库，会导致用户被锁定，使得业务受影响。应修改此策略为不限制。
+SQL&amp;gt; alter profile default FAILED_LOGIN_ATTEMPTS unlimited;  默认一个用户密码如果超过180天不更改，也会锁定用户。如果你的DB密码不能经 常修改的话，此策略也应修改。</description>
+    </item>
+    
+    <item>
+      <title>Markdown 标记语言指南</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-11-21-markdown/</link>
+      <pubDate>Mon, 21 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-11-21-markdown/</guid>
+      <description>发明者 Markdown 的发明者是 John Gruber 和 Aaron Swartz，目标是 &amp;ldquo;to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML)&amp;ldquo;。
+John Gruber 是一个作家，有计算机学士学位，苹果迷。他最有名的一个项目是 Daring Fireball 网站，一个主要写苹果产品相关信息的技术博客，从2006年4月开始，他全职维护此网站。
+Aaron Swartz 是一个非常年轻有为的家伙，一大把的经历和成绩。他的个人网站里列出了他的所有成绩。
+语法 标题  Setext-style, 使用等于号（=）和下杠（_）。 Atx-style 使用井号（#），一个井号是H1，两个是H2，依此类推。Atx 是 Aaron Swartz 发明的另一种文本标记语言。  列表  无序列表, 星号（*），加号（+），或者减号（-）都行。 有序列表, 直接使用1、2、3这种数字。  链接 行内：
+This is an [example link](http://example.com/ &amp;quot;With a Title&amp;quot;).  引用：
+I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].</description>
+    </item>
+    
+    <item>
+      <title>Oracle 手工建库(10g RAC)</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-10-19-manaual-database-creation/</link>
+      <pubDate>Wed, 19 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-10-19-manaual-database-creation/</guid>
+      <description>简介 最权威的参考文档是MOS的文档 Doc ID 240052.1 和 Doc ID 137288.1 。
+大致做法是，先写一个pfile文件，用pfile启动Oracle实例，然后执行create database语句，创建数据库。建好数据库后，用Oracle提供的脚本导入数据字典和一些官方PL/SQL包。
+主要的导入脚本是：
+ CATALOG.SQL： 创建数据字典和动态性能视图。 CATPROC.SQL： 创建官方PL/SQL包。 CATCLUST.SQL： 创建RAC相关视图。  在pfile里指定control file文件的位置，指定undo表空间的名字。block大小也在pfile里指定。pfile里指定的一些dump相关目录要先创建好。
+在创建数据库的语句里，需要指定system表空间使用的数据文件大小和路径，指定undo表空间的名字和数据文件大小和路径，至少指定两组重做日志的大小和文件路径，10g的库还要指定sysaux表空间使用的数据文件大小和路径。数据库的字符集也需要在创建数据库时指定。默认表空间和默认temp表空间，以及sys和system用户密码也可以在建库语句里指定。
+建库语句里，还需要指定一些数据库的限制，比如数据文件最大数量、实例最大数量、重做日志文件最大数量、每组重做日志文件的成员最大数量等。
+如果是RAC库，再加一个线程2的两组重做日志，并启用此线程的重做日志。
+详细步骤 创建目录 mkdir -p /u01/app/oracle/admin/dcs/{adump,bdump,cdump,dpdump,hdump,pfile,udump} 启动数据库 pfile的内容，可以随便找一个当前库的修改下就行。
+建库语句 CREATE DATABASE test CONTROLFILE REUSE MAXINSTANCES 32 MAXLOGHISTORY 100 MAXLOGFILES 64 MAXLOGMEMBERS 5 MAXDATAFILES 1024 DATAFILE &amp;#39;/dev/rdb_system01&amp;#39; SIZE 2046M REUSE SYSAUX DATAFILE &amp;#39;/dev/rdb_sysaux01&amp;#39;SIZE 4094M REUSE TEMPORARY TABLESPACE TEMP TEMPFILE &amp;#39;/dev/rdb_temp01&amp;#39; SIZE 8190M REUSE DEFAULT TABLESPACE USERS DATAFILE &amp;#39;/dev/rdb_users01&amp;#39; SIZE 8190M REUSE; UNDO TABLESPACE UNDOTBS1 DATAFILE &amp;#39;/dev/rdb_undo11&amp;#39; SIZE 8190M REUSE CHARACTER SET ZHS16GBK LOGFILE GROUP 1 (&amp;#39;/dev/rdb_redo111&amp;#39;,&amp;#39;/dev/rdb_redo112&amp;#39;) SIZE 255M REUSE, GROUP 2 (&amp;#39;/dev/rdb_redo121&amp;#39;,&amp;#39;/dev/rdb_redo122&amp;#39;) SIZE 255M REUSE; 执行创建对象的脚本 conn sys/change_on_install @?</description>
+    </item>
+    
+    <item>
+      <title>Oracle&#39;s performance-tuning reports</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-09-18-perf-report/</link>
+      <pubDate>Sun, 18 Sep 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-09-18-perf-report/</guid>
+      <description>Introduction  Automatic Workload Repository (AWR) Automatic Database Diagnostic Monitor (ADDM) Active Session History (ASH) Statspack  AWR, ADDM and ASH need additional license. Statspack is free.
+You can also run AWR, ADDM, and ASH reports from Enterprise Manager, which you may find more intuitive than manually running the scripts from SQL*Plus.
+Oracle maintains a massive collection of dynamic performance views that track and accumulate metrics of database performance. For Oracle 11g, there&amp;rsquo;re over 400 dynamic performance views:</description>
+    </item>
+    
+    <item>
+      <title>最近喜欢的书</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-07-29-favorite-books/</link>
+      <pubDate>Fri, 29 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-07-29-favorite-books/</guid>
+      <description>我爱读书，更爱读人。我不喜欢的作者，书写得再好，我也不会喜欢他的书。我曾以为，在当代除王小波外，找不到可以一读的中文书了，其实不然。最近我又发现不少我喜欢的作家。
+近几年，我先后读到了杨小凯、高行健、野夫和高尔泰这四个人的五本书。除了杨小凯是我大学的时候读的，其他三位都是我今年才读到的。
+我喜欢这四个人。他们都是当局的眼中钉，都受过共产党的迫害，坐过共产党的牢。除了杨小凯已经逝世，其他三位均健在，野夫隐居云南写作，高行健生活在法国，高尔泰在美国。
+杨小凯和野夫是心怀天下，高行健和高尔泰则是极端个人主义和追求自由。
+ 杨小凯，《牛鬼蛇神录》， 杨小凯有很多经济学著作，被很多媒体盛赞有拿诺贝尔经济学奖的潜力。我只看过他一本书，讲他文革期间坐牢十年的经历。 高行健，《一个人的圣经》，《灵山》，《灵山》被人提到的多一些，但我更喜欢《一个人的圣经》。书里写到了很多作者文革期间和文革之后的个人经历。 野夫，《尘世·挽歌》，野夫是四个人中最年轻的一个。他没有经历文革，他的文章里更多的是回忆他父母辈人的生活。他六四期间在海南做警察，六四后因同情六四坐过牢。 高尔泰，《寻找家园》，他是右派，从甘肃夹边沟劳改场死里逃生。六四后也被短暂关押，之后经香港逃到美国。他被称为是美学家，画家，我觉得他也是很好的作家。本书基本可以算是作者的自传，从出生写到逃亡美国。作者写自己的人生，也是在写中国的现代史。从这样的书里读到的历史，是更鲜活、更真实的历史。  </description>
+    </item>
+    
+    <item>
+      <title>Rails官方文档</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-07-26-rails-doc/</link>
+      <pubDate>Tue, 26 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-07-26-rails-doc/</guid>
+      <description>Rails Documentation Projects RDoc 这些文档由开发者编写，以注释形式写在Rails源代码里。官方网站 api.rubyonrails.org 有最新的HTML格式文档。这些文档，是已经比较熟悉Ruby和Rails的程序员们的参考手册。
+Rails Guides 官方网站 guides.rubyonrails.org 。初学者应该参考这里，针对特定领域的How to式文档。这里的文档质量较高。使用Textile格式编写。
+Rails Book 开发者们有计划要写这么一本书出来。现在两年多过去了，这本书还没有影子。这个项目应该算是失败了。免费的 Ruby on Rails 3 Tutorial 也许可以勉强代替这个计划。
+Rails Wiki 官方网站 wiki.rubyonrails.org 。似乎是用docuwiki做的。我用Chrome和Firefox在这个wiki里都看不到任何内容，只能看到讨论。也许只支持IE，或者Safari。无法想象Rails的官方wiki竟然是用PHP写的docuwiki搭建的。
+Rails Has Great Documentation 似乎Rails初学者们普遍认为Rails的官方文档非常差劲。我认为对于初学者来说，只有官方的Guides还值得读下。
+然后有Rails开发者在 官方博客 上回应，说Rails的文档很棒。然后举了很多高质量的文档例子，当然大部分是非官方的。确实，非官方的Rails文档还是很棒的。
+只是，初学者指责Rails官方文档差劲，开发者回应非官方文档很棒，这有点回避问题了。</description>
+    </item>
+    
+    <item>
+      <title>Oracle官方文档</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-06-19-oracle-docs/</link>
+      <pubDate>Sun, 19 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-06-19-oracle-docs/</guid>
+      <description>我之前接触过一些软件产品，如Linux、Emacs、Python、Ruby等。这些产品和文档都是由开源社区的黑客们自愿免费维护。黑客当然更喜欢写代码，文档比起商业产品来，还是差得太远。
+Oracle的官方文档是我见过的最详尽的软件产品文档。Oracle的文档以书的形式组织，以Oracle 11gR2的官方文档为例，有220多本书。有些发行注记、安装手册什么的非常短，但是长篇文档也不再少数。
+Oracle从11g开始，官方文档除pdf和html两种格式外，也增加了mobi和epub版本。Oracle称 新加的两种格式为移动格式，供移动设备使用，如Kindle和iOS设备。
+我现在的读书习惯是，只读电子书，在电脑面前，就用电脑（PC或笔记本）读，不在电脑面前，就用Kindle读。用Kindle读某些书比用电脑读有效率，比如小说散文等。编程或技术类的书籍，在电脑上读PDF是更好的选择，因为可以做笔记，可以跑代码，可以做实验，这是Kindle无法做到的。
+要一一去阅读Oracle这么多的官方文档，是不可能的。学习Oracle，根据一些高手的意见，一般是读了官方的Concept文档后，就去读出版的书籍，庞大的官方文档作为参考资料。
+我花了不少时间研究哪些官方文档是重要的，值得常常翻阅和参考，每本重要的官方文档里有什么大致内容，什么情况下我们需要去参考它。
+文档类型：
+ Guide，指南，这类属于可以用来从头读到尾的。 2 Day, 两天系列。快速指南，这类也是可读的。 Reference，参考，有不懂处快速搜索这里。 Quick Reference，快速参考，比较短。  每一份文档都有一个编号，叫做Part Number。每个版本的Oracle，有很多名字相同的文档，但PN是唯一的。
+文档分类，Oracle 11gR2的分类方式：
+ Server  Administration, Concepts, and Reference Application Development Application Express Backup and Recovery Data Warahousing Languge and Interface Networking and Security Oracle Real Application Clusters Streams and Replication  XStream Spatial Windows Gateway Communications Data Model Java Development Release Notes Data Mining TimesTen In-Memory Database Documentation Library Warehouse Builder OLAP Multimedia Installation Guide  具体每一本手册大致讲什么，可以查New Features Guide，列一些我比较感兴趣的和比较重要的：</description>
+    </item>
+    
+    <item>
+      <title>如何读懂Oracle文档中的语法图</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-06-19-syntax-diagrams/</link>
+      <pubDate>Sun, 19 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-06-19-syntax-diagrams/</guid>
+      <description>Oracle文档中用到了两种表达语法的方法，语法图和BNF。
+BNF: Backus-Naur Form，中文是巴科斯范式:，它是由约翰·巴科斯（John Backus）和彼得·诺尔（Peter Naur）引入的用来描述计算机语言语法的符号集。
+首先来看语法图。读语法图，要从左到右，顺着箭头读。
+不同形状的含义：
+ 长方形中的大写词语，命令。 椭圆形中的小写词语，参数。 圆形中，标点符号、操作符、分隔符、终止符。  如果图有几条路径，可以随便选择一条，每条都是正确的语法。
+ 主路径(Main Path)：箭头指向的一条直线。 必选关键词：可以是只有一个图形，说明必选这一个；也可以是垂直排列的几个图形，说明必选其一。 可选关键词：在主路径之外就是可选的。 语法循环(Sytax Loop)：对一种语法循环使用。 标示符规则：标示符不能超过30字符，必须以字母开头。标示符不区分大小写，除非在双引号内。  每个语法图都有一个指向同义的BNF表达式的链接。
+BNF表达式用到的符号含义：
+ []，可选项 {}，必选其一 |，分隔不同选项 &amp;hellip;，可重复语法 分隔符，不同之前四个其他分隔符要照其原样输入 粗体，粗体的是关键字，必须照其原样输入；非大写字符，是占位符，不需原样输入，得用其他值代替。  本文是SQL Language Reference的附录A How to Read Syntax Diagrams 的读书笔记，是直接从英文翻译过来的，可能只有我自己看的懂。但读完这一节后，读懂语法图对我来说再没有难度了。</description>
+    </item>
+    
+    <item>
+      <title>在Windows下使用Emacs的技巧</title>
+      <link>http://192.168.123.16:1313/post/2011/2011-01-03-emacs-w32/</link>
+      <pubDate>Mon, 03 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2011/2011-01-03-emacs-w32/</guid>
+      <description>加一个&amp;rdquo;Open In Emacs&amp;rdquo;选项 如果开了 Emacs Server mode，就用 emacsclientw.exe。如果没有开 Emacs Server mode，或者没有开 Emacs，就用 runemacs.exe 重新打开一个。
+ Windows Registry Editor Version 5.00 [HKEY_CLASSES_ROOT\*\Shell\Open In Emacs\Command] @=&#34;\&#34;D:\\Program Files\\emacs-24.0.50\\bin\\emacsclientw.exe\&#34; -a \&#34;D:\\Program Files\\emacs-24.0.50\\bin\\runemacs.exe\&#34; \&#34;%1\&#34;&#34;  将 Caps Lock 键改成 Ctrl 键 Google 新推出的 Cr-48 上网本，也是没有 Caps Lock 键的。Caps Lock 键换成搜索键了。我也觉得这个键是没有必要的。如果你需要打大写字母，按住 Shift 键就够了。
+以前我都是把 Ctrl 键和 Caps Lock 键互换，这次将 Caps Lock 键改成 Ctrl 键，Ctrl 键还是 Ctrl 键。
+ Windows Registry Editor Version 5.00 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout] &#34;</description>
+    </item>
+    
+    <item>
+      <title>Github Page 绑定域名</title>
+      <link>http://192.168.123.16:1313/post/2010/2010-12-29-github-cname/</link>
+      <pubDate>Wed, 29 Dec 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2010/2010-12-29-github-cname/</guid>
+      <description>CNAME 创建一个CNAME文件，内容是你的域名，如：
+ xlau.org 
+然后把此文件添加到Github仓库，上传到Github。Github服务器会设置xlau.org为你的主域名，然后将www.xlau.org和kylexlau.github.com重定向到xlau.org。
+DNS 登陆你的域名管理界面。创建一条A记录，指向207.97.227.245这个IP地址。
+如果是用子域名，如kyle.xlau.org。只需要创建一条CNAME记录，指向kyle.xlau.org。
+子域名 我以kyle.xlau.org为我的博客域名，指向Github Page。
+我需要做的设置：
+ 创建CNAME文件，内容为kyle.xlau.org。 登陆域名管理，创建CNAME记录，kyle -&amp;gt; kylexlau.github.com。  Github虽然很好，可毕竟是免费的，还是有不少限制的。写到这里，特意去看了下Github对免费用户究竟有什么限制。发现除了300M的空间限制（还是所谓软限制），没有其他限制。所以用它来作为博客平台，真是再理想不过了。
+但是我还是将xlau.org和www.xlau.org指向免费的Amazon EC2，毕竟这个要强大多了。等明年EC2收费了，我也许要再买个VPS玩玩。</description>
+    </item>
+    
+    <item>
+      <title>怎样学Ruby和Rails</title>
+      <link>http://192.168.123.16:1313/post/2010/2010-12-29-ruby/</link>
+      <pubDate>Wed, 29 Dec 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2010/2010-12-29-ruby/</guid>
+      <description>为什么对Ruby感兴趣 最近我对Ruby产生了浓厚兴趣。之前学过一段时间的Python，感觉Python虽然用途比Ruby更广泛，却不适合我。
+Python的哲学是：
+ There should be one and preferably only one - obvious way to do it! 
+Python的创造者认为一定有一种最佳的方法去完成某件事。这种哲学有点过于死板，也不符合现实。
+Perl的格言是：
+ There&amp;rsquo;s more than one way to do it! 
+Larry Wall认为可以用许多不同的方法，去完成同一件事情。显然，我是更认同Perl的哲学的。
+Ruby的格言是，程序员之友（A Programmer&amp;rsquo;s Best Friend）。Ruby是以人为中心，为程序员的方便而创造的编程语言。
+Ruby继承了很多Perl的精华和哲学。所以，相对Python，我更喜欢Ruby。
+别人是怎么学Ruby的 不同的人有不同的背景，有不同的学习方式。
+这里有一大堆Rails社区中的领军人物说他们是怎么学会Ruby和Rails的：
+ DHH: I learned Ruby by programming in anger. Attempting to make something real. Not just a toy program. David Black: I learned ruby via pickaxe and lots of practice and both reading and answering questions on ruby-talk.</description>
+    </item>
+    
+    <item>
+      <title>设置Disqus</title>
+      <link>http://192.168.123.16:1313/post/2010/2010-12-29-disqus/</link>
+      <pubDate>Wed, 29 Dec 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2010/2010-12-29-disqus/</guid>
+      <description>为什么用Disqus 使用Github Page写博客，Github用Jekyll将我的markdown源码转换成静态网页。静态网页没法加评论功能，于是只能用Disqus了。
+Disqus是一段Javascript代码，提供评论系统的功能。评论数据都保留Disqus的网站上。
+如何使用 在网页模板里嵌入一段Javascript代码就行。
+代码如下：
+&amp;lt;div id=&amp;#34;disqus_thread&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */ var disqus_shortname = &amp;#39;example&amp;#39;; // required: replace example with your forum shortname  // The following are highly recommended additional parameters. Remove the slashes in front to use.  // var disqus_identifier = &amp;#39;unique_dynamic_id_1234&amp;#39;;  // var disqus_url = &amp;#39;http://example.com/permalink-to-page.html&amp;#39;;  /* * * DON&amp;#39;T EDIT BELOW THIS LINE * * */ (function() { var dsq = document.</description>
+    </item>
+    
+    <item>
+      <title>像黑客一样写博客</title>
+      <link>http://192.168.123.16:1313/post/2009/2009-08-13-blogging-like-a-hacker/</link>
+      <pubDate>Thu, 13 Aug 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://192.168.123.16:1313/post/2009/2009-08-13-blogging-like-a-hacker/</guid>
+      <description>2016年1月修改：Github Pages 5月1日后不再支持Textitle格式，修改格式为Markdown。
+用Jekyll来重建我博客。先翻译一篇Jekyll作者的文章。
+原文地址 和 原文源代码
+译文：
+2000年时，我以为我将成为一个专业作家。于是我跟其他一些有抱负的诗人和作家一起，每天花几个小时在LiveJournal上练习写作。从那时起，我已经先后在三个不同的域名下写过博客。我写过的博客内容包括：web标准、印刷设计（print design）、摄影、Flash、插图（illustration）、信息架构、ColdFusion、软件包管理（package management）、PHP、CSS、广告、Ruby、Rails、Erlang。
+我热爱写作。我喜欢与别人分享我的思想。将想法转变成文字，能非常有效地深化对某一话题的思考。但虽然我很喜欢写博客，我却陷入了一个循环，放弃一段，又继续开始。在这次又重新开始写博客前，我做了一些反省，试图找到造成这种恶性循环的原因是什么。
+我已经知道什么是我不想要的。我厌倦了那些复杂的博客管理系统，如WordPress和Mephisto。我只想写些好文章，而不是整天修改页面模板，审核评论，升级博客系统。Posterous看起来不错，但我想控制自己博客的样式，选择自己的独立域名。基于同样的理由，其他一些提供博客服务的站点，如wordpress.com和blogger.com，均不符合我的要求。有些人直接用GitHub写博客，这很酷，但不符我的口味。
+2008年10月19日，星期六，我坐在旧金山的公寓里，手拿一杯苹果汁，头脑清醒。经过一阵沉思，我有了个好注意。我不是一个专业的散文作家，我是个专业程序员。如果我以软件开发的角度看待写博客，那将会是什么样子的？
+首先，所有我的作品都将保存在一个Git仓库里。这让确保我可以在我偏爱的文本编辑器和命令行下，舒服地尝试各种想法的写作，浏览已写文章。我将可以用一个简单的部署脚本或者是提交后钩子（post-commit hook）发布文章。为保持最小的复杂性，相对一个需要不断维护的动态网站，静态网站更好。我的博客必须容易自定义。我的美工（graphic design）背景让我喜欢经常调整网站的外观和布局。
+在过去的几个月里，我写了Jekyll来实现这些概念。Jekyll是一个简单的，适合博客的（blog aware），静态网站生成器。输入一个模板目录（代表网站的原始形态），经过Texitile和Liquid转换，输出一个完全静态的网站。如果你在我的网站上阅读本文，你看到的就是一个用Jekyll生成的博客网站（译者的网站也是）。
+想理解这究竟是如何工作的，在新窗口打开我的 TPW Git仓库。我将参照那里的代码来解释。
+首先看 index.html. 这是网站的首页。此文件的最上面几行是一段包含文件元数据的YAML代码。这些元数据告诉Jekyll，此文件该使用什么模板，页面的标题该是什么，等等。此文件里，我指定使用default模板。模板文件都在 _layouts 文件夹里。如果你打开 [default.html]http://github.com/mojombo/tpw/tree/master/_layouts/default.html) 文件，将看到主页是由index.html包裹在此模板中而生成的。
+你同样将注意到这些文件里有Liquid模版引擎代码。Liquid是一种简单的，可扩展的模版语言，它令数据更容易嵌入到模版里。我希望在我的主页上显示我的文章列表。Jekyll生成一个散列表（Hash),包含关于我网站的各种数据。site.posts是我所有博客文章的一个按时间由近及远顺序的列表。每篇文章，又包含几个字段，如标题（title）和时间（date）。
+Jekyll解析（parsing）在_posts目录中的文件，以获取博客文章的列表。每篇文章文件标题里包括有，最终生成静态HTML文件的发布日期和略缩名（slug，出现在URL中的名字）。打开本文的源码， 2008-11-17-blogging-like-a-hacker.textile. GitHub默认会转换textile文件，为了更好的理解，请打开文件的 原始形式. 文件里我指定了使用post模版。如果你打开 post.html 文件，会发现这里有一个嵌套模版的例子。模版里可以包含其他模版，这使你有更大的灵活性去指定页面显示。我用嵌套模版，是为了显示相关文章。
+Jekyll用一种特殊的方式处理文章源文件。文件名中指定的日期用来构造生成网站的URL。比如这篇文章，最后生成的URl地址是http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html。
+非下划线开头的目录中的文件，将直接复制到生成网站中的对应目录。如果一个文件不是以YAML代码段开头，Liquid解释器将略过它。二进制文件也将直接复制。
+为了将你的原始网站转换到静态网页版本，只需在命令行中输入：
+$ jekyll /path/to/raw/site /path/to/place/generated/site Jekyll仍然是一个非常年轻的项目。我仅仅开发出我所需要的那些功能。我希望这个项目能慢慢成熟起来，支持更多的功能。如果你用Jekyll搭建了你的博客，请发邮件告诉我，在Jekyll未来的版本里你需要些什么功能。更好的方法是，在GitHub上克隆（fork）这个项目，然后修改（hack），加上你自己需要的功能。
+我已经使用Jekyll超过1个月了。我爱它。非常有益的是，驱使我开发Jekyll的动力源自我自己博客的需要。我能在TextMate里编辑我的文章，它支持自动拼写检查。我能随时修改CSS和页面模版。所有东西备份在GitHub上。写这篇文章时，我感觉很轻松。系统简单到我能控制整个的转换过程。我脑海和我博客间的距离缩短了。我想它会让我成为一个更好的博客作者。
+&amp;ndash;EOF&amp;ndash;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>JavaScript 基本概念 - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content=" 缘由 静态网页使用HTML和CSS就够了。动态网站，除了后端要有一种编程语言支持外，前端还需要用到JavaScript。最近几年，JavaScript领域出了很多新技术，如Google的V8、Node.js、CofferScript等等，还有无数的JavaScript框架。
+我个人的知识结构中，前端只有接触过HTML和CSS，后端主要是几种脚本语言，加操作系统和数据库相关的那些本职工作，JavaScript基本是一窍不通。对js的无知，导致我闲来想折腾下自己的博客，一涉及到改js相关的代码，就只能搜索一通然后复制粘贴了。
+于是决定要花点时间来熟悉下这js这个编程语言。
+学习资料 两本书，JvaScript: The Good Parts(Douglas Crockford) 和 *Pragmatic Guide to Javascript*（主要讲js在浏览器端的常见用途）。
+js大牛Douglas Crockford有许多js相关的视频，有时间的时候应该看看。
+中文资料有《JavaScript内核》，邱俊涛写的，免费电子书。
+主要概念 DOM DOM(Document Object Model)是浏览器的API。大部分牛人都如说这个API很烂。
+js对DOM的主要操作：
+ 获取要操作的元素 改动元素（显示、隐藏、移动或修改元素内容）  JSON 基本每种编程语言都会提供一个可以存储键值对的数据结构，虽然名字不同，像Perl的Hash，Python的dict，Java的Map。他们也有一个统一的名字，叫做联合数组，Associative array.
+js中的对象使用hash表示。js中没有类的概念，只有对象。除了少数几个primitives(布尔值、数字、字符串、几个特殊常数)，js中一切都是对象。函数和其他任何对象在地位上没有区别，函数本身也是一个对象。
+JSON(JavaScript Object Notation)，JavaScript对象表示法，是js中用来表示对象的格式。发明者是Douglas Crockford。这是个好东西。
+JSON是用大括号括起来的键值对，也就是Hash，值可以是任意的JavaScript对象。JSON格式允许递归（它的值又可以是一个JSON表示的任意对象），可以用来表示任意复杂的数据形式。
+对象用{}表示，数组用[]表示。
+两种访问对象属性的方法：
+ 点表示法，dot notation, obj.prop 中括号表示法，bracket notation, obj[&#39;prop&#39;]  Prototype Chain 通过使用prototype(原型)，js建立传统OO语言中的继承，从而体现对象的层次关系。每个对象都有一个prototype属性，prototype本身也是对象，它又有prototype。默认对象的prototype是Object，Object的prototype是空对象null.
+函数式编程 闭包(Closure) 函数func内定义函数inner，然后在函数外部调用inner，这个过程就产生一个闭包。
+匿名函数(Lambda Expression) 匿名函数就是没有名字的函数。
+高阶函数 以一个或多个函数为参数的函数为高阶函数。C语言可以通过函数指针实现高阶函数。
+柯里化 预先将函数的某些参数传入，得到一个简单的函数。这个概念还最陌生，没有理解。
+Y-Combinator 使用Y结合子，可以做到对匿名函数使用递归。
+下一步  学习掌握至少一个框架，如jQuery。 学学CafferScript。 了解了解Node.js。  ">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/ui.min.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about/">About</a></li><li><a href="/post/">Archive</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>JavaScript 基本概念</h1>
+	<h5>
+		
+		<time datetime="2012-03-13 00:00:00 &#43;0000 UTC">Mar 13, 2012</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<h2 id="缘由">缘由</h2>
+
+<p>静态网页使用HTML和CSS就够了。动态网站，除了后端要有一种编程语言支持外，前端还需要用到JavaScript。最近几年，JavaScript领域出了很多新技术，如Google的V8、Node.js、CofferScript等等，还有无数的JavaScript框架。</p>
+
+<p>我个人的知识结构中，前端只有接触过HTML和CSS，后端主要是几种脚本语言，加操作系统和数据库相关的那些本职工作，JavaScript基本是一窍不通。对js的无知，导致我闲来想折腾下自己的博客，一涉及到改js相关的代码，就只能搜索一通然后复制粘贴了。</p>
+
+<p>于是决定要花点时间来熟悉下这js这个编程语言。</p>
+
+<h2 id="学习资料">学习资料</h2>
+
+<p>两本书，<em>JvaScript: The Good Parts(Douglas Crockford)</em> 和 *Pragmatic Guide to Javascript*（主要讲js在浏览器端的常见用途）。</p>
+
+<p>js大牛<a href="http://javascript.crockford.com/">Douglas Crockford</a>有许多js相关的视频，有时间的时候应该看看。</p>
+
+<p>中文资料有《JavaScript内核》，<a href="http://www.icodeit.org/">邱俊涛</a>写的，免费电子书。</p>
+
+<h2 id="主要概念">主要概念</h2>
+
+<h3 id="dom">DOM</h3>
+
+<p>DOM(Document Object Model)是浏览器的API。大部分牛人都如说这个API很烂。</p>
+
+<p>js对DOM的主要操作：</p>
+
+<ul>
+<li>获取要操作的元素</li>
+<li>改动元素（显示、隐藏、移动或修改元素内容）</li>
+</ul>
+
+<h3 id="json">JSON</h3>
+
+<p>基本每种编程语言都会提供一个可以存储键值对的数据结构，虽然名字不同，像Perl的<code>Hash</code>，Python的<code>dict</code>，Java的<code>Map</code>。他们也有一个统一的名字，叫做联合数组，<a href="http://en.wikipedia.org/wiki/Associative_array"><code>Associative array</code></a>.</p>
+
+<p>js中的对象使用<code>hash</code>表示。js中没有类的概念，只有对象。除了少数几个<code>primitives</code>(布尔值、数字、字符串、几个特殊常数)，js中一切都是对象。函数和其他任何对象在地位上没有区别，函数本身也是一个对象。</p>
+
+<p>JSON(JavaScript Object Notation)，JavaScript对象表示法，是js中用来表示对象的格式。发明者是Douglas Crockford。这是个好东西。</p>
+
+<p>JSON是用大括号括起来的键值对，也就是<code>Hash</code>，值可以是任意的JavaScript对象。JSON格式允许递归（它的值又可以是一个JSON表示的任意对象），可以用来表示任意复杂的数据形式。</p>
+
+<p>对象用<code>{}</code>表示，数组用<code>[]</code>表示。</p>
+
+<p>两种访问对象属性的方法：</p>
+
+<ul>
+<li>点表示法，dot notation, <code>obj.prop</code></li>
+<li>中括号表示法，bracket notation, <code>obj['prop']</code></li>
+</ul>
+
+<h3 id="prototype-chain">Prototype Chain</h3>
+
+<p>通过使用prototype(原型)，js建立传统OO语言中的继承，从而体现对象的层次关系。每个对象都有一个prototype属性，prototype本身也是对象，它又有prototype。默认对象的prototype是Object，Object的prototype是空对象null.</p>
+
+<h3 id="函数式编程">函数式编程</h3>
+
+<h4 id="闭包-closure">闭包(Closure)</h4>
+
+<p>函数func内定义函数inner，然后在函数外部调用inner，这个过程就产生一个闭包。</p>
+
+<h4 id="匿名函数-lambda-expression">匿名函数(Lambda Expression)</h4>
+
+<p>匿名函数就是没有名字的函数。</p>
+
+<h4 id="高阶函数">高阶函数</h4>
+
+<p>以一个或多个函数为参数的函数为高阶函数。C语言可以通过函数指针实现高阶函数。</p>
+
+<h4 id="柯里化">柯里化</h4>
+
+<p>预先将函数的某些参数传入，得到一个简单的函数。这个概念还最陌生，没有理解。</p>
+
+<h4 id="y-combinator">Y-Combinator</h4>
+
+<p>使用Y结合子，可以做到对匿名函数使用递归。</p>
+
+<h2 id="下一步">下一步</h2>
+
+<ul>
+<li>学习掌握至少一个框架，如jQuery。</li>
+<li>学学CafferScript。</li>
+<li>了解了解Node.js。</li>
+</ul>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="http://192.168.123.16:1313/post/2012/2012-02-20-nagios-plugin-for-hp/">
+		<img class="icon-text" src="/img/prev.svg"/>两个监控HP硬件的Nagios插件</a>
+
+
+	<a class="next-post" href="http://192.168.123.16:1313/post/2012/2012-03-14-table-fragmentation/">Oracle 数据库整理表碎片<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'xlau';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://192.168.123.16:1313/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2018 kyle x lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

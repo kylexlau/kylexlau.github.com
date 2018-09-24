@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>Oracle RAC 共享密码文件 - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content=" 问题 RAC环境下，如果各节点都有自己的密码文件，修改SYS密码需要在每个实例下执行修改命令。
+环境1：
+ OS: AIX 6.1 Oracle Version: 10.2.0.4 RAC Oracle Storage: RAW  环境2：
+ OS: RHEL 5.5 Oracle Version: 11.1.0.6 RAC Oracle Storage: OCFS &#43; ASM  解决 使用符号链接，将各节点的密码文件指向共享存储上的一个文件。
+裸设备 用dd将密码文件复制到共享裸设备。注意，AIX系统下必须指定4k的偏移。
+shell$ cd $ORACLE_HOME/dbs shell$ dd if=orapwdSID of=/dev/rdb_pwdfile bs=4k seek=1  建立符号链接，在所有节点执行。
+shell$ cd $ORACLE_HOME/dbs shell$ ln -s /dev/rdb_pwdfile orapwdSID  OCFS 复制密码文件到OCFS共享文件系统下。
+shell$ cp $ORACLE_HOME/dbs/orapwdSID /share_config/orapwd  建立符号链接，在所有节点执行。
+shell$ cd $ORACLE_HOME/dbs shell$ ln -s /share_config/orapwd orapwdSID  ">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/ui.min.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about/">About</a></li><li><a href="/post/">Archive</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Oracle RAC 共享密码文件</h1>
+	<h5>
+		
+		<time datetime="2011-12-10 00:00:00 &#43;0000 UTC">Dec 10, 2011</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<h2 id="问题">问题</h2>
+
+<p>RAC环境下，如果各节点都有自己的密码文件，修改SYS密码需要在每个实例下执行修改命令。</p>
+
+<p>环境1：</p>
+
+<ul>
+<li>OS: AIX 6.1</li>
+<li>Oracle Version: 10.2.0.4 RAC</li>
+<li>Oracle Storage: RAW</li>
+</ul>
+
+<p>环境2：</p>
+
+<ul>
+<li>OS: RHEL 5.5</li>
+<li>Oracle Version: 11.1.0.6 RAC</li>
+<li>Oracle Storage: OCFS + ASM</li>
+</ul>
+
+<h2 id="解决">解决</h2>
+
+<p>使用符号链接，将各节点的密码文件指向共享存储上的一个文件。</p>
+
+<h3 id="裸设备">裸设备</h3>
+
+<p>用dd将密码文件复制到共享裸设备。注意，AIX系统下必须指定4k的偏移。</p>
+
+<pre><code>shell$ cd $ORACLE_HOME/dbs
+shell$ dd if=orapwdSID of=/dev/rdb_pwdfile bs=4k seek=1
+</code></pre>
+
+<p>建立符号链接，在所有节点执行。</p>
+
+<pre><code>shell$ cd $ORACLE_HOME/dbs
+shell$ ln -s /dev/rdb_pwdfile orapwdSID
+</code></pre>
+
+<h3 id="ocfs">OCFS</h3>
+
+<p>复制密码文件到OCFS共享文件系统下。</p>
+
+<pre><code>shell$ cp $ORACLE_HOME/dbs/orapwdSID /share_config/orapwd
+</code></pre>
+
+<p>建立符号链接，在所有节点执行。</p>
+
+<pre><code>shell$ cd $ORACLE_HOME/dbs
+shell$ ln -s /share_config/orapwd orapwdSID
+</code></pre>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="http://192.168.123.16:1313/post/2011/2011-12-08-11g-default-config/">
+		<img class="icon-text" src="/img/prev.svg"/>Oracle 11gR1 默认设置调整</a>
+
+
+	<a class="next-post" href="http://192.168.123.16:1313/post/2012/2012-02-08-configure-bacula/">配置Bacula集中备份<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'xlau';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://192.168.123.16:1313/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2018 kyle x lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

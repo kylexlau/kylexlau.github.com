@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>怎样学Ruby和Rails - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="为什么对Ruby感兴趣 最近我对Ruby产生了浓厚兴趣。之前学过一段时间的Python，感觉Python虽然用途比Ruby更广泛，却不适合我。
+Python的哲学是：
+ There should be one and preferably only one - obvious way to do it! 
+Python的创造者认为一定有一种最佳的方法去完成某件事。这种哲学有点过于死板，也不符合现实。
+Perl的格言是：
+ There&rsquo;s more than one way to do it! 
+Larry Wall认为可以用许多不同的方法，去完成同一件事情。显然，我是更认同Perl的哲学的。
+Ruby的格言是，程序员之友（A Programmer&rsquo;s Best Friend）。Ruby是以人为中心，为程序员的方便而创造的编程语言。
+Ruby继承了很多Perl的精华和哲学。所以，相对Python，我更喜欢Ruby。
+别人是怎么学Ruby的 不同的人有不同的背景，有不同的学习方式。
+这里有一大堆Rails社区中的领军人物说他们是怎么学会Ruby和Rails的：
+ DHH: I learned Ruby by programming in anger. Attempting to make something real. Not just a toy program. David Black: I learned ruby via pickaxe and lots of practice and both reading and answering questions on ruby-talk.">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/ui.min.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about/">About</a></li><li><a href="/post/">Archive</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>怎样学Ruby和Rails</h1>
+	<h5>
+		
+		<time datetime="2010-12-29 00:00:00 &#43;0000 UTC">Dec 29, 2010</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<h2 id="为什么对ruby感兴趣">为什么对Ruby感兴趣</h2>
+
+<p>最近我对Ruby产生了浓厚兴趣。之前学过一段时间的Python，感觉Python虽然用途比Ruby更广泛，却不适合我。</p>
+
+<p>Python的哲学是：</p>
+
+<p><code>
+There should be one and preferably only one - obvious way to do it!
+</code></p>
+
+<p>Python的创造者认为一定有一种最佳的方法去完成某件事。这种哲学有点过于死板，也不符合现实。</p>
+
+<p>Perl的格言是：</p>
+
+<p><code>
+There&rsquo;s more than one way to do it!
+</code></p>
+
+<p>Larry Wall认为可以用许多不同的方法，去完成同一件事情。显然，我是更认同Perl的哲学的。</p>
+
+<p>Ruby的格言是，程序员之友（A Programmer&rsquo;s Best Friend）。Ruby是以人为中心，为程序员的方便而创造的编程语言。</p>
+
+<p>Ruby继承了很多Perl的精华和哲学。所以，相对Python，我更喜欢Ruby。</p>
+
+<h2 id="别人是怎么学ruby的">别人是怎么学Ruby的</h2>
+
+<p>不同的人有不同的背景，有不同的学习方式。</p>
+
+<p>这里有一大堆Rails社区中的领军人物说他们是怎么学会Ruby和Rails的：</p>
+
+<ul>
+<li><em>DHH</em>: I learned Ruby by programming in anger. Attempting to make something real. Not just a toy program.</li>
+<li><em>David Black</em>: I learned ruby via pickaxe and lots of practice and both reading and answering questions on ruby-talk.</li>
+<li><em>Evan Phoenix</em>: reading code WHILE writing code</li>
+<li><em>Yehuda Katz</em>: I tried impossibly hard things to force myself to learn.</li>
+<li><em>Laurent Sansonetti</em>: I learned ruby via pickaxe, reading the posts on ruby-talk and then reading MRI&rsquo;s source code</li>
+<li><em>Ninh Bui</em>: I was quite a java fanboy back, writing struts + j2ee enterprise apps, Hongli forced me to look at Ruby over a weekend and I learned the Ruby basics. I then learned Rails by googling, reading books and source code.</li>
+<li><em>Tim Connor</em>: the rails community habit of obsessively blogging was probably the biggest help</li>
+<li><em>Lar Van Der Jagt</em>: Ryan Bates&rsquo;s <a href="http://railscasts.com/">railscasts</a> for sure. The Rails Way once I knew enough to dig deeper. What I wish I&rsquo;d done tho is work with experts!</li>
+<li><em>Arun Gupta</em>: The Rails guides and Agile Development with Rails book.</li>
+<li><em>Geoffrey Grosenbach</em>: After I had read a few tutorials, I started by spending a few hours reading through the API docs. Even if you don&rsquo;t understand everything, it&rsquo;s a fantastic way to become familiar with what&rsquo;s available.</li>
+<li><em>Nate Todd</em>: I learned MVC with a few CakePHP apps first. It helped me learn best practices in a language I was familiar with.</li>
+<li><em>Chris Wanstrath</em>: I learned Ruby on Rails by writing apps and reading the framework&rsquo;s source.</li>
+</ul>
+
+<p>从他们的经验里，我学到的是，最佳的学习方式是自己写实用的代码，其次是读别人写的好代码，再其次是读经典的好书。</p>
+
+<h2 id="别人的建议">别人的建议</h2>
+
+<ul>
+<li><em>Bob Martens</em>: Get involved in the community in some way. They know more than you. ;)</li>
+<li><em>Ismael Celis</em>: understanding the relationship between the parts of MVC. Loads of people coming to Rails don&rsquo;t know what a design pattern is.</li>
+<li><em>@jeromegn</em>: I find the best trick to learn RoR is to simply try building something. Rails docs and learning Ruby in parallel helped me the most</li>
+<li><em>@johnbender</em>: knowing why instance vars are available in templates, etc. Essentially knowing the basics of ruby would be my initial advice</li>
+<li><em>@ryandotsmith</em>: writers read. Find popular projects on github (i.e. radiant ) and study their specs.</li>
+<li><em>Sunil Karkera</em>: understanding MVC in Rails was the most important thing for me when I started.</li>
+<li><em>Luke Burton</em>: basic screencasts showing something impressive being achieved in small amounts of code were a great start</li>
+<li><em>DHH</em>: Pick a real project and program in anger. That&rsquo;s how I&rsquo;d recommend learning any language including Rails and Ruby.</li>
+<li><em>Anthony Green</em>: Accept that there&rsquo;s a Rails Way and you need to learn it. What helped me most ? - the community.</li>
+<li><em>Kent Fenwick</em>: Learn by doing a REAL project. Pick something you want to build and slowly chip away at it.</li>
+<li><em>Trevor Turk</em>: learn by reading and writing codes meaning you should try to build something you want instead of dumbly following tutorials.</li>
+<li><em>Ryan Bates</em>: Rails is made up of many technologies (HTML, CSS, Ruby, OOP, SQL, etc.). If you&rsquo;re struggling with Rails, focus on weakest part.</li>
+<li><em>Geoffrey Grosenbach</em>: And there are many examples throughout that will help a new developer get a feel for the philosophy of Rails. Many people have learned from the Rails from Scratch series at PeepCode</li>
+<li><em>@eifon</em>: A good grasp of MVC is invaluable as is knowing some Ruby before you start.</li>
+<li><em>John Yerhot</em>: don&rsquo;t be afraid to ask questions and use support channels - irc, mail list, rails bridge, etc.</li>
+<li><em>Roy Wright</em>: use the same version of rails as is in the book you are using.</li>
+<li><em>@brianthecoder</em>: read other people&rsquo;s code</li>
+<li><em>Ninh Bui</em>: I learned by having discussions with a lot of people, I can definitely recommend that</li>
+<li><em>Chris Wanstrath</em>: Stop asking other people for advice and start coding something.</li>
+</ul>
+
+<p>最后一条建议是，不要去寻求别人的建议了，现在就开始写点代码吧。所以说，编程这件事，终极建议仍然是，写代码。代码写的越多，编程水平越高。</p>
+
+<p>读完这一堆的建议，我得到的感悟是：</p>
+
+<ul>
+<li>自己写代码最重要。</li>
+<li>读别人的代码其次。</li>
+<li>理解MVC是什么也很重要。</li>
+</ul>
+
+<p>到哪里去找别人的代码读，<a href="https://github.com">Github</a>是最佳场所。注意别人是怎么解决你所解决不了的问题的。当然，先要自己写点代码才会有解决不了的问题。</p>
+
+<h2 id="how-person-和-why-person">How Person 和 Why Person</h2>
+
+<ul>
+<li>How Person: 喜欢问要怎样做的人。别人做一遍给他看，他就学会了。</li>
+<li>Why Person: 喜欢问是为什么的人。首先得理解了为什么要那样做，然后才能去做。</li>
+</ul>
+
+<p>How Person应该看<a href="http://railscasts.com/">railscasts</a>，读<a href="http://guides.rubyonrails.org/">Ruby on Rails Guides</a>。还有这里<a href="http://www.pragprog.com/screencasts">http://www.pragprog.com/screencasts</a>。</p>
+
+<p>Why Person应该读*Ruby Programming Language*和*The Well-Grounded Rubyist, aka Ruby for Rails 2nd edition*。</p>
+
+<p>我自觉是Why Person。但是看视频和例子，对我也很有帮助。</p>
+
+<p>两本Way书：</p>
+
+<ul>
+<li>The Ruby Way for Why Person</li>
+<li>The Rails Way for How Person</li>
+</ul>
+
+<h2 id="学习者的境界">学习者的境界</h2>
+
+<h3 id="第一层-写了一些rails程序">第一层，写了一些Rails程序</h3>
+
+<p>已经可以熟练编写Rails程序了。还要继续学习，离大师的境界还很远。</p>
+
+<p>问自己一些问题：</p>
+
+<ul>
+<li>会写测试吗？</li>
+<li>会自己写Rails插件吗？</li>
+<li>会打gem包吗？</li>
+<li>Javascript技术熟不熟悉？</li>
+<li>CSS呢？</li>
+<li>数据库技术呢？</li>
+</ul>
+
+<p>这时候你还有很多弱点。但你已经可以去贡献一点代码给其他开源项目了。</p>
+
+<h3 id="第二层-写了不少rails程序-写了一些rails插件-写了一些gem包">第二层，写了不少Rails程序，写了一些Rails插件，写了一些Gem包</h3>
+
+<p>这时候，你已经对RoR非常熟悉了。可以去读点Ruby的源代码了。</p>
+
+<p>这个时候，该学点其他的编程语言了，如Python，Java，Scala，Clojure，Objective-C，Ocaml，Scheme之类。总之，只要你感兴趣的编程语言，这时都可以学一点。并不一定要成为这些语言的专家，但要试着去理解它们的利与弊。这会拓宽你的视眼，也能加强你的Ruby技术。</p>
+
+<p>也就是说，编程语言的学习，当精通一门之后，就开始多多益善。</p>
+
+<h3 id="第三层-比任何人精通ror-甚至可以背诵ruby源码了">第三层，比任何人精通RoR，甚至可以背诵Ruby源码了</h3>
+
+<p>这时你应该去试着改善Ruby 1.9，以及其他的Ruby实现，如JRuby，IronRuby，MacRUby和Rubinius。你还应该贡献点代码给Rails 3了。</p>
+
+<p>你已经是大师了。</p>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li><a href="http://weblog.rubyonrails.org/2009/8/3/how-do-i-learn-ruby-rails">http://weblog.rubyonrails.org/2009/8/3/how-do-i-learn-ruby-rails</a></li>
+</ul>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="http://192.168.123.16:1313/post/2010/2010-12-29-disqus/">
+		<img class="icon-text" src="/img/prev.svg"/>设置Disqus</a>
+
+
+	<a class="next-post" href="http://192.168.123.16:1313/post/2010/2010-12-29-github-cname/">Github Page 绑定域名<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'xlau';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://192.168.123.16:1313/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2018 kyle x lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

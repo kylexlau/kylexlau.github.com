@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>Oracle&#39;s performance-tuning reports - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="Introduction  Automatic Workload Repository (AWR) Automatic Database Diagnostic Monitor (ADDM) Active Session History (ASH) Statspack  AWR, ADDM and ASH need additional license. Statspack is free.
+You can also run AWR, ADDM, and ASH reports from Enterprise Manager, which you may find more intuitive than manually running the scripts from SQL*Plus.
+Oracle maintains a massive collection of dynamic performance views that track and accumulate metrics of database performance. For Oracle 11g, there&rsquo;re over 400 dynamic performance views:">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/ui.min.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about/">About</a></li><li><a href="/post/">Archive</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Oracle&#39;s performance-tuning reports</h1>
+	<h5>
+		
+		<time datetime="2011-09-18 00:00:00 &#43;0000 UTC">Sep 18, 2011</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+<li>Automatic Workload Repository (AWR)</li>
+<li>Automatic Database Diagnostic Monitor (ADDM)</li>
+<li>Active Session History (ASH)</li>
+<li>Statspack</li>
+</ul>
+
+<p>AWR, ADDM and ASH need additional license.  Statspack is free.</p>
+
+<p>You can also run AWR, ADDM, and ASH reports from Enterprise Manager,
+which you may find more intuitive than manually running the scripts
+from SQL*Plus.</p>
+
+<p>Oracle maintains a massive collection of dynamic performance views
+that track and accumulate metrics of database performance.  For Oracle
+11g, there&rsquo;re over 400 dynamic performance views:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span> <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="k">dictionary</span> <span class="k">where</span> <span class="k">table_name</span> <span class="k">like</span> <span class="s1">&#39;V$%&#39;</span><span class="p">;</span></code></pre></div>
+<p>The Oracle performance utilities rely on periodic snapshots gathered
+from these internal performance views.  Two of the most useful views
+with regard to performance statistics are the V$SYSSTAT and V$SESSTAT
+view.</p>
+
+<h2 id="using-awr">Using AWR</h2>
+
+<p>Oracle will automatically take a snapshot of your database once an
+hour and populate the underlying AWR tables that store the statistics.
+By default, seven days of statistics are retained.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span> <span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">awrrpt</span></code></pre></div>
+<p>Generate an AWR report for a specific SQL statement:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span> <span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">awrsqrpt</span></code></pre></div>
+<h2 id="using-addm">Using ADDM</h2>
+
+<p>ADDM report provides useful suggestions on which SQL statements are
+candidates for tuning.  It analyzes data in the AWR tables to identify
+potential bottlenecks and high resource-consuming SQL queries.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span> <span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">addmrpt</span></code></pre></div>
+<h2 id="using-ash">Using ASH</h2>
+
+<p>ASH report allows you to focus on short-lived SQL statements that have
+been recently run and may have only executed for a brief amount of
+time.</p>
+
+<p>The AWR and ADDM output shows top-consuming SQL in terms of total
+database time.  If the SQL performance problem is transient and
+short-lived, use ASH.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span> <span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">ashrpt</span></code></pre></div>
+<h2 id="using-statspack">Using Statspack</h2>
+
+<p>Help you identify poorly performing SQL statements.</p>
+
+<p>Install Statspack, it creates a PERFSTAT user that owns the Statspack
+repository.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span> <span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spcreate</span></code></pre></div>
+<p>Enable the automatic gathering of Statspack statistics:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span> <span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spauto</span></code></pre></div>
+<p>After some snapshots have been gathered, you can run the following
+script as the PERFSTAT user to create a Statspack report:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span> <span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spreport</span></code></pre></div>
+<p>The Statspack historical performance statistical data is stored in the
+STAT$SQL_SUMMARY table and the STATS$SNAPSHOT table contains a record
+for each Statspack snapshot.</p>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="http://192.168.123.16:1313/post/2011/2011-07-29-favorite-books/">
+		<img class="icon-text" src="/img/prev.svg"/>最近喜欢的书</a>
+
+
+	<a class="next-post" href="http://192.168.123.16:1313/post/2011/2011-10-19-manaual-database-creation/">Oracle 手工建库(10g RAC)<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'xlau';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://192.168.123.16:1313/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2018 kyle x lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

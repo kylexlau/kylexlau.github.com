@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>如何读懂Oracle文档中的语法图 - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="Oracle文档中用到了两种表达语法的方法，语法图和BNF。
+BNF: Backus-Naur Form，中文是巴科斯范式:，它是由约翰·巴科斯（John Backus）和彼得·诺尔（Peter Naur）引入的用来描述计算机语言语法的符号集。
+首先来看语法图。读语法图，要从左到右，顺着箭头读。
+不同形状的含义：
+ 长方形中的大写词语，命令。 椭圆形中的小写词语，参数。 圆形中，标点符号、操作符、分隔符、终止符。  如果图有几条路径，可以随便选择一条，每条都是正确的语法。
+ 主路径(Main Path)：箭头指向的一条直线。 必选关键词：可以是只有一个图形，说明必选这一个；也可以是垂直排列的几个图形，说明必选其一。 可选关键词：在主路径之外就是可选的。 语法循环(Sytax Loop)：对一种语法循环使用。 标示符规则：标示符不能超过30字符，必须以字母开头。标示符不区分大小写，除非在双引号内。  每个语法图都有一个指向同义的BNF表达式的链接。
+BNF表达式用到的符号含义：
+ []，可选项 {}，必选其一 |，分隔不同选项 &hellip;，可重复语法 分隔符，不同之前四个其他分隔符要照其原样输入 粗体，粗体的是关键字，必须照其原样输入；非大写字符，是占位符，不需原样输入，得用其他值代替。  本文是SQL Language Reference的附录A How to Read Syntax Diagrams 的读书笔记，是直接从英文翻译过来的，可能只有我自己看的懂。但读完这一节后，读懂语法图对我来说再没有难度了。">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/ui.min.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about/">About</a></li><li><a href="/post/">Archive</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>如何读懂Oracle文档中的语法图</h1>
+	<h5>
+		
+		<time datetime="2011-06-19 00:00:00 &#43;0000 UTC">Jun 19, 2011</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	<p>Oracle文档中用到了两种表达语法的方法，语法图和BNF。</p>
+
+<p><code>BNF</code>: Backus-Naur Form，中文是巴科斯范式:，它是由约翰·巴科斯（John Backus）和彼得·诺尔（Peter Naur）引入的用来描述计算机语言语法的符号集。</p>
+
+<p>首先来看语法图。读语法图，要从左到右，顺着箭头读。</p>
+
+<p>不同形状的含义：</p>
+
+<ul>
+<li>长方形中的大写词语，命令。</li>
+<li>椭圆形中的小写词语，参数。</li>
+<li>圆形中，标点符号、操作符、分隔符、终止符。</li>
+</ul>
+
+<p>如果图有几条路径，可以随便选择一条，每条都是正确的语法。</p>
+
+<ul>
+<li>主路径(Main Path)：箭头指向的一条直线。</li>
+<li>必选关键词：可以是只有一个图形，说明必选这一个；也可以是垂直排列的几个图形，说明必选其一。</li>
+<li>可选关键词：在主路径之外就是可选的。</li>
+<li>语法循环(Sytax Loop)：对一种语法循环使用。</li>
+<li>标示符规则：标示符不能超过30字符，必须以字母开头。标示符不区分大小写，除非在双引号内。</li>
+</ul>
+
+<p>每个语法图都有一个指向同义的BNF表达式的链接。</p>
+
+<p>BNF表达式用到的符号含义：</p>
+
+<ul>
+<li>[]，可选项</li>
+<li>{}，必选其一</li>
+<li>|，分隔不同选项</li>
+<li>&hellip;，可重复语法</li>
+<li>分隔符，不同之前四个其他分隔符要照其原样输入</li>
+<li>粗体，粗体的是关键字，必须照其原样输入；非大写字符，是占位符，不需原样输入，得用其他值代替。</li>
+</ul>
+
+<p>本文是SQL Language Reference的附录A <a href="http://download.oracle.com/docs/cd/E11882_01/server.112/e17118/ap_syntx.htm">How to Read Syntax Diagrams</a> 的读书笔记，是直接从英文翻译过来的，可能只有我自己看的懂。但读完这一节后，读懂语法图对我来说再没有难度了。</p>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="http://192.168.123.16:1313/post/2011/2011-01-03-emacs-w32/">
+		<img class="icon-text" src="/img/prev.svg"/>在Windows下使用Emacs的技巧</a>
+
+
+	<a class="next-post" href="http://192.168.123.16:1313/post/2011/2011-06-19-oracle-docs/">Oracle官方文档<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'xlau';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://192.168.123.16:1313/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2018 kyle x lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+
