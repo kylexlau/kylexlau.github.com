@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://kylexlau.github.io/post/2018/09-25-hugo/</loc>
+    <lastmod>2018-09-25T07:16:27-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://kylexlau.github.io/about/</loc>
     <lastmod>2018-09-24T00:02:20-04:00</lastmod>
   </url>
@@ -144,7 +149,7 @@
   
   <url>
     <loc>http://kylexlau.github.io/</loc>
-    <lastmod>2016-01-29T00:00:00+00:00</lastmod>
+    <lastmod>2018-09-25T07:16:27-04:00</lastmod>
     <priority>0</priority>
   </url>
   
