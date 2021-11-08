@@ -9,9 +9,8 @@ HP 服务器硬件状态监控 (check_hpasm) 可以使用两种模式，check_nr
 check_nrpe方式需要修改NRPE和sudo配置：
 # vi /usr/local/nagios/etc/nrpe.cfg 添加一行： command[check_hpasm]=/usr/local/nagios/libexec/check_hpasm 载入新的配置： service xinetd reload # visudo 注释一行： # Defaults requiretty 添加一行： nagios ALL=NOPASSWD:/sbin/hpasmcli,/usr/local/nagios/libexec/check_hpasm  SNMP方式，需要修改SNMP配置，允许监控服务器访问服务器的SNMP信息。Nagios服务端的配置，可以这样写：
 define command { command_name check_hpasm_snmp command_line $USER1$/check_hpasm -H $HOSTADDRESS$ -C public } define servicegroup { servicegroup_name hp_hardware alias HP Proliant Server Hardware Health } define service { use generic-service name hpasm-service check_period 24x7 check_interval 10 retry_interval 1 max_check_attempts 1 notification_options w,c,u register 0 } # SNMP define service { use hpasm-service servicegroups hp_hardware host_name host1,host2,.">
-<link rel=stylesheet href=/css/ui.min.css>
+<link rel=stylesheet href=/css/ui.css>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
-<style>a{color:#ff8181}blockquote{border-left-color:#ff8181;border-right-color:#ff8181}.bar a:hover{color:#ff8181;text-decoration:none}.sep{margin-top:2rem;margin-bottom:1rem;margin-left:0;width:24rem;border-top:2px solid #ff8181}</style>
 </head>
 <body>
 <header class="container no-print">

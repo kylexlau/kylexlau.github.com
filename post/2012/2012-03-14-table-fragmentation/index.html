@@ -6,9 +6,8 @@
 <title>Oracle 数据库整理表碎片 - Kylexlau's Weblog</title>
 <meta name=description content="表碎片的来源 当针对一个表的删除操作很多时，表会产生大量碎片。删除操作释放的空间不会被插入操作立即重用，甚至永远也不会被重用。
 怎样确定是否有表碎片 -- 收集表统计信息 SQL> exec dbms_stats.gather_table_stats(ownname=>'SCHEMA_NAME',tabname=> 'TABLE_NAME'); -- 确定碎片程度 SQL> SELECT table_name, ROUND ((blocks * 8), 2) &#34;高水位空间 k&#34;, ROUND ((num_rows * avg_row_len / 1024), 2) &#34;真实使用空间 k&#34;, ROUND ((blocks * 10 / 100) * 8, 2) &#34;预留空间(pctfree) k&#34;, ROUND (( blocks * 8 - (num_rows * avg_row_len / 1024) - blocks * 8 * 10 / 100 ), 2 ) &#34;浪费空间 k&#34; FROM dba_tables WHERE table_name = 'TABLE_NAME';  或者使用如下gist中的脚本找出某个 Schema 中表碎片超过25%的表。使用此脚本前，先确定 Schema 中表统计信息收集完整。">
-<link rel=stylesheet href=/css/ui.min.css>
+<link rel=stylesheet href=/css/ui.css>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
-<style>a{color:#ff8181}blockquote{border-left-color:#ff8181;border-right-color:#ff8181}.bar a:hover{color:#ff8181;text-decoration:none}.sep{margin-top:2rem;margin-bottom:1rem;margin-left:0;width:24rem;border-top:2px solid #ff8181}</style>
 </head>
 <body>
 <header class="container no-print">

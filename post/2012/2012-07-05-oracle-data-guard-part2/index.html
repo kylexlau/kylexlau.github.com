@@ -12,9 +12,8 @@
 begin DBMS_SERVICE.CREATE_SERVICE ( service_name => 'JED_RW', network_name => 'JED_RW', aq_ha_notifications => TRUE, failover_method => 'BASIC', failover_type => 'SELECT', failover_retries => 30, failover_delay => 5); end; /  此服务在数据库出现故障时会发送通知给客户端，允许查询语句在故障转移发生后继续运行。我使用命名 SID_RW 显示这时一个可读写的数据库（主库）。
 下一步是确定新创建的服务永远只在主库运行。我们创建一个存储过程来实现此目的，如果当前数据库是主库它就启动此服务，如果是备库就停止。
 create or replace procedure cmc_taf_service_proc is v_role VARCHAR(30); begin select DATABASE_ROLE into v_role from V$DATABASE; if v_role = 'PRIMARY' then DBMS_SERVICE.">
-<link rel=stylesheet href=/css/ui.min.css>
+<link rel=stylesheet href=/css/ui.css>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
-<style>a{color:#ff8181}blockquote{border-left-color:#ff8181;border-right-color:#ff8181}.bar a:hover{color:#ff8181;text-decoration:none}.sep{margin-top:2rem;margin-bottom:1rem;margin-left:0;width:24rem;border-top:2px solid #ff8181}</style>
 </head>
 <body>
 <header class="container no-print">

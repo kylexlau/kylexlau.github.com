@@ -15,9 +15,8 @@ SQL> alter system set LOCAL_LISTENER=&#34;(address=(protocol=tcp)(port=1521)(hos
  修改sqlnet.ora，添加： DIAG_ADR_ENABLED = OFF 修改listener.ora，添加： DIAG_ADR_ENABLED_= OFF 重启或reload监听。  这个其实不需要改，只需忽略TNS类的报错就是。改了，监听相关的故障就不能通过adrci工具来诊断了。
 默认密码策略 默认一个用户10次登录失败，会锁定用户。如果某用户不停使用错误密码登录数据 库，会导致用户被锁定，使得业务受影响。应修改此策略为不限制。
 SQL> alter profile default FAILED_LOGIN_ATTEMPTS unlimited;  默认一个用户密码如果超过180天不更改，也会锁定用户。如果你的DB密码不能经 常修改的话，此策略也应修改。">
-<link rel=stylesheet href=/css/ui.min.css>
+<link rel=stylesheet href=/css/ui.css>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
-<style>a{color:#ff8181}blockquote{border-left-color:#ff8181;border-right-color:#ff8181}.bar a:hover{color:#ff8181;text-decoration:none}.sep{margin-top:2rem;margin-bottom:1rem;margin-left:0;width:24rem;border-top:2px solid #ff8181}</style>
 </head>
 <body>
 <header class="container no-print">
