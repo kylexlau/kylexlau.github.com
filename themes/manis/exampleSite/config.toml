@@ -1,0 +1,75 @@
+baseURL = "example.com"
+title = "Manis"
+theme = "manis"
+
+# Copyright notice. Note: You can use HTML tag here
+copyright = "&copy; 2018 Yurizal Susanto"
+pluralizeListTitles = false
+
+# Minimum number of posts before paginate navigation show up
+paginate = 10
+
+# Your disqus shortname
+disqusShortname = ""
+
+# Edit this if you want to translate your blog
+defaultContentLanguage = "en"
+
+# Code Highlighting (Chroma)
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+
+[taxonomies]
+	tag = "tags"
+
+[params]
+	# If false, use minified CSS (ui.min.css)
+	debugCSS = false
+	# Custom CSS
+	customCSS = []
+	
+	# List of sections support disqus comments
+	disqusSections = [ "blog" ]
+	# Site meta description
+	description = "Sweet little Hugo's theme for personal website or blog."
+	# Site's Tagline (Subtitle or Keyword)
+	tagline = "Nothing sweeter than this"
+	# If true give attribution to this theme
+	themeAttrib = true
+	# URL to license file, can be outside of your domain
+	licenseURL = "/about/license"
+
+	# Configure which section for Latest Posts
+	postSection = "blog"
+	# Configure which section for Latest Works
+	workSection = "work"
+
+	# 404 Configuration
+	head404 = "Sorry, I can't find what you want."
+	sub404 = "Back to <a href='/'>Home</a>."
+
+	# Color of your website's accent
+	colorTheme = "#ff8181"
+	# Maximum number of item in Latest Posts or Works
+	latestCount = 3
+	# Path to site's favicon image
+	faviconImg = ""
+	# Date format in item list
+	dateFmt = "Jan 02, 2006"
+
+	# Code Highlighting (HighlightJS)
+	highlightJs = false
+	highlightJsLanguages = [ "go" ]
+	highlightJsStyle = "ocean"
+
+	# Social Links
+	email = "mail@yurizal-san.com"
+	github = "https://github.com/yursan9/"
+	twitter = "https://twitter.com/yuri_boya"
+
+
+# Language Configuration
+#[languages.in]
+#	lang = "in"
+#	languageName = "Bahasa Indonesia"
+#	weight = 1

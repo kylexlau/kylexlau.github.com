@@ -1,0 +1,141 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=generator content="Hugo 0.89.1">
+<title>Oracle 数据库整理表碎片 - Kylexlau's Weblog</title>
+<meta name=description content="表碎片的来源 当针对一个表的删除操作很多时，表会产生大量碎片。删除操作释放的空间不会被插入操作立即重用，甚至永远也不会被重用。
+怎样确定是否有表碎片 -- 收集表统计信息 SQL> exec dbms_stats.gather_table_stats(ownname=>'SCHEMA_NAME',tabname=> 'TABLE_NAME'); -- 确定碎片程度 SQL> SELECT table_name, ROUND ((blocks * 8), 2) &#34;高水位空间 k&#34;, ROUND ((num_rows * avg_row_len / 1024), 2) &#34;真实使用空间 k&#34;, ROUND ((blocks * 10 / 100) * 8, 2) &#34;预留空间(pctfree) k&#34;, ROUND (( blocks * 8 - (num_rows * avg_row_len / 1024) - blocks * 8 * 10 / 100 ), 2 ) &#34;浪费空间 k&#34; FROM dba_tables WHERE table_name = 'TABLE_NAME';  或者使用如下gist中的脚本找出某个 Schema 中表碎片超过25%的表。使用此脚本前，先确定 Schema 中表统计信息收集完整。">
+<link rel=stylesheet href=/css/ui.min.css>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+<style>a{color:#ff8181}blockquote{border-left-color:#ff8181;border-right-color:#ff8181}.bar a:hover{color:#ff8181;text-decoration:none}.sep{margin-top:2rem;margin-bottom:1rem;margin-left:0;width:24rem;border-top:2px solid #ff8181}</style>
+</head>
+<body>
+<header class="container no-print">
+<div class=u-header>
+<nav class=bar>
+<ul><li>
+<a href=/>
+<img class=icon-text src=/img/prev.svg>
+</a>
+</li><li><a href=/about/>About</a></li><li><a href=/post/>Archive</a></li></ul>
+</nav>
+</div>
+</header>
+<main class=container>
+<article>
+<header><hgroup id=brand>
+<h1>Oracle 数据库整理表碎片</h1>
+<h5>
+<time datetime="2012-03-14 00:00:00 +0000 UTC">Mar 14, 2012</time>
+<span class=no-print>
+<span>
+</h5>
+</hgroup>
+<hr class=sep>
+</header>
+<h2 id=表碎片的来源>表碎片的来源</h2>
+<p>当针对一个表的删除操作很多时，表会产生大量碎片。删除操作释放的空间不会被插入操作立即重用，甚至永远也不会被重用。</p>
+<h2 id=怎样确定是否有表碎片>怎样确定是否有表碎片</h2>
+<pre><code>-- 收集表统计信息
+SQL&gt; exec dbms_stats.gather_table_stats(ownname=&gt;'SCHEMA_NAME',tabname=&gt; 'TABLE_NAME');
+
+-- 确定碎片程度
+SQL&gt; SELECT table_name, ROUND ((blocks * 8), 2) &quot;高水位空间 k&quot;,
+   ROUND ((num_rows * avg_row_len / 1024), 2) &quot;真实使用空间 k&quot;,
+   ROUND ((blocks * 10 / 100) * 8, 2) &quot;预留空间(pctfree) k&quot;,
+   ROUND ((  blocks * 8
+           - (num_rows * avg_row_len / 1024)
+           - blocks * 8 * 10 / 100
+          ),
+          2
+         ) &quot;浪费空间 k&quot;
+  FROM dba_tables
+  WHERE table_name = 'TABLE_NAME';
+</code></pre>
+<p>或者使用如下<a href=https://gist.github.com/c771b0eca31bce66f785>gist</a>中的脚本找出某个 Schema 中表碎片超过25%的表。使用此脚本前，先确定 Schema 中表统计信息收集完整。</p>
+<pre><code>-- 查看表上次收集统计信息时间
+select table_name,last_analyzed from dba_tables where owner = 'SCHEMA_NAME'
+
+-- 收集整个 Schema 中对象的统计信息
+SQL&gt; exec dbms_stats.gather_schema_stats(ownname=&gt;'SCHEMA_NAME');
+</code></pre>
+<h2 id=为什么要整理表碎片>为什么要整理表碎片</h2>
+<p>Oracle 对数据段的管理有一个高水位(HWM, High Water Mark)的概念。高水位是数据段中使用过和未使用过的数据块的分界线。高水位以下的数据块是曾使用过的，以上的是从未被使用或初始化过的。</p>
+<p>当 Oracle 进行全表扫描(FTS, Full table scan)的操作时，它会读高水位下的所有数据块。如果高水位下还有很多空闲空间（碎片），读取这些空闲数据块会降低操作的性能。</p>
+<h3 id=行链接和行迁移>行链接和行迁移</h3>
+<ul>
+<li>行链接 Row Chaining：当插入数据量大的行的，如果一个Block不能存放一条
+记录，该记录的一部分会存储到同个Extent中的其他Block，这些block形成一
+个数据块链。</li>
+<li>行迁移 Row Migration：当Update的时候导致记录长度增加了，存储的Block已
+经满了，就会发生行迁移。Oracle会迁移整行数据到一个能够存储下整行数据
+的Block中，迁移的原始指针指向新的存放行数据的Block，ROWID不变。</li>
+</ul>
+<p>当数据行发生链接（chain）或迁移（migrate）时，对其访问将会造成 I/O 性能
+降低，因为Oracle为获取这些数据行的数据，必须访问更多的数据块（data
+block）。</p>
+<h3 id=表碎片导致的问题>表碎片导致的问题</h3>
+<ul>
+<li>查询响应时间(尤其是全表扫描)变慢</li>
+<li>产生大量行迁移</li>
+<li>浪费空间</li>
+</ul>
+<p>整理表碎片对基于索引的查询不会有太大性能提升。</p>
+<h2 id=如何整理表碎片>如何整理表碎片</h2>
+<h3 id=10g之前>10g之前</h3>
+<p>两种方法：</p>
+<ul>
+<li>导出表，删除表，再导入表</li>
+<li><code>alter table move</code></li>
+</ul>
+<p>一般选择第二种，需要重建索引。</p>
+<h3 id=10g后>10g后</h3>
+<p>从 10g 开始，提供一个 <code>shrink</code> 命令，需要表空间是基于自动段管理的。</p>
+<p>可以分成两步操作：</p>
+<pre><code>-- 整理表，不影响DML操作
+SQL&gt; alter table TABLE_NAME shrink space compact;
+
+-- 重置高水位，此时不能有DML操作
+SQL&gt; alter table TABLE_NAME shrink space;
+</code></pre>
+<p>也可以一步到位：</p>
+<pre><code>-- 整理表，并重置高水位
+SQL&gt; alter table TABLE_NAME shrink space;
+</code></pre>
+<h3 id=shrink-的优势>shrink 的优势：</h3>
+<ul>
+<li>不需要重建索引。</li>
+<li>可以在线操作。</li>
+<li>不需要空闲空间，<code>alter move</code>需要跟当前表一样大小的空闲空间。</li>
+</ul>
+</article>
+<nav class="no-print post-nav">
+<a class=prev-post href=http://kylexlau.github.io/post/2012/2012-03-13-js-basic/>
+<img class=icon-text src=/img/prev.svg>JavaScript 基本概念</a>
+<a class=next-post href=http://kylexlau.github.io/post/2012/2012-03-15-recent-books/>最近读过和要读的书<img class=icon-text src=/img/next.svg>
+</a>
+</nav>
+<div id=disqus_thread class=no-print></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='xlau',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<hr class=sep>
+</main>
+<footer class="container no-print">
+<div class=u-footer>
+<a href=mailto:kylexlau@gmail.com><img class=icon-social src=/img/email.svg alt="Email Me!"></a>
+<a href=https://github.com/kylexlau/><img class=icon-social src=/img/github.svg alt=Github></a>
+<a href=http://kylexlau.github.io/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a>
+<p>
+Theme used: <a href=https://github.com/yursan9/manis-hugo-theme>Manis</a><br>
+&copy; 2018 kyle x lau
+| <a href=/about/license>License</a>
+</p>
+<a href=#brand>
+<img class=icon-text src=/img/toup.svg alt="To Up">
+<span>Back to Up</span>
+</a>
+</div>
+</footer>
+</body>
+</html>
