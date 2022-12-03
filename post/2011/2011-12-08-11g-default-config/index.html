@@ -1,72 +1,94 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.89.1">
-<title>Oracle 11gR1 默认设置调整 - Kylexlau's Weblog</title>
-<meta name=description content="默认没有设置LOCAL_LISTENER参数 客户端登录会报错，ORA-12545: 因目标主机或对象不存在, 连接失败。有两种解决方法，一是改服务端配置（更好），二是改客户端。
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.89.1" />
+		<title>Oracle 11gR1 默认设置调整 - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="默认没有设置LOCAL_LISTENER参数 客户端登录会报错，ORA-12545: 因目标主机或对象不存在, 连接失败。有两种解决方法，一是改服务端配置（更好），二是改客户端。
 设置 LOCAL_LISTENER 参考 MOS Notes ID 364855.1。
 在两个实例上分别执行：
-SQL> alter system set LOCAL_LISTENER=&#34;(address=(protocol=tcp)(port=1521)(host=<your_vip_node1>)) scope=both sid='INSTANCE_NAME1'; SQL> alter system set LOCAL_LISTENER=&#34;(address=(protocol=tcp)(port=1521)(host=<your_vip_node2>)) scope=both sid='INSTANCE_NAME2';  注意your_vip_node1使用ip，如果使用主机名，还是需要在客户端修改hosts文件。
+SQL&gt; alter system set LOCAL_LISTENER=&quot;(address=(protocol=tcp)(port=1521)(host=&lt;your_vip_node1&gt;)) scope=both sid=&#39;INSTANCE_NAME1&#39;; SQL&gt; alter system set LOCAL_LISTENER=&quot;(address=(protocol=tcp)(port=1521)(host=&lt;your_vip_node2&gt;)) scope=both sid=&#39;INSTANCE_NAME2&#39;;  注意your_vip_node1使用ip，如果使用主机名，还是需要在客户端修改hosts文件。
 修改客户端hosts文件 添加类似:
 172.25.198.224 racnode1-vip 172.25.198.225 racnode2-vip  默认使用ADR管理日志和跟踪文件 ADR(Automatic Diagnostic Repository)是自动诊断信息库，11g新特性，用来统一管理Oracle相关的所有日志和跟踪文件。
 由于监听相关的日志现在也由ADR统一管理了，导致alert log里会大量出现TNS-12535: TNS:operation timed out的报错信息。 11g之前，这类报错是写在sqlnet.log里的。
 如果不想看到alert log里报错太多，可以将监听相关的日志改为11g前的记录方式：
  修改sqlnet.ora，添加： DIAG_ADR_ENABLED = OFF 修改listener.ora，添加： DIAG_ADR_ENABLED_= OFF 重启或reload监听。  这个其实不需要改，只需忽略TNS类的报错就是。改了，监听相关的故障就不能通过adrci工具来诊断了。
 默认密码策略 默认一个用户10次登录失败，会锁定用户。如果某用户不停使用错误密码登录数据 库，会导致用户被锁定，使得业务受影响。应修改此策略为不限制。
-SQL> alter profile default FAILED_LOGIN_ATTEMPTS unlimited;  默认一个用户密码如果超过180天不更改，也会锁定用户。如果你的DB密码不能经 常修改的话，此策略也应修改。">
-<link rel=stylesheet href=/css/ui.css>
-<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
-</head>
+SQL&gt; alter profile default FAILED_LOGIN_ATTEMPTS unlimited;  默认一个用户密码如果超过180天不更改，也会锁定用户。如果你的DB密码不能经 常修改的话，此策略也应修改。">
+
+
+		
+	
+		
+
+
+
+
+<link rel="stylesheet" href="/css/ui.css">
+
+	
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+	</head>
+
 <body>
 <header class="container no-print">
-<div class=u-header>
-<nav class=bar>
-<ul><li>
-<a href=/>
-<img class=icon-text src=/img/prev.svg>
-</a>
-</li><li><a href=/about/>About</a></li><li><a href=/post/>Archive</a></li></ul>
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li></ul>
 </nav>
-</div>
+
+	</div>
 </header>
-<main class=container>
+<main class="container">
+
 <article>
-<header><hgroup id=brand>
-<h1>Oracle 11gR1 默认设置调整</h1>
-<h5>
-<time datetime="2011-12-08 00:00:00 +0000 UTC">Dec 08, 2011</time>
-<span class=no-print>
-<span>
-</h5>
+	<header><hgroup id="brand">
+	<h1>Oracle 11gR1 默认设置调整</h1>
+	<h5>
+		
+		<time datetime="2011-12-08 00:00:00 &#43;0000 UTC">Dec 08, 2011</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
 </hgroup>
-<hr class=sep>
+<hr class="sep" />
 </header>
-<h2 id=默认没有设置local_listener参数>默认没有设置LOCAL_LISTENER参数</h2>
+	<h2 id="默认没有设置local_listener参数">默认没有设置LOCAL_LISTENER参数</h2>
 <p>客户端登录会报错，ORA-12545: 因目标主机或对象不存在, 连接失败。有两种解决方法，一是改服务端配置（更好），二是改客户端。</p>
-<h3 id=设置-local_listener>设置 LOCAL_LISTENER</h3>
+<h3 id="设置-local_listener">设置 LOCAL_LISTENER</h3>
 <p>参考 MOS Notes ID 364855.1。</p>
 <p>在两个实例上分别执行：</p>
 <pre><code>SQL&gt; alter system set LOCAL_LISTENER=&quot;(address=(protocol=tcp)(port=1521)(host=&lt;your_vip_node1&gt;)) scope=both sid='INSTANCE_NAME1';
 SQL&gt; alter system set LOCAL_LISTENER=&quot;(address=(protocol=tcp)(port=1521)(host=&lt;your_vip_node2&gt;)) scope=both sid='INSTANCE_NAME2';
 </code></pre>
 <p>注意your_vip_node1使用ip，如果使用主机名，还是需要在客户端修改hosts文件。</p>
-<h3 id=修改客户端hosts文件>修改客户端hosts文件</h3>
+<h3 id="修改客户端hosts文件">修改客户端hosts文件</h3>
 <p>添加类似:</p>
 <pre><code>172.25.198.224 racnode1-vip
 172.25.198.225 racnode2-vip
 </code></pre>
-<h2 id=默认使用adr管理日志和跟踪文件>默认使用ADR管理日志和跟踪文件</h2>
+<h2 id="默认使用adr管理日志和跟踪文件">默认使用ADR管理日志和跟踪文件</h2>
 <p>ADR(Automatic Diagnostic Repository)是自动诊断信息库，11g新特性，用来统一管理Oracle相关的所有日志和跟踪文件。</p>
 <p>由于监听相关的日志现在也由ADR统一管理了，导致alert log里会大量出现<code>TNS-12535: TNS:operation timed out</code>的报错信息。 11g之前，这类报错是写在sqlnet.log里的。</p>
 <p>如果不想看到alert log里报错太多，可以将监听相关的日志改为11g前的记录方式：</p>
 <ol>
 <li>修改sqlnet.ora，添加： DIAG_ADR_ENABLED = OFF</li>
-<li>修改listener.ora，添加： DIAG_ADR_ENABLED_ = OFF</li>
+<li>修改listener.ora，添加： DIAG_ADR_ENABLED_<!-- raw HTML omitted --> = OFF</li>
 <li>重启或reload监听。</li>
 </ol>
 <p>这个其实不需要改，只需忽略TNS类的报错就是。改了，监听相关的故障就不能通过adrci工具来诊断了。</p>
-<h2 id=默认密码策略>默认密码策略</h2>
+<h2 id="默认密码策略">默认密码策略</h2>
 <p>默认一个用户10次登录失败，会锁定用户。如果某用户不停使用错误密码登录数据
 库，会导致用户被锁定，使得业务受影响。应修改此策略为不限制。</p>
 <pre><code>SQL&gt; alter profile default FAILED_LOGIN_ATTEMPTS unlimited;
@@ -75,7 +97,7 @@ SQL&gt; alter system set LOCAL_LISTENER=&quot;(address=(protocol=tcp)(port=1521)
 常修改的话，此策略也应修改。</p>
 <pre><code>SQL&gt; alter profile default PASSWORD_LIFE_TIME unlimited;
 </code></pre>
-<h2 id=默认审计设置>默认审计设置</h2>
+<h2 id="默认审计设置">默认审计设置</h2>
 <p>在Oracle 11g中，审计功能（AUDIT_TRAIL）是默认开启的。审计数据记录在数据
 库中的SYS.AUD$表上。11g以前的版本中，审计默认是关闭的。</p>
 <p>如果你发现AUD$这个表比较大了，检查下是哪种审计占的空间：</p>
@@ -88,10 +110,10 @@ SQL&gt; alter system set LOCAL_LISTENER=&quot;(address=(protocol=tcp)(port=1521)
 登录特别频繁的用户的审计，比如DBSNMP用户：</p>
 <pre><code>SQL&gt; noaudit session by dbsnmp;
 </code></pre>
-<h2 id=默认维护窗口>默认维护窗口</h2>
+<h2 id="默认维护窗口">默认维护窗口</h2>
 <p>默认的维护窗口平时是22:00开始，持续4小时，周末6:00开始，持续20小时。</p>
 <p>根据需要进行修改，比如7x24的系统，可以将维护窗口修改为每天0:00开始，持续4小时，周末也一样。</p>
-<h2 id=参考>参考</h2>
+<h2 id="参考">参考</h2>
 <ul>
 <li>Client Connection to RAC Intermittently Fails-ORA-12545 TNS: Host or
 Object Does not Exist (Doc ID 364855.1)</li>
@@ -102,30 +124,57 @@ Oracle Net for 11g (Doc ID 454927.1)</li>
 <li>Huge/Large/Excessive Number Of Audit Records Are Being Generated In
 The Database (Doc ID 1171314.1)</li>
 </ul>
+
 </article>
 <nav class="no-print post-nav">
-<a class=prev-post href=http://kylexlau.github.io/post/2011/2011-11-21-markdown/>
-<img class=icon-text src=/img/prev.svg>Markdown 标记语言指南</a>
-<a class=next-post href=http://kylexlau.github.io/post/2011/2011-12-10-rac-password-file/>Oracle RAC 共享密码文件<img class=icon-text src=/img/next.svg>
-</a>
+
+	<a class="prev-post" href="http://kylexlau.github.io/post/2011/2011-11-21-markdown/">
+		<img class="icon-text" src="/img/prev.svg"/>Markdown 标记语言指南</a>
+
+
+	<a class="next-post" href="http://kylexlau.github.io/post/2011/2011-12-10-rac-password-file/">Oracle RAC 共享密码文件<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
 </nav>
-<hr class=sep>
-</main>
-<footer class="container no-print">
-<div class=u-footer>
-<a href=mailto:kylexlau@gmail.com><img class=icon-social src=/img/email.svg alt="Email Me!"></a>
-<a href=https://github.com/kylexlau/><img class=icon-social src=/img/github.svg alt=Github></a>
-<a href=http://kylexlau.github.io/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a>
-<p>
-Theme used: <a href=https://github.com/yursan9/manis-hugo-theme>Manis</a><br>
-&copy; 2021 kyle lau
-| <a href=/about/license>License</a>
-</p>
-<a href=#brand>
-<img class=icon-text src=/img/toup.svg alt="To Up">
-<span>Back to Up</span>
-</a>
-</div>
-</footer>
-</body>
+
+
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://kylexlau.github.io/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2021 kyle lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
 </html>
+

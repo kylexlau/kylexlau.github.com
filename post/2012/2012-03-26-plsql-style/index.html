@@ -1,54 +1,76 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.89.1">
-<title>PL/SQL 代码规范 - Kylexlau's Weblog</title>
-<meta name=description content="来自 Oracle PL/SQL by Examples 4th Edition 附录一中的 PL/SQL 代码格式指南。
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.89.1" />
+		<title>PL/SQL 代码规范 - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="来自 Oracle PL/SQL by Examples 4th Edition 附录一中的 PL/SQL 代码格式指南。
 大小写  关键字(BEGIN,END)，数据类型(NUMBER VARCHAR2)，内置函数(TO_CHAR,SUBSTR)，用户自定义存储过程、函数和包，这些对象名称使用大写。 变量名、表名、列名，使用小写。  空格  等于号和比较操作符两边加空格。 结构关键字（BEGIN and END, IF and END, LOOP and END LOOP)左边对齐。 结构内的语句缩进3个空格。 代码段之间留空行。  命名规范 为防止名字冲突，最好采用以下命名规范：
  变量：v_variable_name 常量：con_constant_name 参数：i_in_parameter_name, o_out_parameter_name and io_in_out_parameter_name. 游标：c_cursor_name or name_cur 引用游标：rc_reference_cursor_name 记录：r_record_name or name_rec 遍历游标：FOR r_stud IN c_stud LOOP or FOR stud_rec IN stud_cur LOOP 用户定义类型：type_name or name_type PL/SQL表（类似数组）：t_table or name_tab 用户定义异常：e_exception_name  包、存储过程和函数的命名实例：
  描述包中存储过程和函数的作用：student_admin 描述存储过程所执行的操作：remove_student 描述函数返回变量：student_enroll_count  注释 使用--，不要用/*.">
-<link rel=stylesheet href=/css/ui.css>
-<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
-</head>
+
+
+		
+	
+		
+
+
+
+
+<link rel="stylesheet" href="/css/ui.css">
+
+	
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+	</head>
+
 <body>
 <header class="container no-print">
-<div class=u-header>
-<nav class=bar>
-<ul><li>
-<a href=/>
-<img class=icon-text src=/img/prev.svg>
-</a>
-</li><li><a href=/about/>About</a></li><li><a href=/post/>Archive</a></li></ul>
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li></ul>
 </nav>
-</div>
+
+	</div>
 </header>
-<main class=container>
+<main class="container">
+
 <article>
-<header><hgroup id=brand>
-<h1>PL/SQL 代码规范</h1>
-<h5>
-<time datetime="2012-03-26 00:00:00 +0000 UTC">Mar 26, 2012</time>
-<span class=no-print>
-<span>
-</h5>
+	<header><hgroup id="brand">
+	<h1>PL/SQL 代码规范</h1>
+	<h5>
+		
+		<time datetime="2012-03-26 00:00:00 &#43;0000 UTC">Mar 26, 2012</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
 </hgroup>
-<hr class=sep>
+<hr class="sep" />
 </header>
-<p>来自 <em>Oracle PL/SQL by Examples 4th Edition</em> 附录一中的 PL/SQL 代码格式指南。</p>
-<h2 id=大小写>大小写</h2>
+	<p>来自 <em>Oracle PL/SQL by Examples 4th Edition</em> 附录一中的 PL/SQL 代码格式指南。</p>
+<h2 id="大小写">大小写</h2>
 <ul>
 <li>关键字(BEGIN,END)，数据类型(NUMBER VARCHAR2)，内置函数(TO_CHAR,SUBSTR)，用户自定义存储过程、函数和包，这些对象名称使用大写。</li>
 <li>变量名、表名、列名，使用小写。</li>
 </ul>
-<h2 id=空格>空格</h2>
+<h2 id="空格">空格</h2>
 <ul>
 <li>等于号和比较操作符两边加空格。</li>
 <li>结构关键字（BEGIN and END, IF and END, LOOP and END LOOP)左边对齐。</li>
 <li>结构内的语句缩进3个空格。</li>
 <li>代码段之间留空行。</li>
 </ul>
-<h2 id=命名规范>命名规范</h2>
+<h2 id="命名规范">命名规范</h2>
 <p>为防止名字冲突，最好采用以下命名规范：</p>
 <ul>
 <li>变量：<code>v_variable_name</code></li>
@@ -68,34 +90,61 @@
 <li>描述存储过程所执行的操作：<code>remove_student</code></li>
 <li>描述函数返回变量：<code>student_enroll_count</code></li>
 </ul>
-<h2 id=注释>注释</h2>
+<h2 id="注释">注释</h2>
 <p>使用<code>--</code>，不要用<code>/*...*/</code>。</p>
-<h2 id=其他建议>其他建议</h2>
+<h2 id="其他建议">其他建议</h2>
 <p>为代码段写注释，解释此段代码的目的，并列出一些基本信息，比如作者名、创建时间、修改时间、版本和版本描述。</p>
+
 </article>
 <nav class="no-print post-nav">
-<a class=prev-post href=http://kylexlau.github.io/post/2012/2012-03-15-recent-books/>
-<img class=icon-text src=/img/prev.svg>最近读过和要读的书</a>
-<a class=next-post href=http://kylexlau.github.io/post/2012/2012-04-13-linux-sar/>Linux 下使用 Sar 简介<img class=icon-text src=/img/next.svg>
-</a>
+
+	<a class="prev-post" href="http://kylexlau.github.io/post/2012/2012-03-15-recent-books/">
+		<img class="icon-text" src="/img/prev.svg"/>最近读过和要读的书</a>
+
+
+	<a class="next-post" href="http://kylexlau.github.io/post/2012/2012-04-13-linux-sar/">Linux 下使用 Sar 简介<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
 </nav>
-<hr class=sep>
-</main>
-<footer class="container no-print">
-<div class=u-footer>
-<a href=mailto:kylexlau@gmail.com><img class=icon-social src=/img/email.svg alt="Email Me!"></a>
-<a href=https://github.com/kylexlau/><img class=icon-social src=/img/github.svg alt=Github></a>
-<a href=http://kylexlau.github.io/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a>
-<p>
-Theme used: <a href=https://github.com/yursan9/manis-hugo-theme>Manis</a><br>
-&copy; 2021 kyle lau
-| <a href=/about/license>License</a>
-</p>
-<a href=#brand>
-<img class=icon-text src=/img/toup.svg alt="To Up">
-<span>Back to Up</span>
-</a>
-</div>
-</footer>
-</body>
+
+
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://kylexlau.github.io/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2021 kyle lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
 </html>
+

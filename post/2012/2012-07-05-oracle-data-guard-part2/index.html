@@ -1,52 +1,74 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.89.1">
-<title>Oracle 11g Data Guard 物理备库快速配置指南（下） - Kylexlau's Weblog</title>
-<meta name=description content="第二部分 作者介绍 作者 Jed Walker 是科罗拉多 Centennial Comcast 媒体中心的数据操作经理(Manager of Databse Operation)。他从1997年开始做 Oracle 数据库相关工作，是9i, 10g和11g的OCP。
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.89.1" />
+		<title>Oracle 11g Data Guard 物理备库快速配置指南（下） - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="第二部分 作者介绍 作者 Jed Walker 是科罗拉多 Centennial Comcast 媒体中心的数据操作经理(Manager of Databse Operation)。他从1997年开始做 Oracle 数据库相关工作，是9i, 10g和11g的OCP。
 简介 本文的第一部分讲解了如何配置一个基本的 Data Guard 环境。在第二部分里，我将介绍主备切换、故障转移(数据库和客户端）等其他主题。
 回顾 在本文第一部分中，我们配置了一个物理备库。在这第二部分中，我将介绍主备切换(Switchover)，故障转移(Failover)，客户端故障转移(Client Failover)，使用闪回数据库重建库，活动数据卫士(Active Data Guard)，还讨论了一点备份。
 故障转移配置 现在你已经配好了一个物理备库，你可能想试试主备切换(switchover)，甚至故障转移(failover)，但你先得确定客户端会跟着切换和转移。我们需要配置数据库和客户端来支持这些功能。要确定你的客户端能连接到正确的数据库，你要在数据库里配置一个支持故障转移的服务，并配置客户端的 TNS，让它知道如何在一个 Data Guard 集群里找到主库。
 首先，创建一个支持故障转移的服务。我们要创建此服务，确定它在主库上启动，并确定它只在主库上启动。创建服务使用如下 SQL：
-begin DBMS_SERVICE.CREATE_SERVICE ( service_name => 'JED_RW', network_name => 'JED_RW', aq_ha_notifications => TRUE, failover_method => 'BASIC', failover_type => 'SELECT', failover_retries => 30, failover_delay => 5); end; /  此服务在数据库出现故障时会发送通知给客户端，允许查询语句在故障转移发生后继续运行。我使用命名 SID_RW 显示这时一个可读写的数据库（主库）。
+begin DBMS_SERVICE.CREATE_SERVICE ( service_name =&gt; &#39;JED_RW&#39;, network_name =&gt; &#39;JED_RW&#39;, aq_ha_notifications =&gt; TRUE, failover_method =&gt; &#39;BASIC&#39;, failover_type =&gt; &#39;SELECT&#39;, failover_retries =&gt; 30, failover_delay =&gt; 5); end; /  此服务在数据库出现故障时会发送通知给客户端，允许查询语句在故障转移发生后继续运行。我使用命名 SID_RW 显示这时一个可读写的数据库（主库）。
 下一步是确定新创建的服务永远只在主库运行。我们创建一个存储过程来实现此目的，如果当前数据库是主库它就启动此服务，如果是备库就停止。
-create or replace procedure cmc_taf_service_proc is v_role VARCHAR(30); begin select DATABASE_ROLE into v_role from V$DATABASE; if v_role = 'PRIMARY' then DBMS_SERVICE.">
-<link rel=stylesheet href=/css/ui.css>
-<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
-</head>
+create or replace procedure cmc_taf_service_proc is v_role VARCHAR(30); begin select DATABASE_ROLE into v_role from V$DATABASE; if v_role = &#39;PRIMARY&#39; then DBMS_SERVICE.">
+
+
+		
+	
+		
+
+
+
+
+<link rel="stylesheet" href="/css/ui.css">
+
+	
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+	</head>
+
 <body>
 <header class="container no-print">
-<div class=u-header>
-<nav class=bar>
-<ul><li>
-<a href=/>
-<img class=icon-text src=/img/prev.svg>
-</a>
-</li><li><a href=/about/>About</a></li><li><a href=/post/>Archive</a></li></ul>
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li></ul>
 </nav>
-</div>
+
+	</div>
 </header>
-<main class=container>
+<main class="container">
+
 <article>
-<header><hgroup id=brand>
-<h1>Oracle 11g Data Guard 物理备库快速配置指南（下）</h1>
-<h5>
-<time datetime="2012-07-05 00:00:00 +0000 UTC">Jul 05, 2012</time>
-<span class=no-print>
-<span>
-</h5>
+	<header><hgroup id="brand">
+	<h1>Oracle 11g Data Guard 物理备库快速配置指南（下）</h1>
+	<h5>
+		
+		<time datetime="2012-07-05 00:00:00 &#43;0000 UTC">Jul 05, 2012</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
 </hgroup>
-<hr class=sep>
+<hr class="sep" />
 </header>
-<h2 id=第二部分>第二部分</h2>
-<h3 id=作者介绍>作者介绍</h3>
+	<h2 id="第二部分">第二部分</h2>
+<h3 id="作者介绍">作者介绍</h3>
 <p>作者 Jed Walker 是科罗拉多 Centennial Comcast 媒体中心的数据操作经理(Manager of Databse Operation)。他从1997年开始做 Oracle 数据库相关工作，是9i, 10g和11g的OCP。</p>
-<h3 id=简介>简介</h3>
+<h3 id="简介">简介</h3>
 <p>本文的第一部分讲解了如何配置一个基本的 Data Guard 环境。在第二部分里，我将介绍主备切换、故障转移(数据库和客户端）等其他主题。</p>
-<h3 id=回顾>回顾</h3>
+<h3 id="回顾">回顾</h3>
 <p>在本文第一部分中，我们配置了一个物理备库。在这第二部分中，我将介绍主备切换(Switchover)，故障转移(Failover)，客户端故障转移(Client Failover)，使用闪回数据库重建库，活动数据卫士(Active Data Guard)，还讨论了一点备份。</p>
-<h3 id=故障转移配置>故障转移配置</h3>
+<h3 id="故障转移配置">故障转移配置</h3>
 <p>现在你已经配好了一个物理备库，你可能想试试主备切换(switchover)，甚至故障转移(failover)，但你先得确定客户端会跟着切换和转移。我们需要配置数据库和客户端来支持这些功能。要确定你的客户端能连接到正确的数据库，你要在数据库里配置一个支持故障转移的服务，并配置客户端的 TNS，让它知道如何在一个 Data Guard 集群里找到主库。</p>
 <p>首先，创建一个支持故障转移的服务。我们要创建此服务，确定它在主库上启动，并确定它只在主库上启动。创建服务使用如下 SQL：</p>
 <pre><code>begin
@@ -124,7 +146,7 @@ service_names    string      JED_RW
   )
 </code></pre>
 <p>当你的客户端使用新 TNS 名后，它们能在主备切换和故障转移操作后找到主库。如果客户端在运行一个查询，并且没有 <code>DML</code> 是在一个交易中，那在发生切换操作后，只要主备转换和故障转移在超过最大重试次数前完成，这个查询会继续工作，只是会有延迟。你应该多做几次切换实验，以确定 <code>RETRIES</code> 和 <code>DELAY</code> 参数如何设置合适。如果有一个正在进行中的交易，当客户端连接到新的主库后，查询将报错（`ORA-25403: transaction must roll back），并回滚。</p>
-<h3 id=进行主备切换switchover>进行主备切换(Switchover)</h3>
+<h3 id="进行主备切换switchover">进行主备切换(Switchover)</h3>
 <p>现在你准备好做一次主备切换了，做之前先做些检查。首先在主库确认没有日志缺口：</p>
 <pre><code>SQL&gt; select STATUS, GAP_STATUS from V$ARCHIVE_DEST_STATUS where DEST_ID = 2;
 </code></pre>
@@ -157,10 +179,10 @@ SQL&gt; alter database open;
 <pre><code>SQL&gt; alter database recover managed standby database using current logfile
 </code></pre>
 <p>disconnect from session;</p>
-<h3 id=进行故障转移failover>进行故障转移(Failover)</h3>
+<h3 id="进行故障转移failover">进行故障转移(Failover)</h3>
 <p>故障转移，一般用在主库发生故障后需要恢复服务的情况下。故障转移将备库转换为主库，但不把原主库（有故障，无法正常工作）切换为备库。当故障转移发生后，你必须重建主库，或者使用闪回数据库功能将主库回退到故障发生前，然后转换其为备库并启用日志应用。</p>
 <p>我将故障转移分为三类：优雅、几乎优雅和标准。分类标准是主库故障的严重程度。故障转移不会是优雅的，但是你对故障的应对可以是优雅的。注意这些分类不是 Oracle 的官方分类，我个人创造这些分类用来代表故障转移的三个不同阶段。</p>
-<h4 id=优雅的故障转移>优雅的故障转移</h4>
+<h4 id="优雅的故障转移">优雅的故障转移</h4>
 <p>如果当前备库是处于最大保护（maximum protection）模式，要进行故障转移，必须先修改为最大性能（maximum performance）模式。修改方法：</p>
 <pre><code>SQL&gt; alter database set standby database to maximize performance;
 </code></pre>
@@ -169,7 +191,7 @@ SQL&gt; alter database open;
 SQL&gt; alter system flush redo to 'JED';
 </code></pre>
 <p>如果以上命令正常，日志已经传输到备库，我们需要在备库上应用它们。在下一节里，我们要确认所有重做日志是否都传输到了备库。</p>
-<h4 id=几乎优雅的故障转移>几乎优雅的故障转移</h4>
+<h4 id="几乎优雅的故障转移">几乎优雅的故障转移</h4>
 <p>为了尽可能少的丢失数据，你应该尝试将所有归档日志应用。你应该将主库上的所有归档日志复制到备库。可能有一些归档日志已经在备库存在，但这样你能有尽可能多的归档日志。然后你要解决备库中的任何日志缺口。</p>
 <p>首先，复制所有主库的归档到备库，并在数据库中注册它们：</p>
 <pre><code>SQL&gt; alter database register physical logfile '&amp;logfile_path_name';
@@ -178,7 +200,7 @@ SQL&gt; alter system flush redo to 'JED';
 <pre><code>SQL&gt; select THREAD#, LOW_SEQUENCE#, HIGH_SEQUENCE# from V$ARCHIVE_GAP;
 </code></pre>
 <p>如果有缺口存在，而主库上还有此日志文件，复制过来并注册。</p>
-<h4 id=标准故障转移>标准故障转移</h4>
+<h4 id="标准故障转移">标准故障转移</h4>
 <p>在备库停止日志应用：</p>
 <pre><code>SQL&gt; ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL;
 </code></pre>
@@ -195,7 +217,7 @@ SQL&gt; alter system flush redo to 'JED';
 SQL&gt; alter database open;
 </code></pre>
 <p>如果你有不止一个备库，你需要在其他备库上重启日志应用。下一步是重建原主库。如果配置了闪回数据库，重建会比较容易。</p>
-<h3 id=使用闪回数据库重建库>使用闪回数据库重建库</h3>
+<h3 id="使用闪回数据库重建库">使用闪回数据库重建库</h3>
 <p>现在你已经进行了故障转移，原主库需要重建为备库。使用闪回数据库重建原主库，首先需要获得原备库转换为主库时的 <code>SCN</code>。查询现主库：</p>
 <pre><code>SQL&gt; SELECT to_char(STANDBY_BECAME_PRIMARY_SCN) from V$DATABASE;
 </code></pre>
@@ -212,7 +234,7 @@ SQL&gt; STARTUP MOUNT;
 SQL&gt; ALTER DATABASE RECOVER MANAGED STANDBY DATABASE USING CURRENT LOGFILE DISCONNECT FROM SESSION;
 </code></pre>
 <p>然后就可以在新主库切换一次日志，查看新备库的日志应用是否正常，具体命令在本文第一部分。</p>
-<h3 id=客户端故障转移>客户端故障转移</h3>
+<h3 id="客户端故障转移">客户端故障转移</h3>
 <p>我很喜欢的一个功能是，当主备切换或故障转移发生后，客户端能够自动重连。在你的系统里，做下述实验，看结果如何。<code>JED</code> 是主库，<code>JED2</code> 是备库。客户端使用支持故障转移的 <code>JED_RW</code> 服务名。</p>
 <p>首先，用 SYSTEM 用户和 <code>JED_RW</code> 服务名在 <code>SQL*Plus</code> 里登录主库：</p>
 <pre><code>SQL&gt; connect system@jed_rw
@@ -223,7 +245,7 @@ SQL&gt; select db_unique_name from v$database;
 </code></pre>
 <p>这时查询应该挂住，这是因为客户端正在尝试寻找主库，但当前又没有可用的主库。然后继续完成主备切换。</p>
 <p>当主备切换完成后，客户端应该会重连并重新执行查询，查询完成后成功返回结果 <code>JED2</code>，因为现在主库已经切换为 <code>JED2</code>，不再是 <code>JED</code>。另一个很酷的测试方法是，执行一个执行时间非常长的查询，当查询结果返回，屏幕一直滚动时开始主备切换。你应该会看到屏幕暂停滚动一段时间，当切换完成后，又会继续滚动。</p>
-<h3 id=活动数据卫士active-data-guard>活动数据卫士(Active Data Guard)</h3>
+<h3 id="活动数据卫士active-data-guard">活动数据卫士(Active Data Guard)</h3>
 <p>警告！活动数据卫士功能需要单独的授权。虽然打开此功能很容易，如果没有授权，你不应该使用它。</p>
 <p>活动数据卫士是 11g 的新功能，它允许你的物理备库在应用日志时处于只读打开状态。这明显是一个很有用的功能。能够允许主库有一个物理备库作为备份，并能在保持备库数据更新的同时读取备库，这是一个很好的功能。Oracle 也知道，所以这个功能需要单独买授权。</p>
 <p>开启活动数据卫士功能十分容易。你只需要打开在你的数据库后再启动日志应用：</p>
@@ -273,7 +295,7 @@ end;
 /
 </code></pre>
 <p>现在你有了一个活动数据卫士的配置，你的客户端能连接到合适的数据库实例，并可以在出现主备切换和故障转移时自动重连。</p>
-<h3 id=备份>备份</h3>
+<h3 id="备份">备份</h3>
 <p>最后，如果不讨论下备份，那对 <code>Data Guard</code> 的介绍还不算完整。<code>Data Guard</code> 实质上就是也是备份，但这不意味着你就不需要 <code>RMAN</code> 备份了。你已经花时间去启用了强制记录日志，那你也应该做点备份。</p>
 <p>有了 <code>Data Guard</code>，你的 <code>RMAN</code> 备份在主库或者备库都可以执行。但既然你已经配置了物理备库，你应该减轻点主库的负载。基本上，能在主库执行的标准的备份命令或脚本，也能在备库执行，但也有几个值得注意地方。这些 Oracle 官方文档都有，我只提几个关键的事情：</p>
 <ul>
@@ -318,32 +340,59 @@ RMAN&gt; CONFIGURE DB_UNIQUE_NAME P11AC CONNECT IDENTIFIER 'JED2';
 }
 </code></pre>
 <p>另外一个有用的技巧是，如果可能，使用共享文件系统进行备份。这样你在两台服务器上都可以访问备份文件。这样，当你需要恢复时，你不需要从另一台服务器上复制文件了。但如果使用共享文件系统的话，你的归档备份虽然有两份，却都放在一个文件系统里，如果硬盘出现故障，两份备份都会丢失。</p>
-<h3 id=总结>总结</h3>
+<h3 id="总结">总结</h3>
 <p>Oracle 11g 的 <code>Data Guard</code> 是一个很好的功能，配置起来相对容易，提供了在主库异常时故障转移的功能。它也能将主备的备份操作转移到备库执行，减轻主备负载。另外，<code>Data Guard Broker</code> 是一个宣称能简化管理的工具，但介绍这个工具就得需要另外一篇文章了。</p>
+
 </article>
 <nav class="no-print post-nav">
-<a class=prev-post href=http://kylexlau.github.io/post/2012/2012-06-26-oracle-data-guard-part1/>
-<img class=icon-text src=/img/prev.svg>Oracle 11g Data Guard 物理备库快速配置指南（上）</a>
-<a class=next-post href=http://kylexlau.github.io/post/2013/2013-08-26-aix-large-pages/>Oracle 数据库在 AIX 平台上启用大内存页<img class=icon-text src=/img/next.svg>
-</a>
+
+	<a class="prev-post" href="http://kylexlau.github.io/post/2012/2012-06-26-oracle-data-guard-part1/">
+		<img class="icon-text" src="/img/prev.svg"/>Oracle 11g Data Guard 物理备库快速配置指南（上）</a>
+
+
+	<a class="next-post" href="http://kylexlau.github.io/post/2013/2013-08-26-aix-large-pages/">Oracle 数据库在 AIX 平台上启用大内存页<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
 </nav>
-<hr class=sep>
-</main>
-<footer class="container no-print">
-<div class=u-footer>
-<a href=mailto:kylexlau@gmail.com><img class=icon-social src=/img/email.svg alt="Email Me!"></a>
-<a href=https://github.com/kylexlau/><img class=icon-social src=/img/github.svg alt=Github></a>
-<a href=http://kylexlau.github.io/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a>
-<p>
-Theme used: <a href=https://github.com/yursan9/manis-hugo-theme>Manis</a><br>
-&copy; 2021 kyle lau
-| <a href=/about/license>License</a>
-</p>
-<a href=#brand>
-<img class=icon-text src=/img/toup.svg alt="To Up">
-<span>Back to Up</span>
-</a>
-</div>
-</footer>
-</body>
+
+
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://kylexlau.github.io/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2021 kyle lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
 </html>
+

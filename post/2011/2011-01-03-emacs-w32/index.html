@@ -1,86 +1,139 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.89.1">
-<title>在Windows下使用Emacs的技巧 - Kylexlau's Weblog</title>
-<meta name=description content="加一个&#34;Open In Emacs&#34;选项 如果开了 Emacs Server mode，就用 emacsclientw.exe。如果没有开 Emacs Server mode，或者没有开 Emacs，就用 runemacs.exe 重新打开一个。
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.89.1" />
+		<title>在Windows下使用Emacs的技巧 - Kylexlau&#39;s Weblog</title>
+
+		<meta name="description" content="加一个&quot;Open In Emacs&quot;选项 如果开了 Emacs Server mode，就用 emacsclientw.exe。如果没有开 Emacs Server mode，或者没有开 Emacs，就用 runemacs.exe 重新打开一个。
 将 Caps Lock 键改成 Ctrl 键 Google 新推出的 Cr-48 上网本，也是没有 Caps Lock 键的。Caps Lock 键换成搜索键了。我也觉得这个键是没有必要的。如果你需要打大写字母，按住 Shift 键就够了。
 以前我都是把 Ctrl 键和 Caps Lock 键互换，这次将 Caps Lock 键改成 Ctrl 键，Ctrl 键还是 Ctrl 键。
 设置拼写检查 首先安装 aspell，下载地址在http://aspell.net/win32/。注意还要安装字典文件，不然 aspell 是没法用的。
-(setq-default ispell-program-name &#34;D:\\Program Files\\Aspell\\bin\\aspell.exe&#34;) (setq text-mode-hook '(lambda() (flyspell-mode t) )) 参考 并不是翻译，只是参考。
+(setq-default ispell-program-name &#34;D:\\Program Files\\Aspell\\bin\\aspell.exe&#34;) (setq text-mode-hook &#39;(lambda() (flyspell-mode t) )) 参考 并不是翻译，只是参考。
  http://www.arunrocks.com/blog/archives/2008/02/20/5-indespensible-tips-for-emacs-on-windows/ http://www.wired.com/gadgetlab/2010/12/googles-gorgeous-cr-48-notebook-ditches-caps-lock/ http://www.gnu.org/software/emacs/windows/big.html#Text-and-Utility-modes http://aspell.net/win32/  ">
-<link rel=stylesheet href=/css/ui.css>
-<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
-</head>
+
+
+		
+	
+		
+
+
+
+
+<link rel="stylesheet" href="/css/ui.css">
+
+	
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+	</head>
+
 <body>
 <header class="container no-print">
-<div class=u-header>
-<nav class=bar>
-<ul><li>
-<a href=/>
-<img class=icon-text src=/img/prev.svg>
-</a>
-</li><li><a href=/about/>About</a></li><li><a href=/post/>Archive</a></li></ul>
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li></ul>
 </nav>
-</div>
+
+	</div>
 </header>
-<main class=container>
+<main class="container">
+
 <article>
-<header><hgroup id=brand>
-<h1>在Windows下使用Emacs的技巧</h1>
-<h5>
-<time datetime="2011-01-03 00:00:00 +0000 UTC">Jan 03, 2011</time>
-<span class=no-print>
-<span>
-</h5>
+	<header><hgroup id="brand">
+	<h1>在Windows下使用Emacs的技巧</h1>
+	<h5>
+		
+		<time datetime="2011-01-03 00:00:00 &#43;0000 UTC">Jan 03, 2011</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
 </hgroup>
-<hr class=sep>
+<hr class="sep" />
 </header>
-<h2 id=加一个open-in-emacs选项>加一个"Open In Emacs"选项</h2>
+	<h2 id="加一个open-in-emacs选项">加一个&quot;Open In Emacs&quot;选项</h2>
 <p>如果开了 Emacs Server mode，就用 emacsclientw.exe。如果没有开 Emacs Server mode，或者没有开 Emacs，就用 runemacs.exe 重新打开一个。</p>
-<h2 id=将-caps-lock-键改成-ctrl-键>将 Caps Lock 键改成 Ctrl 键</h2>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="将-caps-lock-键改成-ctrl-键">将 Caps Lock 键改成 Ctrl 键</h2>
 <p>Google 新推出的 Cr-48 上网本，也是没有 Caps Lock 键的。Caps Lock 键换成搜索键了。我也觉得这个键是没有必要的。如果你需要打大写字母，按住 Shift 键就够了。</p>
 <p>以前我都是把 Ctrl 键和 Caps Lock 键互换，这次将 Caps Lock 键改成 Ctrl 键，Ctrl 键还是 Ctrl 键。</p>
-<h2 id=设置拼写检查>设置拼写检查</h2>
-<p>首先安装 aspell，下载地址在<a href=http://aspell.net/win32/>http://aspell.net/win32/</a>。注意还要安装字典文件，不然 aspell 是没法用的。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-scm data-lang=scm><span class=p>(</span><span class=nf>setq-default</span> <span class=nv>ispell-program-name</span> <span class=s>&#34;D:\\Program Files\\Aspell\\bin\\aspell.exe&#34;</span><span class=p>)</span>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="设置拼写检查">设置拼写检查</h2>
+<p>首先安装 aspell，下载地址在<a href="http://aspell.net/win32/">http://aspell.net/win32/</a>。注意还要安装字典文件，不然 aspell 是没法用的。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="p">(</span><span class="nf">setq-default</span> <span class="nv">ispell-program-name</span> <span class="s">&#34;D:\\Program Files\\Aspell\\bin\\aspell.exe&#34;</span><span class="p">)</span>
 
-<span class=p>(</span><span class=nf>setq</span> <span class=nv>text-mode-hook</span> <span class=o>&#39;</span><span class=p>(</span><span class=nv>lambda</span><span class=p>()</span>
-                      <span class=p>(</span><span class=nf>flyspell-mode</span> <span class=nv>t</span><span class=p>)</span>
-                      <span class=p>))</span></code></pre></div>
-<h2 id=参考>参考</h2>
+<span class="p">(</span><span class="nf">setq</span> <span class="nv">text-mode-hook</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">lambda</span><span class="p">()</span>
+                      <span class="p">(</span><span class="nf">flyspell-mode</span> <span class="nv">t</span><span class="p">)</span>
+                      <span class="p">))</span></code></pre></div>
+<h2 id="参考">参考</h2>
 <p>并不是翻译，只是参考。</p>
 <ul>
-<li><a href=http://www.arunrocks.com/blog/archives/2008/02/20/5-indespensible-tips-for-emacs-on-windows/>http://www.arunrocks.com/blog/archives/2008/02/20/5-indespensible-tips-for-emacs-on-windows/</a></li>
-<li><a href=http://www.wired.com/gadgetlab/2010/12/googles-gorgeous-cr-48-notebook-ditches-caps-lock/>http://www.wired.com/gadgetlab/2010/12/googles-gorgeous-cr-48-notebook-ditches-caps-lock/</a></li>
-<li><a href=http://www.gnu.org/software/emacs/windows/big.html#Text-and-Utility-modes>http://www.gnu.org/software/emacs/windows/big.html#Text-and-Utility-modes</a></li>
-<li><a href=http://aspell.net/win32/>http://aspell.net/win32/</a></li>
+<li><a href="http://www.arunrocks.com/blog/archives/2008/02/20/5-indespensible-tips-for-emacs-on-windows/">http://www.arunrocks.com/blog/archives/2008/02/20/5-indespensible-tips-for-emacs-on-windows/</a></li>
+<li><a href="http://www.wired.com/gadgetlab/2010/12/googles-gorgeous-cr-48-notebook-ditches-caps-lock/">http://www.wired.com/gadgetlab/2010/12/googles-gorgeous-cr-48-notebook-ditches-caps-lock/</a></li>
+<li><a href="http://www.gnu.org/software/emacs/windows/big.html#Text-and-Utility-modes">http://www.gnu.org/software/emacs/windows/big.html#Text-and-Utility-modes</a></li>
+<li><a href="http://aspell.net/win32/">http://aspell.net/win32/</a></li>
 </ul>
+
 </article>
 <nav class="no-print post-nav">
-<a class=prev-post href=http://kylexlau.github.io/post/2010/2010-12-29-github-cname/>
-<img class=icon-text src=/img/prev.svg>Github Page 绑定域名</a>
-<a class=next-post href=http://kylexlau.github.io/post/2011/2011-06-19-syntax-diagrams/>如何读懂Oracle文档中的语法图<img class=icon-text src=/img/next.svg>
-</a>
+
+	<a class="prev-post" href="http://kylexlau.github.io/post/2010/2010-12-29-github-cname/">
+		<img class="icon-text" src="/img/prev.svg"/>Github Page 绑定域名</a>
+
+
+	<a class="next-post" href="http://kylexlau.github.io/post/2011/2011-06-19-syntax-diagrams/">如何读懂Oracle文档中的语法图<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
 </nav>
-<hr class=sep>
-</main>
-<footer class="container no-print">
-<div class=u-footer>
-<a href=mailto:kylexlau@gmail.com><img class=icon-social src=/img/email.svg alt="Email Me!"></a>
-<a href=https://github.com/kylexlau/><img class=icon-social src=/img/github.svg alt=Github></a>
-<a href=http://kylexlau.github.io/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a>
-<p>
-Theme used: <a href=https://github.com/yursan9/manis-hugo-theme>Manis</a><br>
-&copy; 2021 kyle lau
-| <a href=/about/license>License</a>
-</p>
-<a href=#brand>
-<img class=icon-text src=/img/toup.svg alt="To Up">
-<span>Back to Up</span>
-</a>
-</div>
-</footer>
-</body>
+
+
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:kylexlau@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/kylexlau/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="http://kylexlau.github.io/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2021 kyle lau
+					
+					
+					| <a href="/about/license">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
 </html>
+
