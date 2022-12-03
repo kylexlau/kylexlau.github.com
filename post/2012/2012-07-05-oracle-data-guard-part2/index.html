@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.89.1" />
+		<meta name="generator" content="Hugo 0.105.0">
 		<title>Oracle 11g Data Guard 物理备库快速配置指南（下） - Kylexlau&#39;s Weblog</title>
 
 		<meta name="description" content="第二部分 作者介绍 作者 Jed Walker 是科罗拉多 Centennial Comcast 媒体中心的数据操作经理(Manager of Databse Operation)。他从1997年开始做 Oracle 数据库相关工作，是9i, 10g和11g的OCP。
@@ -11,7 +11,7 @@
 回顾 在本文第一部分中，我们配置了一个物理备库。在这第二部分中，我将介绍主备切换(Switchover)，故障转移(Failover)，客户端故障转移(Client Failover)，使用闪回数据库重建库，活动数据卫士(Active Data Guard)，还讨论了一点备份。
 故障转移配置 现在你已经配好了一个物理备库，你可能想试试主备切换(switchover)，甚至故障转移(failover)，但你先得确定客户端会跟着切换和转移。我们需要配置数据库和客户端来支持这些功能。要确定你的客户端能连接到正确的数据库，你要在数据库里配置一个支持故障转移的服务，并配置客户端的 TNS，让它知道如何在一个 Data Guard 集群里找到主库。
 首先，创建一个支持故障转移的服务。我们要创建此服务，确定它在主库上启动，并确定它只在主库上启动。创建服务使用如下 SQL：
-begin DBMS_SERVICE.CREATE_SERVICE ( service_name =&gt; &#39;JED_RW&#39;, network_name =&gt; &#39;JED_RW&#39;, aq_ha_notifications =&gt; TRUE, failover_method =&gt; &#39;BASIC&#39;, failover_type =&gt; &#39;SELECT&#39;, failover_retries =&gt; 30, failover_delay =&gt; 5); end; /  此服务在数据库出现故障时会发送通知给客户端，允许查询语句在故障转移发生后继续运行。我使用命名 SID_RW 显示这时一个可读写的数据库（主库）。
+begin DBMS_SERVICE.CREATE_SERVICE ( service_name =&gt; &#39;JED_RW&#39;, network_name =&gt; &#39;JED_RW&#39;, aq_ha_notifications =&gt; TRUE, failover_method =&gt; &#39;BASIC&#39;, failover_type =&gt; &#39;SELECT&#39;, failover_retries =&gt; 30, failover_delay =&gt; 5); end; / 此服务在数据库出现故障时会发送通知给客户端，允许查询语句在故障转移发生后继续运行。我使用命名 SID_RW 显示这时一个可读写的数据库（主库）。
 下一步是确定新创建的服务永远只在主库运行。我们创建一个存储过程来实现此目的，如果当前数据库是主库它就启动此服务，如果是备库就停止。
 create or replace procedure cmc_taf_service_proc is v_role VARCHAR(30); begin select DATABASE_ROLE into v_role from V$DATABASE; if v_role = &#39;PRIMARY&#39; then DBMS_SERVICE.">
 

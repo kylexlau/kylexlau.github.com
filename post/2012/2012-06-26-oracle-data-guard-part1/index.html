@@ -3,18 +3,19 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.89.1" />
+		<meta name="generator" content="Hugo 0.105.0">
 		<title>Oracle 11g Data Guard 物理备库快速配置指南（上） - Kylexlau&#39;s Weblog</title>
 
 		<meta name="description" content="缘起 最近做了10g和11ｇ的物理备库配置实验，发现 Data Guard 其实很容易，但是缺少好文档。我是参考官方文档做的实验，觉得它写的不是很清楚的。
 Google 出来两个pdf文档，读了觉得比官方文档强很多。翻译下，也许会对某些朋友有用。翻译的同时我也好更熟悉下这两个文档。好久没翻译过英文了，可以顺便练练手。
 原文档下载地址（墙外）：
- Configure Dataguard 11gR2 Physical Standby Part 1 Configure Dataguard 11gR2 Physical Standby Part 2  第一部分 简介 Data Guard 是 Oracle 数据库的一个功能，能够提供数据库的冗余。冗余是通过创建一个备用（物理复制）数据库实现，备库最好是在不同的地理位置或者在不同的磁盘上。备库通过应用主库上的变化来保持数据同步。备库可以使用重做日志应用(物理备库)或SQL应用同步(逻辑备库)。
+Configure Dataguard 11gR2 Physical Standby Part 1 Configure Dataguard 11gR2 Physical Standby Part 2 第一部分 简介 Data Guard 是 Oracle 数据库的一个功能，能够提供数据库的冗余。冗余是通过创建一个备用（物理复制）数据库实现，备库最好是在不同的地理位置或者在不同的磁盘上。备库通过应用主库上的变化来保持数据同步。备库可以使用重做日志应用(物理备库)或SQL应用同步(逻辑备库)。
 本文旨在说明 Data Guard 的配置并不复杂，不需要特殊的技能或者培训才能学会搭建。它将快速展示给读者搭建一个物理备库的过程。我的目标是，即使你第一次接触 Data Guard，刚考虑要使用它或担心它会不会很难配置，本文将帮助你快速搭建起一个正常运行起来的物理备库。
 为什么使用 Data Guard 每种 Oracle 高可用性工具都有其目的。使用 Data Guard 的理由有：
- 整个数据库的冗余 故障时的快速恢复 故障后客户端能自动重连 在备库运行备份 较好的故障平均修复时间 并不复杂  系统环境 在写完本文后，我使用 DBCA 创建了一个新数据库 JED，然后重新运行了文中的配置步骤，确认其对一个基本的 Oracle 11g 数据库适用。主库叫 JED，运行在一台叫 dev-db1的服务器上。备库叫 JED2，运行在一台叫 dev-db2 的服务器上。
+整个数据库的冗余 故障时的快速恢复 故障后客户端能自动重连 在备库运行备份 较好的故障平均修复时间 并不复杂 系统环境 在写完本文后，我使用 DBCA 创建了一个新数据库 JED，然后重新运行了文中的配置步骤，确认其对一个基本的 Oracle 11g 数据库适用。主库叫 JED，运行在一台叫 dev-db1的服务器上。备库叫 JED2，运行在一台叫 dev-db2 的服务器上。
 不需要提的基本前提 有一些任何生产库都应该有的基本的设置。其中一个就是归档模式。对于生产库，这应该是一个明显的必须配置。如果你的生产库没有适用归档模式，你要么需要马上开始读点书，要么你得有一个非常非常好的理由。我不大确定谁真能找出一个理由，但任何准则都有例外。
-如何修改你的数据库为归档模式：">
+如何修改你的数据库为归档模式：
+SQL&gt; shutdown immediate SQL&gt; startup mount SQL&gt; alter database archivelog; SQL&gt; alter database open; SQL&gt; archive log list; 主库准备 首先，备库要成为主库的完全相同的复制，它必须接收来自主库的重做日志。Oracle 数据库中，一个用户可以用指定某操作不产生日志(比如使用 NOLOGGING 语句）。对于备库来说，这是个问题。你必须确认用户无法指示数据库不产生重做日志，这需要启用数据库的强制日志功能。启用方法如下：">
 
 
 		

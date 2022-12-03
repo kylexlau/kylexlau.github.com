@@ -3,11 +3,11 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.89.1" />
+		<meta name="generator" content="Hugo 0.105.0">
 		<title>Oracle 数据库整理表碎片 - Kylexlau&#39;s Weblog</title>
 
 		<meta name="description" content="表碎片的来源 当针对一个表的删除操作很多时，表会产生大量碎片。删除操作释放的空间不会被插入操作立即重用，甚至永远也不会被重用。
-怎样确定是否有表碎片 -- 收集表统计信息 SQL&gt; exec dbms_stats.gather_table_stats(ownname=&gt;&#39;SCHEMA_NAME&#39;,tabname=&gt; &#39;TABLE_NAME&#39;); -- 确定碎片程度 SQL&gt; SELECT table_name, ROUND ((blocks * 8), 2) &quot;高水位空间 k&quot;, ROUND ((num_rows * avg_row_len / 1024), 2) &quot;真实使用空间 k&quot;, ROUND ((blocks * 10 / 100) * 8, 2) &quot;预留空间(pctfree) k&quot;, ROUND (( blocks * 8 - (num_rows * avg_row_len / 1024) - blocks * 8 * 10 / 100 ), 2 ) &quot;浪费空间 k&quot; FROM dba_tables WHERE table_name = &#39;TABLE_NAME&#39;;  或者使用如下gist中的脚本找出某个 Schema 中表碎片超过25%的表。使用此脚本前，先确定 Schema 中表统计信息收集完整。">
+怎样确定是否有表碎片 -- 收集表统计信息 SQL&gt; exec dbms_stats.gather_table_stats(ownname=&gt;&#39;SCHEMA_NAME&#39;,tabname=&gt; &#39;TABLE_NAME&#39;); -- 确定碎片程度 SQL&gt; SELECT table_name, ROUND ((blocks * 8), 2) &quot;高水位空间 k&quot;, ROUND ((num_rows * avg_row_len / 1024), 2) &quot;真实使用空间 k&quot;, ROUND ((blocks * 10 / 100) * 8, 2) &quot;预留空间(pctfree) k&quot;, ROUND (( blocks * 8 - (num_rows * avg_row_len / 1024) - blocks * 8 * 10 / 100 ), 2 ) &quot;浪费空间 k&quot; FROM dba_tables WHERE table_name = &#39;TABLE_NAME&#39;; 或者使用如下gist中的脚本找出某个 Schema 中表碎片超过25%的表。使用此脚本前，先确定 Schema 中表统计信息收集完整。">
 
 
 		

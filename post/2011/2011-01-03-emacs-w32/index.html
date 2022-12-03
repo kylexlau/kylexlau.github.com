@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.89.1" />
+		<meta name="generator" content="Hugo 0.105.0">
 		<title>在Windows下使用Emacs的技巧 - Kylexlau&#39;s Weblog</title>
 
 		<meta name="description" content="加一个&quot;Open In Emacs&quot;选项 如果开了 Emacs Server mode，就用 emacsclientw.exe。如果没有开 Emacs Server mode，或者没有开 Emacs，就用 runemacs.exe 重新打开一个。
@@ -11,7 +11,7 @@
 以前我都是把 Ctrl 键和 Caps Lock 键互换，这次将 Caps Lock 键改成 Ctrl 键，Ctrl 键还是 Ctrl 键。
 设置拼写检查 首先安装 aspell，下载地址在http://aspell.net/win32/。注意还要安装字典文件，不然 aspell 是没法用的。
 (setq-default ispell-program-name &#34;D:\\Program Files\\Aspell\\bin\\aspell.exe&#34;) (setq text-mode-hook &#39;(lambda() (flyspell-mode t) )) 参考 并不是翻译，只是参考。
- http://www.arunrocks.com/blog/archives/2008/02/20/5-indespensible-tips-for-emacs-on-windows/ http://www.wired.com/gadgetlab/2010/12/googles-gorgeous-cr-48-notebook-ditches-caps-lock/ http://www.gnu.org/software/emacs/windows/big.html#Text-and-Utility-modes http://aspell.net/win32/  ">
+http://www.arunrocks.com/blog/archives/2008/02/20/5-indespensible-tips-for-emacs-on-windows/ http://www.wired.com/gadgetlab/2010/12/googles-gorgeous-cr-48-notebook-ditches-caps-lock/ http://www.gnu.org/software/emacs/windows/big.html#Text-and-Utility-modes http://aspell.net/win32/ ">
 
 
 		
@@ -70,11 +70,11 @@
 <!-- raw HTML omitted -->
 <h2 id="设置拼写检查">设置拼写检查</h2>
 <p>首先安装 aspell，下载地址在<a href="http://aspell.net/win32/">http://aspell.net/win32/</a>。注意还要安装字典文件，不然 aspell 是没法用的。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="p">(</span><span class="nf">setq-default</span> <span class="nv">ispell-program-name</span> <span class="s">&#34;D:\\Program Files\\Aspell\\bin\\aspell.exe&#34;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">setq</span> <span class="nv">text-mode-hook</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">lambda</span><span class="p">()</span>
-                      <span class="p">(</span><span class="nf">flyspell-mode</span> <span class="nv">t</span><span class="p">)</span>
-                      <span class="p">))</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">setq-default</span> <span class="nv">ispell-program-name</span> <span class="s">&#34;D:\\Program Files\\Aspell\\bin\\aspell.exe&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">setq</span> <span class="nv">text-mode-hook</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">lambda</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                      <span class="p">(</span><span class="nf">flyspell-mode</span> <span class="nv">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                      <span class="p">))</span></span></span></code></pre></div>
 <h2 id="参考">参考</h2>
 <p>并不是翻译，只是参考。</p>
 <ul>

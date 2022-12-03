@@ -3,11 +3,11 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.89.1" />
+		<meta name="generator" content="Hugo 0.105.0">
 		<title>Grant statement and library cache lock - Kylexlau&#39;s Weblog</title>
 
 		<meta name="description" content="What is library cache lock? From Troubleshooting Library Cache: Lock, Pin and Load Lock (Doc ID 444560.1):
- This event controls the concurrency between clients of the library cache. It acquires a lock on the object handle so that either:
+This event controls the concurrency between clients of the library cache. It acquires a lock on the object handle so that either:
 One client can prevent other clients from accessing the same object.
 The client can maintain a dependency for a long time (for example, so that no other client can change the object).">
 
@@ -118,7 +118,7 @@ sessions and find the sqls they&rsquo;re executing.</p>
 analysis.</p>
 <p>And the best solution is just don&rsquo;t do DDLs during system busy
 periods.</p>
-<p>From &lsquo;library cache lock&rsquo; Waits- Causes and Solutions (Doc ID
+<p>From &rsquo;library cache lock&rsquo; Waits- Causes and Solutions (Doc ID
 1952395.1):</p>
 <blockquote>
 <p>Do not perform DDL operations during busy periods.</p>
@@ -131,7 +131,7 @@ hard parses to occur at the same time.</p>
 </blockquote>
 <h2 id="reference">Reference</h2>
 <ul>
-<li>&lsquo;library cache lock&rsquo; Waits- Causes and Solutions (Doc ID 1952395.1)</li>
+<li>&rsquo;library cache lock&rsquo; Waits- Causes and Solutions (Doc ID 1952395.1)</li>
 <li>Troubleshooting Library Cache: Lock, Pin and Load Lock (Doc ID 444560.1)</li>
 <li><a href="http://appcrawler.com/wordpress/2009/10/12/library-cache-lock-during-grantrevoke/">Library cache lock during grant/revoke</a></li>
 </ul>

@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.89.1" />
+		<meta name="generator" content="Hugo 0.105.0">
 		<title>Oracle&#39;s performance-tuning reports - Kylexlau&#39;s Weblog</title>
 
-		<meta name="description" content="Introduction  Automatic Workload Repository (AWR) Automatic Database Diagnostic Monitor (ADDM) Active Session History (ASH) Statspack  AWR, ADDM and ASH need additional license. Statspack is free.
+		<meta name="description" content="Introduction Automatic Workload Repository (AWR) Automatic Database Diagnostic Monitor (ADDM) Active Session History (ASH) Statspack AWR, ADDM and ASH need additional license. Statspack is free.
 You can also run AWR, ADDM, and ASH reports from Enterprise Manager, which you may find more intuitive than manually running the scripts from SQL*Plus.
 Oracle maintains a massive collection of dynamic performance views that track and accumulate metrics of database performance. For Oracle 11g, there&rsquo;re over 400 dynamic performance views:">
 
@@ -70,8 +70,8 @@ from SQL*Plus.</p>
 <p>Oracle maintains a massive collection of dynamic performance views
 that track and accumulate metrics of database performance.  For Oracle
 11g, there&rsquo;re over 400 dynamic performance views:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">dictionary</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;V$%&#39;</span><span class="p">;</span><span class="w">
-</span></code></pre></div><p>The Oracle performance utilities rely on periodic snapshots gathered
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">dictionary</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;V$%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>The Oracle performance utilities rely on periodic snapshots gathered
 from these internal performance views.  Two of the most useful views
 with regard to performance statistics are the V$SYSSTAT and V$SESSTAT
 view.</p>
@@ -79,33 +79,33 @@ view.</p>
 <p>Oracle will automatically take a snapshot of your database once an
 hour and populate the underlying AWR tables that store the statistics.
 By default, seven days of statistics are retained.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">awrrpt</span><span class="w">
-</span></code></pre></div><p>Generate an AWR report for a specific SQL statement:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">awrsqrpt</span><span class="w">
-</span></code></pre></div><h2 id="using-addm">Using ADDM</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">awrrpt</span><span class="w">
+</span></span></span></code></pre></div><p>Generate an AWR report for a specific SQL statement:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">awrsqrpt</span><span class="w">
+</span></span></span></code></pre></div><h2 id="using-addm">Using ADDM</h2>
 <p>ADDM report provides useful suggestions on which SQL statements are
 candidates for tuning.  It analyzes data in the AWR tables to identify
 potential bottlenecks and high resource-consuming SQL queries.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">addmrpt</span><span class="w">
-</span></code></pre></div><h2 id="using-ash">Using ASH</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">addmrpt</span><span class="w">
+</span></span></span></code></pre></div><h2 id="using-ash">Using ASH</h2>
 <p>ASH report allows you to focus on short-lived SQL statements that have
 been recently run and may have only executed for a brief amount of
 time.</p>
 <p>The AWR and ADDM output shows top-consuming SQL in terms of total
 database time.  If the SQL performance problem is transient and
 short-lived, use ASH.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">ashrpt</span><span class="w">
-</span></code></pre></div><h2 id="using-statspack">Using Statspack</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">ashrpt</span><span class="w">
+</span></span></span></code></pre></div><h2 id="using-statspack">Using Statspack</h2>
 <p>Help you identify poorly performing SQL statements.</p>
 <p>Install Statspack, it creates a PERFSTAT user that owns the Statspack
 repository.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spcreate</span><span class="w">
-</span></code></pre></div><p>Enable the automatic gathering of Statspack statistics:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spauto</span><span class="w">
-</span></code></pre></div><p>After some snapshots have been gathered, you can run the following
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spcreate</span><span class="w">
+</span></span></span></code></pre></div><p>Enable the automatic gathering of Statspack statistics:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spauto</span><span class="w">
+</span></span></span></code></pre></div><p>After some snapshots have been gathered, you can run the following
 script as the PERFSTAT user to create a Statspack report:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spreport</span><span class="w">
-</span></code></pre></div><p>The Statspack historical performance statistical data is stored in the
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="o">@?/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">spreport</span><span class="w">
+</span></span></span></code></pre></div><p>The Statspack historical performance statistical data is stored in the
 STAT$SQL_SUMMARY table and the STATS$SNAPSHOT table contains a record
 for each Statspack snapshot.</p>
 

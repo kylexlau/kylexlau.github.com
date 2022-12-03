@@ -3,11 +3,11 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.89.1" />
+		<meta name="generator" content="Hugo 0.105.0">
 		<title>Oracle 数据库在 AIX 平台上启用大内存页 - Kylexlau&#39;s Weblog</title>
 
-		<meta name="description" content="修改用户属性 # 官方文档只要求如下两个，但有些文档说 CAP_NUMA_ATTACH 也需要 chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE oracle # 如果是 RAC 环境，还需要修改root用户 chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE root  修改 VMM 参数 # 执行下述命令前先关闭数据库，不然内存大内存页分配不出来。一般系统不需重启。 # num_of_large_pages = INT((total_SGA_size-1)/16MB)&#43;1 vmo -p -o lgpg_regions=num_of_large_pages -o lgpg_size=16777216 # AIX 6.1 下默认为0，尽可能不对计算内存换页 vmo -p -o lru_file_repage=0  IBM 对lru_file_repage参数的官方解释：
- lru_file_repage – when the number of permanent memory pages (numperm) falls between minperm and maxperm (or the number of client memory pages falls between minperm and maxclient), this setting indicates whether repaging rates are considered when deciding to evict permanent memory pages or computational memory pages.">
+		<meta name="description" content="修改用户属性 # 官方文档只要求如下两个，但有些文档说 CAP_NUMA_ATTACH 也需要 chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE oracle # 如果是 RAC 环境，还需要修改root用户 chuser capabilities=CAP_BYPASS_RAC_VMM,CAP_PROPAGATE root 修改 VMM 参数 # 执行下述命令前先关闭数据库，不然内存大内存页分配不出来。一般系统不需重启。 # num_of_large_pages = INT((total_SGA_size-1)/16MB)&#43;1 vmo -p -o lgpg_regions=num_of_large_pages -o lgpg_size=16777216 # AIX 6.1 下默认为0，尽可能不对计算内存换页 vmo -p -o lru_file_repage=0 IBM 对lru_file_repage参数的官方解释：
+lru_file_repage – when the number of permanent memory pages (numperm) falls between minperm and maxperm (or the number of client memory pages falls between minperm and maxclient), this setting indicates whether repaging rates are considered when deciding to evict permanent memory pages or computational memory pages.">
 
 
 		
