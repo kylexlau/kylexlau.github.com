@@ -29,11 +29,11 @@ compression = {&#39;chunk_length_in_kb&#39;: &#39;64&#39;, &#39;class&#39;:&#39;
       
       <guid>http://kylexlau.github.io/post/2020/11-24-cassandra-ttl/</guid>
       <description>简介 研究Cassandra TTL 和墓碑的关系，TTL 清理数据的具体实现方式。
-TTL 是什么 TTL，Time To Live，生存时间，是 Cassandra 数据库提供的一个数据自动清理机制，可对 数据库中的数据设置TTL，超过生存时间后数据过期，数据库会自动进行删除。
-表级别 TTL（表属性：default_time_to_live），插入表的每行数据均会使用这个默认 TTL。 行级别 TTL，插入每行数据时指定这行数据的 TTL。 列级别 TTL，update 某列数据时可指定 TTL。 Tombstone，墓碑，是 Cassandra 数据库将删除转化为插入操作的一个机制，本质就是一条 新插入的标记数据（主键+[列]+删除时间）。但对 TTL 来说，墓碑不是新插入的，而是修 改原有的数据，将其转换成墓碑。
+TTL 是什么 TTL，Time To Live，生存时间，是 Cassandra 数据库提供的一个数据自动清理机制，可对数据库中的数据设置TTL，超过生存时间后数据过期，数据库会自动进行删除。
+表级别 TTL（表属性：default_time_to_live），插入表的每行数据均会使用这个默认 TTL。 行级别 TTL，插入每行数据时指定这行数据的 TTL。 列级别 TTL，update 某列数据时可指定 TTL。 Tombstone，墓碑，是 Cassandra 数据库将删除转化为插入操作的一个机制，本质就是一条新插入的标记数据（主键+[列]+删除时间）。但对 TTL 来说，墓碑不是新插入的，而是修改原有的数据，将其转换成墓碑。
 什么情况会产生墓碑：
 CQL DELETE 语句 带TTL的数据过期，合并sstable 文件时数据会变成墓碑（将删除实际值） 带 null 值的 INSERT 或 UPDATE 语句 UPDATE 更新集合类型的列 内部操作，如使用物化视图 怎么清理TTL过期数据 清理数据流程：
-开始compact sstable文件 文件中如果存在 TTL过期数据，就将其变成 tombstone（其实这一步 sstable 文件就会 大大减小，实际数据已经删除。tombstone 只是个标记，标记数据何时删除的。） 文件中如果有 gcable tombstone（判断能否 gc，就看 tombstone 的 localDetetionTime+gc grace 是否小于当前时间），将 tombstone 清理掉 什么时候检查是否需要做compaction？
+开始compact sstable文件 文件中如果存在 TTL过期数据，就将其变成 tombstone（其实这一步 sstable 文件就会大大减小，实际数据已经删除。tombstone 只是个标记，标记数据何时删除的。） 文件中如果有 gcable tombstone（判断能否 gc，就看 tombstone 的localDetetionTime+gc grace 是否小于当前时间），将 tombstone 清理掉 什么时候检查是否需要做compaction？
 节点新增加了 sstable 时（如memtable 刷盘或repair 从别的节点复制了新的 sstable） 自动 compaction 被关闭又重新开始(nodetool enableautocompaction) 每5分钟检查一次 什么时候会真正compaction？</description>
     </item>
     
